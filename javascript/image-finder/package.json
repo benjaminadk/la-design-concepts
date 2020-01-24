@@ -1,0 +1,21 @@
+{
+  "name": "ladc-cli",
+  "version": "1.0.0",
+  "description": "Command line tool featuring file and image utilities",
+  "main": "ladc.js",
+  "bin": {
+    "ladc": "./ladc.js"
+  },
+  "keywords": [],
+  "author": {
+    "name": "benjaminadk",
+    "email": "benjaminadk@gmail.com",
+    "url": "https://github.com/benjaminadk"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "commander": "4.1.0",
+    "jimp": "0.9.3",
+    "rimraf": "3.0.0"
+  }
+}
