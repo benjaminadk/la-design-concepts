@@ -1,14 +1,44 @@
 #!/usr/bin/env node
 
 const program = require('commander')
-
+const chalk = require('chalk')
+const figlet = require('figlet')
 const path = require('path')
-const { directoryExists, readFile, readdir, mkdir, copyFile, rm } = require('./lib/utils')
+const {
+  directoryExists,
+  readFile,
+  readdir,
+  mkdir,
+  copyFile,
+  rm
+} = require('./lib/utils')
 
 program
-  .option('-j, --json [filename]', 'JSON file listing desired image filenames', 'images.json')
-  .option('-s, --source [folder]', 'Directory containing original images', 'images')
-  .option('-d, --destination [folder]', 'Directory to save image copies in', 'new-images')
+  .option(
+    '-j, --json [filename]',
+    'JSON file listing desired image filenames',
+    'images.json'
+  )
+  .option(
+    '-s, --source [folder]',
+    'Directory containing original images',
+    'images'
+  )
+  .option(
+    '-d, --destination [folder]',
+    'Directory to save image copies in',
+    'new-images'
+  )
+  .help(str => {
+    const banner = chalk.keyword('orange')(
+      figlet.textSync('LA Design Concepts', {
+        font: 'Doom',
+        horizontalLayout: 'default',
+        verticalLayout: 'default'
+      })
+    )
+    return `${banner}\n\n${str}`
+  })
   .parse(process.argv)
 
 const main = async () => {
