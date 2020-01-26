@@ -14,5 +14,5 @@ program
     'Find image files in a directory and create copies in new directory'
   )
   .command('image', 'Resize and optimize a directory of images')
-  .help(customHelp)
+  // .help(customHelp)
   .parse(process.argv)

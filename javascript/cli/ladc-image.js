@@ -6,6 +6,7 @@ const jimp = require('jimp')
 const path = require('path')
 const { directoryExists, readdir, mkdir, rm } = require('./lib/utils')
 
+// Create subcommand with options
 program
   .option('-t, --type [string]', 'Type of image resizing', 'compress')
   .option(
@@ -20,6 +21,7 @@ program
   )
   .parse(process.argv)
 
+// Creates standard 800x800 jpeg image
 const compress = async (src, dest) => {
   const image = await jimp.read(src)
   await image.resize(800, 800, jimp.RESIZE_BICUBIC)
@@ -27,24 +29,57 @@ const compress = async (src, dest) => {
   await image.writeAsync(dest)
 }
 
+// Creates thumbnail 250X190 jpeg image
+const thumbnail = async (src, dest) => {
+  const image = await jimp.read(src)
+  await image.resize(225, 190, jimp.RESIZE_BICUBIC)
+  image.quality(40)
+  await image.writeAsync(dest)
+}
+
+// Main logic
 const main = async () => {
-  const cwd = process.cwd()
-  const { source, destination } = program
-  const srcPath = path.join(cwd, source)
-  const destPath = path.join(cwd, destination)
+  try {
+    // Use current working dir vs __dirname where this code lives
+    const cwd = process.cwd()
 
-  if (directoryExists(destPath)) {
-    await rm(destPath)
-  }
+    // Use user input or default options
+    const { type, source, destination } = program
+    const srcPath = path.join(cwd, source)
+    const destPath = path.join(cwd, destination)
 
-  await mkdir(destPath)
+    // Exit is type is not supported
+    if (['compress', 'thumbnail'].indexOf(type) === -1) {
+      return
+    }
 
-  const imagesAll = await readdir(srcPath)
+    // Remove destination directory is it exists
+    if (directoryExists(destPath)) {
+      await rm(destPath)
+    }
 
-  for (let image of imagesAll) {
-    const src = path.join(srcPath, image)
-    const dest = path.join(destPath, image)
-    compress(src, dest)
+    // Create destination directory
+    await mkdir(destPath)
+
+    // Read source directory
+    const imagesAll = await readdir(srcPath)
+
+    // Create new images
+    if (type === 'compress') {
+      for (let image of imagesAll) {
+        const src = path.join(srcPath, image)
+        const dest = path.join(destPath, image)
+        compress(src, dest)
+      }
+    } else if (type === 'thumbnail') {
+      for (let image of imagesAll) {
+        const src = path.join(srcPath, image)
+        const dest = path.join(destPath, image)
+        thumbnail(src, dest)
+      }
+    }
+  } catch (error) {
+    console.log('Error')
   }
 }
 
