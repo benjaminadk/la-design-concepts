@@ -14,7 +14,9 @@
   },
   "license": "ISC",
   "dependencies": {
+    "chalk": "3.0.0",
     "commander": "4.1.0",
+    "figlet": "1.2.4",
     "jimp": "0.9.3",
     "rimraf": "3.0.0"
   }

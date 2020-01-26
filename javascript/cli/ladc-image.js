@@ -7,9 +7,17 @@ const path = require('path')
 const { directoryExists, readdir, mkdir, rm } = require('./lib/utils')
 
 program
-  .option('-t, --type', 'Type of image resizing', 'compress')
-  .option('-s, --source [folder]', 'Directory containing original images', 'images')
-  .option('-d, --destination [folder]', 'Directory to save new images in', 'new-images')
+  .option('-t, --type [string]', 'Type of image resizing', 'compress')
+  .option(
+    '-s, --source [folder]',
+    'Directory containing original images',
+    'images'
+  )
+  .option(
+    '-d, --destination [folder]',
+    'Directory to save new images in',
+    'new-images'
+  )
   .parse(process.argv)
 
 const compress = async (src, dest) => {
