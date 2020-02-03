@@ -14,5 +14,6 @@ program
     'Find image files in a directory and create copies in new directory'
   )
   .command('image', 'Resize and optimize a directory of images')
+  .command('test', 'Running end to end tests with Puppeteer')
   // .help(customHelp)
   .parse(process.argv)

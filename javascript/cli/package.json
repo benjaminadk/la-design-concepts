@@ -18,6 +18,7 @@
     "commander": "4.1.0",
     "figlet": "1.2.4",
     "jimp": "0.9.3",
+    "puppeteer": "2.1.0",
     "rimraf": "3.0.0"
   }
 }
