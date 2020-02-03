@@ -22,17 +22,16 @@ const main = async () => {
 
     for (let [i, brand] of brands.entries()) {
       const href = await page.evaluate(el => el.href, brand)
+      const text = await page.evaluate(el => el.textContent,brand)
       const newPage = await browser.newPage()
       await newPage.setViewport({
         width: 400,
         height: 800
       })
       await newPage.goto(href)
-      const urlPieces = newPage.url().split('/')
-      const filename = urlPieces[urlPieces.length - 2]
-      console.log(`Capturing ${filename}`)
+      console.log(`Capturing ${text}`)
       await newPage.screenshot({
-        path: path.join(__dirname, 'screenshots', 'mobile', `${filename}.png`)
+        path: path.join(__dirname, 'screenshots', 'mobile', `${text}.png`)
       })
       await newPage.close()
     }
