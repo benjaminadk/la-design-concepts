@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
-require('dotenv-safe').config()
+const path = require('path')
+
+require('dotenv-safe').config({
+  path: path.join(__dirname, '.env'),
+  example: path.join(__dirname, '.env.example')
+})
+
 const program = require('commander')
 
 const { customHelp } = require('./lib/help')

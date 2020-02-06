@@ -6,8 +6,9 @@ const fullPageScreenshot = require('puppeteer-full-page-screenshot').default
 const nodemailer = require('nodemailer')
 const sgTransport = require('nodemailer-sendgrid-transport')
 const path = require('path')
-const brands = require('./brands')
-const createEmail = require('./email')
+const brands = require('./lib/brands')
+const createEmail = require('./lib/email-template')
+const { getAccessToken } = require('./lib/drive')
 
 program.parse(process.argv)
 
@@ -68,8 +69,6 @@ const main = async () => {
       subject: 'LADC SEO Google Search Rankings',
       html: await createEmail(report)
     })
-
-    console.log(report)
   } catch (error) {
     console.log(error)
   } finally {
