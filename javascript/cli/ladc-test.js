@@ -13,7 +13,7 @@ const delay = timeout => {
 }
 
 const main = async () => {
-  const {device} = program
+  const { device } = program
 
   const browser = await puppeteer.launch()
 
@@ -27,8 +27,8 @@ const main = async () => {
       const text = await page.evaluate(el => el.textContent, brand)
       const newPage = await browser.newPage()
       await newPage.setViewport({
-        width: device === 'mobile' ? 400 : device === 'tablet' ? 1024 : 1280,
-        height: device === 'mobile' ? 800 : device === 'tablet' ? 768 : 1100
+        width: device === 'mobile' ? 400 : device === 'tablet-h' ? 1024 : device === 'tablet-v' ? 768 : 1366,
+        height: device === 'mobile' ? 800 : device === 'tablet-h' ? 768 : device === 'tablet-v' ? 1024 : 768
       })
       await newPage.goto(href)
       console.log(`Capturing ${text}`)
