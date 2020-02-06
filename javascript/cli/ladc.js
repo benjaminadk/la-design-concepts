@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('dotenv-safe').config()
 const program = require('commander')
 
 const { customHelp } = require('./lib/help')
@@ -14,6 +15,7 @@ program
     'Find image files in a directory and create copies in new directory'
   )
   .command('image', 'Resize and optimize a directory of images')
-  .command('test', 'Running end to end tests with Puppeteer')
+  .command('test', 'Test Brand Page mobile appearance with Puppeteer')
+  .command('seo', 'Test SEO Google Search position for brand keywords')
   // .help(customHelp)
   .parse(process.argv)

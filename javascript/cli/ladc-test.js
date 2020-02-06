@@ -22,7 +22,7 @@ const main = async () => {
 
     for (let [i, brand] of brands.entries()) {
       const href = await page.evaluate(el => el.href, brand)
-      const text = await page.evaluate(el => el.textContent,brand)
+      const text = await page.evaluate(el => el.textContent, brand)
       const newPage = await browser.newPage()
       await newPage.setViewport({
         width: 400,

@@ -16,9 +16,14 @@
   "dependencies": {
     "chalk": "3.0.0",
     "commander": "4.1.0",
+    "dotenv-safe": "8.2.0",
     "figlet": "1.2.4",
     "jimp": "0.9.3",
+    "mjml": "4.5.1",
+    "nodemailer": "6.4.2",
+    "nodemailer-sendgrid-transport": "0.2.0",
     "puppeteer": "2.1.0",
+    "puppeteer-full-page-screenshot": "1.0.5",
     "rimraf": "3.0.0"
   }
 }
