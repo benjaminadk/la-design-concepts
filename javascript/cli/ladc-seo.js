@@ -10,9 +10,12 @@ const brands = require('./lib/brands')
 const createEmail = require('./lib/email-template')
 const { getAccessToken } = require('./lib/drive')
 
-program.parse(process.argv)
+program.option('-e,--emails [list]','Comma separated list of email recipients','ben@ladesignconcepts.com').parse(process.argv)
 
 const main = async () => {
+
+  const {emails} = program
+
   const browser = await puppeteer.launch({ headless: true })
 
   try {
@@ -65,7 +68,7 @@ const main = async () => {
 
     await transport.sendMail({
       from: '"Ben 🤓" <ben@ladesignconcepts.com>',
-      to: 'benjaminadk@gmail.com',
+      to: emails, 
       subject: 'LADC SEO Google Search Rankings',
       html: await createEmail(report)
     })
