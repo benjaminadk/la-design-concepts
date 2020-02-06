@@ -4,7 +4,7 @@ const program = require('commander')
 const puppeteer = require('puppeteer')
 const path = require('path')
 
-program.parse(process.argv)
+program.option('-d, --device [type]', 'Device type. Determines screen size.', 'mobile').parse(process.argv)
 
 const delay = timeout => {
   return new Promise((resolve, reject) => {
@@ -13,6 +13,8 @@ const delay = timeout => {
 }
 
 const main = async () => {
+  const {device} = program
+
   const browser = await puppeteer.launch()
 
   try {
@@ -25,13 +27,13 @@ const main = async () => {
       const text = await page.evaluate(el => el.textContent, brand)
       const newPage = await browser.newPage()
       await newPage.setViewport({
-        width: 400,
-        height: 800
+        width: device === 'mobile' ? 400 : device === 'tablet' ? 1024 : 1280,
+        height: device === 'mobile' ? 800 : device === 'tablet' ? 768 : 1100
       })
       await newPage.goto(href)
       console.log(`Capturing ${text}`)
       await newPage.screenshot({
-        path: path.join(__dirname, 'screenshots', 'mobile', `${text}.png`)
+        path: path.join(__dirname, 'screenshots', device, `${text}.png`)
       })
       await newPage.close()
     }

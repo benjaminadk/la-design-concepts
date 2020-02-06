@@ -16,6 +16,7 @@ const readdir = promisify(fs.readdir)
 const mkdir = promisify(fs.mkdir)
 const copyFile = promisify(fs.copyFile)
 const rm = promisify(rimraf)
+const lstat = promisify(fs.lstat)
 
 module.exports = {
   getCurrentDirectoryBase,
@@ -24,5 +25,6 @@ module.exports = {
   readdir,
   mkdir,
   copyFile,
-  rm
+  rm,
+  lstat
 }

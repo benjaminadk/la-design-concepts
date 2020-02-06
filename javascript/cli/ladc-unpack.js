@@ -16,25 +16,31 @@ const main = async () => {
     const srcPath = path.join(cwd, source)
     const destPath = path.join(cwd, destination)
 
-    if (directoryExists(destPath)) {
-        await rm(destPath)
-      }
+    try {
+        if (directoryExists(destPath)) {
+            await rm(destPath)
+          }
+        
+        await mkdir(destPath)
     
-    await mkdir(destPath)
-
-    const objects = await readdir(srcPath)
-    
-    for(let object of objects) {
-        if((await lstat(object)).isDirectory()) {
-            const files = await readdir(object)
-            for(let file of files) {
-                copyFile(path.join(destPath,file))
+        const objects = await readdir(srcPath)
+        
+        for(let object of objects) {
+            const stat = await lstat(object)
+            if(stat.isDirectory()) {
+                const files = await readdir(object)
+                for(let file of files) {
+                    await copyFile(path.join(srcPath,object,file),path.join(destPath,file))
+                }
+            } else {
+                await copyFile(path.join(srcPath,object,file),path.join(destPath,file))
             }
+
         }
-        else {
-            copyFile(path.join(destPath,file))
-        }
+    } catch(error) {
+        console.log(error)
     }
+
 }
 
 main()

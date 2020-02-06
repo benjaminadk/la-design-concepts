@@ -23,5 +23,6 @@ program
   .command('image', 'Resize and optimize a directory of images')
   .command('test', 'Test Brand Page mobile appearance with Puppeteer')
   .command('seo', 'Test SEO Google Search position for brand keywords')
+  .command('unpack', 'Unpack nested folder contents into one folder.')
   // .help(customHelp)
   .parse(process.argv)
