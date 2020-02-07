@@ -21,7 +21,7 @@ Link the `ladc` command to your local machine
 - `ladc` is the main command and begins all uses of this tool
 - Add a subcommand and options to control functionality
 
-|Sub Command|Description|Options|
-|:-:|||
-|`find`|Located files from a large directory based on a JSON list of filenames||
-|`image`|Creates compressed 800x800 and thumbnail images||
+| Sub Command |                              Description                               | Options |
+| :---------: | :--------------------------------------------------------------------: | :-----: |
+|   `find`    | Located files from a large directory based on a JSON list of filenames |         |
+|   `image`   |            Creates compressed 800x800 and thumbnail images             |         |

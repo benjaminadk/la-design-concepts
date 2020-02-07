@@ -10,18 +10,23 @@ const brands = require('./lib/brands')
 const createEmail = require('./lib/email-template')
 const { getAccessToken } = require('./lib/drive')
 
-program.option('-e,--emails [list]','Comma separated list of email recipients','ben@ladesignconcepts.com').parse(process.argv)
+program
+  .option(
+    '-e,--emails [list]',
+    'Comma separated list of email recipients',
+    'ben@ladesignconcepts.com'
+  )
+  .parse(process.argv)
 
 const main = async () => {
-
-  const {emails} = program
+  const { emails } = program
 
   const browser = await puppeteer.launch({ headless: true })
 
   try {
     const report = []
 
-    for (let brand of brands) {
+    for (let brand of brands.slice(0, 5)) {
       const page = await browser.newPage()
 
       await page.setViewport({ width: 1000, height: 2000 })
@@ -39,15 +44,29 @@ const main = async () => {
       })
 
       const ranking = await page.evaluate(properties => {
+        let adRoot = document.getElementById('tads')
+
+        let adResults = adRoot
+          ? Array.from(adRoot.querySelectorAll('li.ads-ad')).map(
+              el => el.querySelector('.ads-visurl cite').textContent
+            )
+          : []
+
         let results = Array.from(document.querySelectorAll('.rc')).map(
           el => el.querySelector('cite').textContent
         )
 
-        let rank = results.findIndex(el => el.includes('ladesignconcepts'))
+        let combinedResults = [...adResults, ...results]
+
+        let rank = combinedResults.findIndex(el =>
+          el.includes('ladesignconcepts')
+        )
 
         return {
           ...properties,
-          rank: rank === -1 ? 'n/a' : rank + 1
+          rank: rank === -1 ? 'n/a' : rank + 1,
+          ads: adResults.length,
+          isAd: rank === -1 ? false : rank < adResults.length ? true : false
         }
       }, brand)
 
@@ -68,7 +87,7 @@ const main = async () => {
 
     await transport.sendMail({
       from: '"Ben 🤓" <ben@ladesignconcepts.com>',
-      to: emails, 
+      to: emails,
       subject: 'LADC SEO Google Search Rankings',
       html: await createEmail(report)
     })
