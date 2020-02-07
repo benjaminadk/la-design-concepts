@@ -24,5 +24,6 @@ program
   .command('test', 'Test Brand Page mobile appearance with Puppeteer')
   .command('seo', 'Test SEO Google Search position for brand keywords')
   .command('unpack', 'Unpack nested folder contents into one folder.')
+  .command('ff', 'Format image filenames to remove whitespace and replace unwanted characters.')
   // .help(customHelp)
   .parse(process.argv)

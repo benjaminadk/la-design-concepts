@@ -17,6 +17,7 @@ const mkdir = promisify(fs.mkdir)
 const copyFile = promisify(fs.copyFile)
 const rm = promisify(rimraf)
 const lstat = promisify(fs.lstat)
+const rename = promisify(fs.rename)
 
 module.exports = {
   getCurrentDirectoryBase,
@@ -26,5 +27,6 @@ module.exports = {
   mkdir,
   copyFile,
   rm,
-  lstat
+  lstat,
+  rename
 }
