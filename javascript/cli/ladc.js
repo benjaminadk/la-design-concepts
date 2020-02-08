@@ -17,13 +17,25 @@ program
   .usage('<subcommand> [options]')
   .description('A collection of filesystem and image manipulation tools')
   .command(
-    'find',
-    'Find image files in a directory and create copies in new directory'
+    'fbj',
+    'Find By JSON - copies files from a source directory into a destination directory based on a JSON list.'
   )
-  .command('image', 'Resize and optimize a directory of images')
-  .command('test', 'Test Brand Page mobile appearance with Puppeteer')
-  .command('seo', 'Test SEO Google Search position for brand keywords')
-  .command('unpack', 'Unpack nested folder contents into one folder.')
-  .command('ff', 'Format image filenames to remove whitespace and replace unwanted characters.')
+  .command(
+    'img',
+    'Batch manipulate a source directory of images into a destination directory. Compressed 800x800 JPEG or 250x190 thumbnail.'
+  )
+  .command(
+    'ss',
+    'Screenshot all LADC Brand Pages on desktop, mobile or tablet and save images to directory.'
+  )
+  .command('seo', 'Test SEO Google Search position for LADC brand keywords')
+  .command(
+    'unpk',
+    'Unpack nested folder structure contents into one directory.'
+  )
+  .command(
+    'ff',
+    'Format image filenames to remove whitespace and replace unwanted characters.'
+  )
   // .help(customHelp)
   .parse(process.argv)

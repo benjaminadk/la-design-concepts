@@ -62,6 +62,11 @@ const main = async () => {
           el.includes('ladesignconcepts')
         )
 
+        if (rank === -1) {
+          // check next page
+          // recursive function that has a depth limit so it doesnt search forever
+        }
+
         return {
           ...properties,
           rank: rank === -1 ? 'n/a' : rank + 1,

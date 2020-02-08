@@ -27,7 +27,7 @@ const getAccessToken = async () => {
     const access_token = response1.data.access_token
 
     const response2 = await axios({
-      method: 'GET',
+      method: 'POST',
       url: 'https://www.googleapis.com/drive/v3/files',
       headers: {
         Authorization: `Bearer ${access_token}`
