@@ -18,6 +18,7 @@ const copyFile = promisify(fs.copyFile)
 const rm = promisify(rimraf)
 const lstat = promisify(fs.lstat)
 const rename = promisify(fs.rename)
+const createWriteStream = fs.createWriteStream
 
 module.exports = {
   getCurrentDirectoryBase,
@@ -28,5 +29,6 @@ module.exports = {
   copyFile,
   rm,
   lstat,
-  rename
+  rename,
+  createWriteStream
 }

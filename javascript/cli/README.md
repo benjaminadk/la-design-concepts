@@ -29,6 +29,7 @@ Link the `ladc` command to your local machine
 |   `seo`     | Automated Google keyword search and reports our organic/paid results       |
 |  `unpk`     | Unpacks a nested folder structure and copies all files into one top level folder |
 |   `ff`      | Formats a directory of image filenames to our naming conventions           |
+|   `dli`     | Download a list of image urls using a TXT file                             |
 
 Most subcommands accept options. These are mostly to designate a source and destination directory for input and output. To see a particular subcommand's options:
 

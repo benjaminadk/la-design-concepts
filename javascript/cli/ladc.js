@@ -37,5 +37,6 @@ program
     'ff',
     'Format image filenames to remove whitespace and replace unwanted characters.'
   )
+  .command('dli', 'Download images and save to destination directory based on text file of urls')
   // .help(customHelp)
   .parse(process.argv)
