@@ -1,7 +1,7 @@
-const rimraf = require('rimraf')
-const fs = require('fs')
-const path = require('path')
-const { promisify } = require('util')
+const rimraf = require("rimraf")
+const fs = require("fs")
+const path = require("path")
+const { promisify } = require("util")
 
 const getCurrentDirectoryBase = () => {
   return path.basename(process.cwd())
@@ -13,6 +13,7 @@ const directoryExists = filepath => {
 
 const readFile = promisify(fs.readFile)
 const readdir = promisify(fs.readdir)
+const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 const copyFile = promisify(fs.copyFile)
 const rm = promisify(rimraf)
@@ -25,6 +26,7 @@ module.exports = {
   directoryExists,
   readFile,
   readdir,
+  writeFile,
   mkdir,
   copyFile,
   rm,

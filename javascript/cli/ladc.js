@@ -41,5 +41,6 @@ program
     "dli",
     "Download images and save to destination directory based on text file of urls"
   )
+  .command("smap", "Create sitemaps based on a JavaScript array of urls")
   // .help(customHelp)
   .parse(process.argv)
