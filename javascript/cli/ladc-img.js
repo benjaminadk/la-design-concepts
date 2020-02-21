@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
-const program = require('commander')
-const jimp = require('jimp')
+const program = require("commander")
+const jimp = require("jimp")
 
-const path = require('path')
-const { directoryExists, readdir, mkdir, rm } = require('./lib/utils')
+const path = require("path")
+const { directoryExists, readdir, mkdir, rm } = require("./lib/utils")
 
 // Create subcommand with options
 program
-  .option('-t, --type [string]', 'Type of image resizing', 'compress')
+  .option("-t, --type [string]", "Type of image resizing", "compress")
   .option(
-    '-s, --source [folder]',
-    'Directory containing original images',
-    'images'
+    "-s, --source [folder]",
+    "Directory containing original images",
+    "images"
   )
   .option(
-    '-d, --destination [folder]',
-    'Directory to save new images in',
-    'new-images'
+    "-d, --destination [folder]",
+    "Directory to save new images in",
+    "new-images"
   )
   .parse(process.argv)
 
@@ -49,7 +49,7 @@ const main = async () => {
     const destPath = path.join(cwd, destination)
 
     // Exit is type is not supported
-    if (['compress', 'thumbnail'].indexOf(type) === -1) {
+    if (["compress", "thumbnail"].indexOf(type) === -1) {
       return
     }
 
@@ -65,13 +65,13 @@ const main = async () => {
     const imagesAll = await readdir(srcPath)
 
     // Create new images
-    if (type === 'compress') {
+    if (type === "compress") {
       for (let image of imagesAll) {
         const src = path.join(srcPath, image)
         const dest = path.join(destPath, image)
         compress(src, dest)
       }
-    } else if (type === 'thumbnail') {
+    } else if (type === "thumbnail") {
       for (let image of imagesAll) {
         const src = path.join(srcPath, image)
         const dest = path.join(destPath, image)
@@ -79,7 +79,7 @@ const main = async () => {
       }
     }
   } catch (error) {
-    console.log('Error')
+    console.log("Error")
   }
 }
 

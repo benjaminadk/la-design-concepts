@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 
-const program = require('commander')
+const program = require("commander")
 
-const path = require('path')
-const { readdir, rename } = require('./lib/utils')
+const path = require("path")
+const { readdir, rename } = require("./lib/utils")
 
-program.parse(process.argv)
+program
+  .option(
+    "-b, --brand [name]",
+    "Type of filename formatting based on brand",
+    "kravet"
+  )
+  .parse(process.argv)
 
 const main = async () => {
+  const { brand } = program
+
   try {
     const files = await readdir(process.cwd())
 
@@ -15,10 +23,12 @@ const main = async () => {
       const oldPath = path.join(process.cwd(), file)
 
       const newFile =
-        file
-          .slice(0, file.length - 4)
-          .replace(/\s/g, '')
-          .replace(/\./g, '!') + '.jpg'
+        brand === "jf"
+          ? file.replace("-400x400", "").replace("-01", "")
+          : file
+              .slice(0, file.length - 4)
+              .replace(/\s/g, "")
+              .replace(/\./g, "!") + ".jpg"
 
       const newPath = path.join(process.cwd(), newFile)
 

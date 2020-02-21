@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-const program = require('commander')
-const puppeteer = require('puppeteer')
-const fullPageScreenshot = require('puppeteer-full-page-screenshot').default
-const nodemailer = require('nodemailer')
-const sgTransport = require('nodemailer-sendgrid-transport')
-const path = require('path')
-const brands = require('./lib/brands')
-const createEmail = require('./lib/email-template')
-const { getAccessToken } = require('./lib/drive')
+const program = require("commander")
+const puppeteer = require("puppeteer")
+const fullPageScreenshot = require("puppeteer-full-page-screenshot").default
+const nodemailer = require("nodemailer")
+const sgTransport = require("nodemailer-sendgrid-transport")
+const path = require("path")
+const brands = require("./lib/brands")
+const createEmail = require("./lib/email-template")
+const { getAccessToken } = require("./lib/drive")
 
 program
   .option(
-    '-e,--emails [list]',
-    'Comma separated list of email recipients',
-    'ben@ladesignconcepts.com'
+    "-e,--emails [list]",
+    "Comma separated list of email recipients",
+    "ben@ladesignconcepts.com"
   )
   .parse(process.argv)
 
@@ -32,34 +32,34 @@ const main = async () => {
       await page.setViewport({ width: 1000, height: 2000 })
       await page.goto(`https://www.google.com/search?q=${brand.q}`)
 
-      await page.$eval('div#searchform', el => (el.style.display = 'none'))
+      await page.$eval("div#searchform", el => (el.style.display = "none"))
 
       await fullPageScreenshot(page, {
         path: path.join(
           process.cwd(),
-          'screenshots',
-          'seo',
+          "screenshots",
+          "seo",
           `${brand.brand}.png`
         )
       })
 
       const ranking = await page.evaluate(properties => {
-        let adRoot = document.getElementById('tads')
+        let adRoot = document.getElementById("tads")
 
         let adResults = adRoot
-          ? Array.from(adRoot.querySelectorAll('li.ads-ad')).map(
-              el => el.querySelector('.ads-visurl cite').textContent
+          ? Array.from(adRoot.querySelectorAll("li.ads-ad")).map(
+              el => el.querySelector(".ads-visurl cite").textContent
             )
           : []
 
-        let results = Array.from(document.querySelectorAll('.rc')).map(
-          el => el.querySelector('cite').textContent
+        let results = Array.from(document.querySelectorAll(".rc")).map(
+          el => el.querySelector("cite").textContent
         )
 
         let combinedResults = [...adResults, ...results]
 
         let rank = combinedResults.findIndex(el =>
-          el.includes('ladesignconcepts')
+          el.includes("ladesignconcepts")
         )
 
         if (rank === -1) {
@@ -69,7 +69,7 @@ const main = async () => {
 
         return {
           ...properties,
-          rank: rank === -1 ? 'n/a' : rank + 1,
+          rank: rank === -1 ? "n/a" : rank + 1,
           ads: adResults.length,
           isAd: rank === -1 ? false : rank < adResults.length ? true : false
         }
@@ -93,7 +93,7 @@ const main = async () => {
     await transport.sendMail({
       from: '"Ben 🤓" <ben@ladesignconcepts.com>',
       to: emails,
-      subject: 'LADC SEO Google Search Rankings',
+      subject: "LADC SEO Google Search Rankings",
       html: await createEmail(report)
     })
   } catch (error) {

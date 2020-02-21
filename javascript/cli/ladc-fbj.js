@@ -1,14 +1,33 @@
 #!/usr/bin/env node
 
-const program = require('commander')
+const program = require("commander")
 
-const path = require('path')
-const { directoryExists, readFile, readdir, mkdir, copyFile, rm } = require('./lib/utils')
+const path = require("path")
+const {
+  directoryExists,
+  readFile,
+  readdir,
+  mkdir,
+  copyFile,
+  rm
+} = require("./lib/utils")
 
 program
-  .option('-j, --json [filename]', 'JSON file listing desired image filenames', 'images.json')
-  .option('-s, --source [folder]', 'Directory containing original images', 'images')
-  .option('-d, --destination [folder]', 'Directory to save image copies in', 'new-images')
+  .option(
+    "-j, --json [filename]",
+    "JSON file listing desired image filenames",
+    "images.json"
+  )
+  .option(
+    "-s, --source [folder]",
+    "Directory containing original images",
+    "images"
+  )
+  .option(
+    "-d, --destination [folder]",
+    "Directory to save image copies in",
+    "new-images"
+  )
   .parse(process.argv)
 
 const main = async () => {

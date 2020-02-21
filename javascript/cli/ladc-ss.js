@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-const program = require('commander')
-const puppeteer = require('puppeteer')
-const path = require('path')
+const program = require("commander")
+const puppeteer = require("puppeteer")
+const path = require("path")
 
 // Optional device string
 program
   .option(
-    '-d, --device [type]',
-    'Device type. Determines screen size.',
-    'mobile'
+    "-d, --device [type]",
+    "Device type. Determines screen size.",
+    "mobile"
   )
   .parse(process.argv)
 
@@ -24,10 +24,10 @@ const main = async () => {
   try {
     // Create new page navigate to LADC brand list page
     const page = await browser.newPage()
-    await page.goto('https://ladesignconcepts.com/shop-by-brand/')
+    await page.goto("https://ladesignconcepts.com/shop-by-brand/")
 
     // Grab all brand page links
-    const brands = await page.$$('.shop-list a')
+    const brands = await page.$$(".shop-list a")
 
     // Loop over brand page links
     for (let [i, brand] of brands.entries()) {
@@ -43,19 +43,19 @@ const main = async () => {
       const newPage = await browser.newPage()
       await newPage.setViewport({
         width:
-          device === 'mobile'
+          device === "mobile"
             ? 400
-            : device === 'tablet-h'
+            : device === "tablet-h"
             ? 1024
-            : device === 'tablet-v'
+            : device === "tablet-v"
             ? 768
             : 1360,
         height:
-          device === 'mobile'
+          device === "mobile"
             ? 800
-            : device === 'tablet-h'
+            : device === "tablet-h"
             ? 768
-            : device === 'tablet-v'
+            : device === "tablet-v"
             ? 1024
             : 768
       })
@@ -66,7 +66,7 @@ const main = async () => {
       // Take screenshot and save to folder based on device and brand name
       // TODO integrate directly to Drive
       await newPage.screenshot({
-        path: path.join(__dirname, 'screenshots', device, `${text}.png`)
+        path: path.join(__dirname, "screenshots", device, `${text}.png`)
       })
 
       console.log(`Screenshot saved for ${text}`)
@@ -80,7 +80,7 @@ const main = async () => {
   } catch (error) {
     console.log(error)
   } finally {
-    console.log(`Screenshots saved to ${path.join(__dirname, 'screenshots')}`)
+    console.log(`Screenshots saved to ${path.join(__dirname, "screenshots")}`)
   }
 }
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const program = require('commander')
+const program = require("commander")
 
-const path = require('path')
+const path = require("path")
 const {
   directoryExists,
   readFile,
@@ -11,15 +11,15 @@ const {
   copyFile,
   rm,
   lstat
-} = require('./lib/utils')
+} = require("./lib/utils")
 
 // Optional source and destination folder names - relative path
 program
-  .option('-s, --source [folder]', 'Parent folder to unpack', '.')
+  .option("-s, --source [folder]", "Parent folder to unpack", ".")
   .option(
-    '-d, --destination [folder]',
-    'Directory to unpack folder into',
-    'unpacked'
+    "-d, --destination [folder]",
+    "Directory to unpack folder into",
+    "unpacked"
   )
   .parse(process.argv)
 
