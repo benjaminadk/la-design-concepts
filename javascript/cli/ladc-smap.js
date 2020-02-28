@@ -28,7 +28,7 @@ program
     "weekly"
   )
   .option(
-    "-p, --priority",
+    "-p, --priority [number]",
     "Tell the crawler how important crawling this url is",
     "1.0"
   )
