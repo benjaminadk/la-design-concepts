@@ -22,13 +22,18 @@ const main = async () => {
     for (let file of files) {
       const oldPath = path.join(process.cwd(), file)
 
-      const newFile =
-        brand === "jf"
-          ? file.replace("-400x400", "").replace("-01", "")
-          : file
-              .slice(0, file.length - 4)
-              .replace(/\s/g, "")
-              .replace(/\./g, "!") + ".jpg"
+      let newFile
+      if(brand === 'jf') {
+        newFile = file.replace("-400x400", "").replace("-01", "")
+      } else if(brand === 'kravet') {
+        newFile = file
+        .slice(0, file.length - 4)
+        .replace(/\s/g, "")
+        .replace(/\./g, "!") + ".jpg"
+      } else if(brand === 'rl') {
+        let pieces = file.split(' ')
+        newFile = pieces[pieces.length-1].replace('jpeg','jpg')
+      }
 
       const newPath = path.join(process.cwd(), newFile)
 
