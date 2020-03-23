@@ -33,6 +33,8 @@ const main = async () => {
       } else if(brand === 'rl') {
         let pieces = file.split(' ')
         newFile = pieces[pieces.length-1].replace('jpeg','jpg')
+      } else if(brand === 'curated') {
+        newFile = file.toLowerCase().replace('_1_1','_1')
       }
 
       const newPath = path.join(process.cwd(), newFile)
