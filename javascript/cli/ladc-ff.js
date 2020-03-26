@@ -37,6 +37,8 @@ const main = async () => {
         newFile = file.toLowerCase().replace('_1_1','_1')
       } else if(brand === 'scalamandre') {
         newFile = file.replace('_',"")
+      } else if(brand === 'osborne-little') {
+        newFile = file.slice(0,8) + '.jpg'
       }
 
       const newPath = path.join(process.cwd(), newFile)
