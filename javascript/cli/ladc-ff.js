@@ -41,6 +41,8 @@ const main = async () => {
         newFile = file.slice(0,8) + '.jpg'
       } else if(brand === 'roomshot') {
         newFile = file.replace('.jpg', '_room.jpg')
+      } else if(brand === 'roomshot-fix') {
+        newFile = file.replace('_detail',"")
       }
 
       const newPath = path.join(process.cwd(), newFile)
