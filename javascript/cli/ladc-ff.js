@@ -43,6 +43,8 @@ const main = async () => {
         newFile = file.replace('.jpg', '_room.jpg')
       } else if(brand === 'roomshot-fix') {
         newFile = file.replace('_detail',"")
+      } else if(brand === 'fabricut-furniture') {
+        newFile = file.toLowerCase().replace(' &', "").replace(/\s/g,"-")
       }
 
       const newPath = path.join(process.cwd(), newFile)
