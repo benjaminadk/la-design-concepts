@@ -47,6 +47,10 @@ const main = async () => {
         newFile = file.toLowerCase().replace(' &', "").replace(/\s/g,"-")
       } else if(brand === 'min') {
         newFile = file.replace('-min.jpg', '.jpg')
+      } else if(brand === 'fb') {
+        newFile = "fb-" + file
+      } else if(brand === 'seabrook-room') {
+        newFile = file.replace('-A','_room').replace('-R','_room')
       }
 
       const newPath = path.join(process.cwd(), newFile)
