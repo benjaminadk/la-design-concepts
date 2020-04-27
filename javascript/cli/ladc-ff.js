@@ -51,6 +51,8 @@ const main = async () => {
         newFile = "fb-" + file
       } else if(brand === 'seabrook-room') {
         newFile = file.replace('-A','_room').replace('-R','_room')
+      } else if(brand === 'thumb') {
+        newFile = file.replace('.jpg','_thumb.jpg')
       }
 
       const newPath = path.join(process.cwd(), newFile)

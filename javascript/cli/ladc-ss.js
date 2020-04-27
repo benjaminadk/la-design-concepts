@@ -23,7 +23,10 @@ const main = async () => {
 
   try {
     // Create new page navigate to LADC brand list page
-    const page = await browser.newPage()
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
+    // const page = await browser.newPage()
+
     await page.goto("https://ladesignconcepts.com/shop-by-brand/")
 
     // Grab all brand page links
