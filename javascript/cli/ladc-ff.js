@@ -53,6 +53,10 @@ const main = async () => {
         newFile = file.replace('-A','_room').replace('-R','_room')
       } else if(brand === 'thumb') {
         newFile = file.replace('.jpg','_thumb.jpg')
+      } else if(brand === 'room-fix') {
+        newFile = file.replace('_room_room','_room')
+      } else if(brand === 'decorative-crafts') {
+        newFile = file.replace('-silo-xx','').replace('-xx','').replace('-silo-xx','').replace('-silo-for-web-xx','').replace('silo-xx','')
       }
 
       const newPath = path.join(process.cwd(), newFile)
