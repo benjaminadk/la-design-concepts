@@ -28,6 +28,10 @@ program
     "ss",
     "Screenshot all LADC Brand Pages on desktop, mobile or tablet and save images to directory."
   )
+  .command(
+    "sscoll",
+    "Screenshot all LADC Collection Pages on desktop, mobile or tablet and save images to directory."
+  )
   .command("seo", "Test SEO Google Search position for LADC brand keywords")
   .command(
     "unpk",
