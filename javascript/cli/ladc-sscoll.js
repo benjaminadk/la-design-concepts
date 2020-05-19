@@ -34,7 +34,7 @@ const main = async () => {
     const collectionsW = await page.$$("#wallpaper-collections a")
 
     // Loop over brand page links
-    for (let [i, collection] of collectionsF.entries()) {
+    for (let [i, collection] of [...collectionsF, ...collectionsW].entries()) {
       // Parse href and link text
       const href = await page.evaluate(el => el.href, collection)
       const text = await page.evaluate(el => el.querySelector('.collection-label').textContent, collection)
