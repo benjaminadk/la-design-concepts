@@ -70,6 +70,8 @@ const main = async () => {
           .toLowerCase()
           .replace("-400x400", "")
           .replace("fabric", "fabrics")
+      } else if (brand === 'JPG') {
+        newFile = file.replace('.JPG', '.jpg')
       }
 
       const newPath = path.join(process.cwd(), newFile)
