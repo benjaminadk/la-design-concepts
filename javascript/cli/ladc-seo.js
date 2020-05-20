@@ -1,51 +1,60 @@
 #!/usr/bin/env node
 
-const program = require("commander")
-const puppeteer = require("puppeteer")
-const fullPageScreenshot = require("puppeteer-full-page-screenshot").default
-const nodemailer = require("nodemailer")
-const sgTransport = require("nodemailer-sendgrid-transport")
-const path = require("path")
-const brands = require("./lib/brands")
-const createEmail = require("./lib/email-template")
-const { getAccessToken } = require("./lib/drive")
-const { writeFileSync } = require("fs")
+const program = require('commander')
+const puppeteer = require('puppeteer')
+const fullPageScreenshot = require('puppeteer-full-page-screenshot').default
+const nodemailer = require('nodemailer')
+const sgTransport = require('nodemailer-sendgrid-transport')
+const path = require('path')
+const brands = require('./lib/brands')
+const collections = require('./lib/collections')
+const createEmail = require('./lib/email-template')
+const { getAccessToken } = require('./lib/drive')
+const { writeFileSync } = require('fs')
 
 program
   .option(
-    "-e,--emails [list]",
-    "Comma separated list of email recipients",
-    "ben@ladesignconcepts.com"
+    '-e,--emails [list]',
+    'Comma separated list of email recipients',
+    'ben@ladesignconcepts.com'
   )
+  .option('-c, --category [type]', 'Brand or Collection', 'brand')
   .parse(process.argv)
 
 const main = async () => {
-  const { emails } = program
+  const { emails, category } = program
 
   const browser = await puppeteer.launch({ headless: true })
 
   try {
     const report = []
 
-    for (let brand of brands) {
+    let items =
+      category === 'brand'
+        ? brands
+        : category === 'collection'
+        ? collection
+        : [...brands, ...collections]
+
+    for (let item of items) {
       const page = await browser.newPage()
 
       await page.setViewport({ width: 1000, height: 2000 })
 
-      await new Promise((res,rej) => {
-        setTimeout(res,5000)
+      await new Promise((res, rej) => {
+        setTimeout(res, 5000)
       })
 
-      await page.goto(`https://www.google.com/search?q=${brand.q}`)
+      await page.goto(`https://www.google.com/search?q=${item.q}`)
 
       // await page.$eval("div#searchform", el => (el.style.display = "none"))
 
       await fullPageScreenshot(page, {
         path: path.join(
           process.cwd(),
-          "screenshots",
-          "seo",
-          `${brand.brand}.png`
+          'screenshots',
+          'seo',
+          `${item.name}.png`
         ),
       })
 
@@ -58,14 +67,14 @@ const main = async () => {
         //     )
         //   : []
 
-        let results = Array.from(document.querySelectorAll(".rc")).map(
-          (el) => el.querySelector("cite").textContent
+        let results = Array.from(document.querySelectorAll('.rc')).map(
+          (el) => el.querySelector('cite').textContent
         )
 
         let combinedResults = [...results]
 
         let rank = combinedResults.findIndex((el) =>
-          el.includes("ladesignconcepts")
+          el.includes('ladesignconcepts')
         )
 
         if (rank === -1) {
@@ -75,11 +84,11 @@ const main = async () => {
 
         return {
           ...properties,
-          rank: rank === -1 ? "n/a" : rank + 1,
+          rank: rank === -1 ? 'n/a' : rank + 1,
           // ads: adResults.length,
           // isAd: rank === -1 ? false : rank < adResults.length ? true : false
         }
-      }, brand)
+      }, item)
 
       report.push(ranking)
 
@@ -99,12 +108,12 @@ const main = async () => {
     await transport.sendMail({
       from: '"Ben 🤓" <ben@ladesignconcepts.com>',
       to: emails,
-      subject: "LADC SEO Google Search Rankings",
+      subject: 'LADC SEO Google Search Rankings',
       html: await createEmail(report),
     })
 
     writeFileSync(
-      path.join(process.cwd(), "screenshots", "report.json"),
+      path.join(process.cwd(), 'screenshots', 'report.json'),
       JSON.stringify(report)
     )
   } catch (error) {

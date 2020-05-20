@@ -122,10 +122,10 @@ const names = [
   'Victoria Hagan Furniture',
   'Vervain Fabrics',
   'Victoria Hagan Fabrics',
-  'Winfield Thybony Wallpaper'
+  'Winfield Thybony Wallpaper',
 ]
 
-const queries = names.map(name =>
+const queries = names.map((name) =>
   name
     .toLowerCase()
     .replace('&', 'and')
@@ -135,4 +135,4 @@ const queries = names.map(name =>
     .join('+')
 )
 
-module.exports = names.map((name, i) => ({ brand: name, q: queries[i] }))
+module.exports = names.map((name, i) => ({ name, q: queries[i] }))
