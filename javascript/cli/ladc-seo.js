@@ -33,7 +33,7 @@ const main = async () => {
       category === 'brand'
         ? brands
         : category === 'collection'
-        ? collection
+        ? collections
         : [...brands, ...collections]
 
     for (let item of items) {
