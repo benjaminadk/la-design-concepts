@@ -1,13 +1,13 @@
-const rimraf = require("rimraf")
-const fs = require("fs")
-const path = require("path")
-const { promisify } = require("util")
+const rimraf = require('rimraf')
+const fs = require('fs')
+const path = require('path')
+const { promisify } = require('util')
 
 const getCurrentDirectoryBase = () => {
   return path.basename(process.cwd())
 }
 
-const directoryExists = filepath => {
+const directoryExists = (filepath) => {
   return fs.existsSync(filepath)
 }
 
@@ -20,6 +20,7 @@ const rm = promisify(rimraf)
 const lstat = promisify(fs.lstat)
 const rename = promisify(fs.rename)
 const createWriteStream = fs.createWriteStream
+const readFileSync = fs.readFileSync
 
 module.exports = {
   getCurrentDirectoryBase,
@@ -32,5 +33,6 @@ module.exports = {
   rm,
   lstat,
   rename,
-  createWriteStream
+  createWriteStream,
+  readFileSync,
 }

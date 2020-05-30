@@ -18,7 +18,7 @@ program
     'Comma separated list of email recipients',
     'ben@ladesignconcepts.com'
   )
-  .option('-c, --category [type]', 'Brand or Collection', 'brand')
+  .option('-c, --category [type]', 'Brand and/or Collection', 'both')
   .parse(process.argv)
 
 const main = async () => {
@@ -47,8 +47,6 @@ const main = async () => {
 
       await page.goto(`https://www.google.com/search?q=${item.q}`)
 
-      // await page.$eval("div#searchform", el => (el.style.display = "none"))
-
       await fullPageScreenshot(page, {
         path: path.join(
           process.cwd(),
@@ -59,16 +57,8 @@ const main = async () => {
       })
 
       const ranking = await page.evaluate((properties) => {
-        // let adRoot = document.getElementById("tads")
-
-        // let adResults = adRoot
-        //   ? Array.from(adRoot.querySelectorAll("li.ads-ad")).map(
-        //       el => el.querySelector(".ads-visurl cite").textContent
-        //     )
-        //   : []
-
-        let results = Array.from(document.querySelectorAll('.rc')).map(
-          (el) => el.querySelector('cite').textContent
+        let results = Array.from(document.querySelectorAll('.rc')).map((el) =>
+          el.querySelector('cite') ? el.querySelector('cite').textContent : ''
         )
 
         let combinedResults = [...results]
@@ -78,15 +68,13 @@ const main = async () => {
         )
 
         if (rank === -1) {
-          // check next page
+          // TODO - check next page
           // recursive function that has a depth limit so it doesnt search forever
         }
 
         return {
           ...properties,
           rank: rank === -1 ? 'n/a' : rank + 1,
-          // ads: adResults.length,
-          // isAd: rank === -1 ? false : rank < adResults.length ? true : false
         }
       }, item)
 
