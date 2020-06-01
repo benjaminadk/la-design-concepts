@@ -48,4 +48,8 @@ program
     'index',
     'Bulk request Google to crawl and index a TXT file of URLs - API Limit: 100 per batch & 200 per day'
   )
+  .command(
+    'redirect',
+    'Bulk map source url to new 301 redirect url in Nginx format'
+  )
   .parse(process.argv)
