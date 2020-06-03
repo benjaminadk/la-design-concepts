@@ -141,8 +141,17 @@ const main = async () => {
       }
     } else if (el.includes('shopping/furniture/chairs/')) {
       return `${root}shop/furniture/chairs/`
+    } else if (el.includes('shopping/furniture')) {
+      let subroot = 'shop/furniture/'
+      if (el.includes('duralee')) {
+        return `${root}${subroot}schumacher/`
+      } else if (el.includes('kravet-curated')) {
+        return `${root}${subroot}kravet-furniture/`
+      }
     } else if (el.includes('shopping/lighting')) {
       return `${root}shop/lighting/`
+    } else if (el.includes('shopping/in-stock')) {
+      return `${root}shop/in-stock/`
     } else if (el.includes('shopping/uncategorized/')) {
       return root
     } else if (el.includes('sitemap')) {
@@ -150,7 +159,9 @@ const main = async () => {
     } else if (
       el.includes('var_custom') ||
       el.includes('standard-size') ||
-      el.includes('size/')
+      el.includes('size/') ||
+      el.includes('ladc_color') ||
+      el.includes('ladc_style')
     ) {
       return `${root}`
     } else if (el.includes('blog')) {
