@@ -165,7 +165,7 @@ const main = async () => {
   let data = ''
   for (let i = 0; i < src.length; i++) {
     if (dst[i]) {
-      data += `location = ${src[i]} {
+      data += `location = ${src[i].replace('https://ladesignconcepts.com', '')} {
       return 301 ${dst[i]};
       }\n`
     }
