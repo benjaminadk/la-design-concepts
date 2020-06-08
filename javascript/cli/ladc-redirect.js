@@ -7,7 +7,6 @@ const { writeFile } = require('./lib/utils')
 const { src } = require('./redirects/test')
 
 program
-
   .option(
     '-f,--filename [name]',
     'Destination file where formatted redirects will be saved',
@@ -20,6 +19,9 @@ const main = async () => {
 
   const root = 'https://ladesignconcepts.com/'
   const dst = src.map((el) => {
+    if(el.includes('add_to_wishlist')) {
+      return false
+    }
     if (el.includes('shopping/textiles/')) {
       let subroot = 'shop/textiles/fabric/'
       if (el.includes('baker-lifestyle')) {
