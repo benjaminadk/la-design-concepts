@@ -1,4 +1,4 @@
-# LA Design Concepts Projects
+# L.A. Design Concepts Projects
 
 A collection of various coding projects I have created at work to make life easier.
 

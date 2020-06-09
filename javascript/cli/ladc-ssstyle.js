@@ -27,7 +27,7 @@ const main = async () => {
     // const page = await context.newPage();
     const page = await browser.newPage()
 
-    await page.goto("https://ladesignconcepts.com/shop-by-collection/")
+    await page.goto("https://ladesignconcepts.com/shop-by-style/")
 
     // Grab all brand page links
     const collectionsF = await page.$$("#fabric-collections a")
@@ -70,7 +70,7 @@ const main = async () => {
       // Take screenshot and save to folder based on device and brand name
       // TODO integrate directly to Drive
       await newPage.screenshot({
-        path: path.join(__dirname, "screenshots-collections", device, `${text}.png`)
+        path: path.join(__dirname, "screenshots-styles", device, `${text}.png`)
       })
 
       console.log(`Screenshot saved for ${text}`)
@@ -84,7 +84,7 @@ const main = async () => {
   } catch (error) {
     console.log(error)
   } finally {
-    console.log(`Screenshots saved to ${path.join(__dirname, "screenshots-collections")}`)
+    console.log(`Screenshots saved to ${path.join(__dirname, "screenshots-styles")}`)
   }
 }
 

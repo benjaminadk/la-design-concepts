@@ -24,11 +24,15 @@ program
   )
   .command(
     "ss",
-    "Screenshot all LADC Brand Pages on desktop, mobile or tablet and save images to directory."
+    "Screenshot all LADC Shop Brand Pages on desktop, mobile or tablet and save images to directory. This currently includes all Shop By Collections pages as well."
   )
   .command(
     "sscoll",
     "Screenshot all LADC Collection Pages on desktop, mobile or tablet and save images to directory."
+  )
+  .command(
+    "ssstyle",
+    "Screenshot all LADC Styles Pages on desktop, mobile or tablet and save images to directory."
   )
   .command("seo", "Test SEO Google Search position for LADC brand keywords")
   .command(

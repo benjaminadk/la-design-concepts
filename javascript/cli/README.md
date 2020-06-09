@@ -1,6 +1,6 @@
 # LADC CLI
 
-A command line tool built for LA Design Concepts that offers file system, SEO and SERP utilities.
+A comprehensive command line tool built for L.A. Design Concepts that offers file system utilities, SEO/SERP analytics, Nginx redirect formatter, sitemap creator, image editting and screenshot testing.
 
 ## Installation
 
@@ -30,7 +30,11 @@ Link the `ladc` command to your local machine
 |   `unpk`    | Unpacks a nested folder structure and copies all files into one top level folder |
 |    `ff`     |         Formats a directory of image filenames to our naming conventions         |
 |    `dli`    |                  Download a list of image urls using a TXT file                  |
-|   `smap`    |                     Generate a sitemap based on list of urls                     |
+|   `smap`    |                     Generate a sitemap based on list of URLs                     |
+|   `index`   |         Uses Google Index API to request indexing of a TXT list of URLs          |
+| `redirect`  |                Create Nginx 301 redirects from array of 404 URLs                 |
+|  `rename`   |           Rename a directory of files based on a JavaScript object map           |
+|    `lss`    |           Create a TXT file listing all files in the current directory           |
 
 Most subcommands accept options. These are mostly to designate a source and destination directory for input and output. To see a particular subcommand's options:
 
