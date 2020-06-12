@@ -70,10 +70,12 @@ const main = async () => {
           .toLowerCase()
           .replace("-400x400", "")
           .replace("fabric", "fabrics")
-      } else if (brand === 'JPG') {
-        newFile = file.replace('.JPG', '.jpg')
-      } else if (brand === 'tyler') {
-        newFile = file.replace('400x400-','')
+      } else if (brand === "JPG") {
+        newFile = file.replace(".JPG", ".jpg")
+      } else if (brand === "tyler") {
+        newFile = file.replace("400x400-", "")
+      } else if (brand === "sch-image") {
+        newFile = file.replace("---", "-").replace("'", "").replace("--", "-")
       }
 
       const newPath = path.join(process.cwd(), newFile)
