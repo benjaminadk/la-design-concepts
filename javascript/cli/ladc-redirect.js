@@ -151,6 +151,14 @@ const main = async () => {
         return `${root}${subroot}schumacher/`
       } else if (el.includes("kravet-curated")) {
         return `${root}${subroot}kravet-furniture/`
+      } else if (el.includes("armoires")) {
+        return `${root}${subroot}armoires/`
+      } else if (el.includes("cabinets")) {
+        return `${root}${subroot}cabinets-bookcases/`
+      } else if (el.includes("sofa")) {
+        return `${root}${subroot}sofas/`
+      } else {
+        return `${root}${subroot}`
       }
     } else if (el.includes("shopping/lighting")) {
       return `${root}shop/lighting/`
@@ -174,7 +182,7 @@ const main = async () => {
       return `${root}`
     } else if (el.includes("blog")) {
       return `${root}blog/`
-    } else if (el.includes('about')) {
+    } else if (el.includes("about")) {
       return `${root}our-beginnings/`
     } else {
       return false
