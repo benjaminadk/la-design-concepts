@@ -173,7 +173,10 @@ const main = async () => {
       el.includes("standard-size") ||
       el.includes("size/") ||
       el.includes("ladc_color") ||
+      el.includes("ladc_content") ||
       el.includes("ladc_style") ||
+      el.includes("ladc_finish") ||
+      el.includes("ladc_material") ||
       el.includes("per_unit") ||
       el.includes("manufacturer") ||
       el.includes("country_origin") ||
