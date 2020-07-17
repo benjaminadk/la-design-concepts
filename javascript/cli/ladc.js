@@ -57,4 +57,5 @@ program
     "Bulk map source url to new 301 redirect url in Nginx format"
   )
   .command("rename", "Bulk rename a directory of image files")
+  .command("sitemap", "Submit sitemaps to Search Console")
   .parse(process.argv)

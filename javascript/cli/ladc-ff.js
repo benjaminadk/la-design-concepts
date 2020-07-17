@@ -76,6 +76,8 @@ const main = async () => {
         newFile = file.replace("400x400-", "")
       } else if (brand === "sch-image") {
         newFile = file.replace("---", "-").replace("'", "").replace("--", "-")
+      } else if (brand === 'ralph') {
+        newFile = file.toLowerCase().replace(';', '').replace(/\s/g, "-").replace('.jpeg', '.jpg')
       }
 
       const newPath = path.join(process.cwd(), newFile)
