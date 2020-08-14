@@ -78,6 +78,8 @@ const main = async () => {
         newFile = file.replace("---", "-").replace("'", "").replace("--", "-")
       } else if (brand === 'ralph') {
         newFile = file.toLowerCase().replace(';', '').replace(/\s/g, "-").replace('.jpeg', '.jpg')
+      } else if (brand === 'lower') {
+        newFile = file.toLowerCase()
       }
 
       const newPath = path.join(process.cwd(), newFile)
