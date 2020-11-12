@@ -58,4 +58,6 @@ program
   )
   .command("rename", "Bulk rename a directory of image files")
   .command("sitemap", "Submit sitemaps to Search Console")
+  .command('fi','Filter schumacher images by filename')
+  .command('fabricut', 'Request data spreadsheet from Fabricut API')
   .parse(process.argv)

@@ -19,6 +19,7 @@ const copyFile = promisify(fs.copyFile)
 const rm = promisify(rimraf)
 const lstat = promisify(fs.lstat)
 const rename = promisify(fs.rename)
+const unlink = promisify(fs.unlink)
 const createWriteStream = fs.createWriteStream
 const readFileSync = fs.readFileSync
 
@@ -35,4 +36,5 @@ module.exports = {
   rename,
   createWriteStream,
   readFileSync,
+  unlink
 }
