@@ -60,4 +60,5 @@ program
   .command("sitemap", "Submit sitemaps to Search Console")
   .command('fi','Filter schumacher images by filename')
   .command('fabricut', 'Request data spreadsheet from Fabricut API')
+  .command('ls', 'Create TXT file listing directory contents')
   .parse(process.argv)

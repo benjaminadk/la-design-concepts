@@ -82,7 +82,11 @@ const main = async () => {
         newFile = file.toLowerCase()
       } else if (brand === 'kasmir') {
         newFile = file.replace(/\s/g, '-')
-      } 
+      } else if ('maya') {
+        newFile = file.replace('-swatch-', '-')
+      } else if ('maya-room') {
+        newFile = file.replace('_Room', '_room')
+      }
 
       const newPath = path.join(process.cwd(), newFile)
 

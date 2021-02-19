@@ -79,7 +79,7 @@ const main = async () => {
       } else if (el.includes('ralph-lauren')) {
         return `${root}${subroot}ralph-lauren-fabric/`
       } else if (el.includes('robert-allen')) {
-        return `${root}${subroot}`
+        return `${root}robert-allen-fabric/`
       } else if (el.includes('s-harris')) {
         return `${root}${subroot}s-harris-fabrics/`
       } else if (el.includes('scalamandre')) {
@@ -130,7 +130,7 @@ const main = async () => {
       } else if (el.includes('scalamandre')) {
         return `${root}${subroot}scalamandre/`
       } else if (el.includes('schumacher')) {
-        return `${root}${subroot}schumacher-wallpaper/`
+        return `${root}schumacher-wallpaper/`
       } else if (el.includes('winfield-thybony')) {
         return `${root}${subroot}winfield-thybony/`
       } else {

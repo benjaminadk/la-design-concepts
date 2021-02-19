@@ -64,18 +64,22 @@ const main = async () => {
       })
 
       // Navigate to brand page
-      await newPage.goto(href)
+      try {
+        await newPage.goto(href)
 
-      // Take screenshot and save to folder based on device and brand name
-      // TODO integrate directly to Drive
-      await newPage.screenshot({
-        path: path.join(__dirname, "screenshots", device, `${text}.png`)
-      })
-
-      console.log(`Screenshot saved for ${text}`)
-
-      // Close page
-      await newPage.close()
+        // Take screenshot and save to folder based on device and brand name
+        // TODO integrate directly to Drive
+        await newPage.screenshot({
+          path: path.join(__dirname, "screenshots", device, `${text}.png`)
+        })
+  
+        console.log(`Screenshot saved for ${text}`)
+  
+        // Close page
+        await newPage.close()
+      } catch (error) {
+        console.log(`Error on page: ${text}`)
+      }
     }
 
     // Close browser
