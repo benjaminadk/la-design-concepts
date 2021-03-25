@@ -61,4 +61,5 @@ program
   .command('fi','Filter schumacher images by filename')
   .command('fabricut', 'Request data spreadsheet from Fabricut API')
   .command('ls', 'Create TXT file listing directory contents')
+  .command('samples', 'Process sample order and send emails to manufacturers')
   .parse(process.argv)

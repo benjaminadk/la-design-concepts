@@ -84,7 +84,7 @@ const main = async () => {
         newFile = file.replace(/\s/g, '-')
       } else if (brand === 'maya') {
         newFile = file.replace('-swatch-', '-')
-      } else if (brand === 'maya-room') {
+      } else if (brand === 'room-case') {
         newFile = file.replace('_Room', '_room')
       } else if (brand === 'gal') {
         newFile = file.replace('-300x300', '')
