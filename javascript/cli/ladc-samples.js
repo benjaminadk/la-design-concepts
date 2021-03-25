@@ -54,6 +54,11 @@ const BRANDS = [
     to: { name: " Fyfe", email: "samples@thomaslavin.com" },
   },
   {
+    name: "Maya Romanoff",
+    samples: [],
+    to: { name: " Fyfe", email: "samples@thomaslavin.com" },
+  },
+  {
     name: "Scalamandre",
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
@@ -63,7 +68,6 @@ const BRANDS = [
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
   },
-
   {
     name: "Old World Weavers",
     samples: [],
@@ -85,7 +89,41 @@ const BRANDS = [
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
   },
   {
+    name: "Alhambra",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },  {
+    name: "Tassinari",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
+    name: "Grey Watkins",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
     name: "Sandberg",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
+    name: "Jean Paul",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
+    name: "Colony",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
+    name: "Missoni Home",
+    samples: [],
+    to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
+  },
+  {
+    name: "Boris Kroll",
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
   },
@@ -133,6 +171,14 @@ const BRANDS = [
     },
   },
   {
+    name: "Templeton",
+    samples: [],
+    to: {
+      name: "Katia",
+      email: ["Sample@jaspershowroom.com", "Kathalene.Barton@jaspershowroom.com"],
+    },
+  },
+  {
     name: "Seabrook",
     samples: [],
     to: {
@@ -164,6 +210,11 @@ const BRANDS = [
     name: "Kasmir",
     samples: [],
     to: { name: "", email: "service@kasmirfabrics.com" },
+  },
+  {
+    name: "Charlotte",
+    samples: [],
+    to: { name: "", email: "hello@charlottefabrics.com" },
   },
 ]
 
@@ -214,7 +265,10 @@ async function main() {
               display_sku = ""
             } else if (brand.name === "Schumacher") {
               display_name = name
-              display_sku = sku.slice(sku.indexOf("-") + 1).replace("a", "").replace("-2", "")
+              display_sku = sku
+                .slice(sku.indexOf("-") + 1)
+                .replace("a", "")
+                .replace("-2", "")
             } else {
               display_name = name
               display_sku = sku.slice(sku.indexOf("-") + 1)
@@ -234,6 +288,13 @@ async function main() {
     var a5 = BRANDS.find((el) => el.name === "Christian Fischbacher")["samples"]
     var a6 = BRANDS.find((el) => el.name === "Aldeco")["samples"]
     var a7 = BRANDS.find((el) => el.name === "Sandberg")["samples"]
+    var a8 = BRANDS.find((el) => el.name === "Jean Paul")["samples"]
+    var a9 = BRANDS.find((el) => el.name === "Alhambra")["samples"]
+    var a10 = BRANDS.find((el) => el.name === "Grey Watkins")["samples"]
+    var a11 = BRANDS.find((el) => el.name === "Colony")["samples"]
+    var a12 = BRANDS.find((el) => el.name === "Missoni Home")["samples"]
+    var a13 = BRANDS.find((el) => el.name === "Boris Kroll")["samples"]
+    var a14 = BRANDS.find((el) => el.name === "Tassinari")["samples"]
 
     BRANDS.find((el) => el.name === "Scalamandre")["samples"] = [
       ...a1,
@@ -243,6 +304,13 @@ async function main() {
       ...a5,
       ...a6,
       ...a7,
+      ...a8,
+      ...a9,
+      ...a10,
+      ...a11,
+      ...a12,
+      ...a13,
+      ...a14,
     ]
     BRANDS.find((el) => el.name === "Nicolette Mayer")["samples"] = []
     BRANDS.find((el) => el.name === "Old World Weavers")["samples"] = []
@@ -250,6 +318,13 @@ async function main() {
     BRANDS.find((el) => el.name === "Christian Fischbacher")["samples"] = []
     BRANDS.find((el) => el.name === "Aldeco")["samples"] = []
     BRANDS.find((el) => el.name === "Sandberg")["samples"] = []
+    BRANDS.find((el) => el.name === "Jean Paul")["samples"] = []
+    BRANDS.find((el) => el.name === "Alhambra")["samples"] = []
+    BRANDS.find((el) => el.name === "Grey Watkins")["samples"] = []
+    BRANDS.find((el) => el.name === "Colony")["samples"] = []
+    BRANDS.find((el) => el.name === "Missoni Home")["samples"] = []
+    BRANDS.find((el) => el.name === "Boris Kroll")["samples"] = []
+    BRANDS.find((el) => el.name === "Tassinari")["samples"] = []
 
     // Consolidate Robert Allen, Suburban Home
     var b1 = BRANDS.find((el) => el.name === "Robert Allen")["samples"]
@@ -269,11 +344,13 @@ async function main() {
     var c2 = BRANDS.find((el) => el.name === "Christopher Farr")["samples"]
     var c3 = BRANDS.find((el) => el.name === "Opuzen")["samples"]
     var c4 = BRANDS.find((el) => el.name === "Calvin")["samples"]
+    var c5 = BRANDS.find((el) => el.name === "Maya Romanoff")["samples"]
 
-    BRANDS.find((el) => el.name === "Galbraith")["samples"] = [...c1, ...c2, ...c3, ...c4]
+    BRANDS.find((el) => el.name === "Galbraith")["samples"] = [...c1, ...c2, ...c3, ...c4, ...c5]
     BRANDS.find((el) => el.name === "Christopher Farr")["samples"] = []
     BRANDS.find((el) => el.name === "Opuzen")["samples"] = []
     BRANDS.find((el) => el.name === "Calvin")["samples"] = []
+    BRANDS.find((el) => el.name === "Maya Romanoff")["samples"] = []
 
     // Consolidate Maxwell, Telefina
     var d1 = BRANDS.find((el) => el.name === "Maxwell")["samples"]
@@ -282,6 +359,11 @@ async function main() {
     BRANDS.find((el) => el.name === "Maxwell")["samples"] = [...d1, ...d2]
     BRANDS.find((el) => el.name === "Telefina")["samples"] = []
 
+    var e1 = BRANDS.find((el) => el.name === "Jasper")["samples"]
+    var e2 = BRANDS.find((el) => el.name === "Templeton")["samples"]
+
+    BRANDS.find((el) => el.name === "Jasper")["samples"] = [...e1, ...e2]
+    BRANDS.find((el) => el.name === "Templeton")["samples"] = []
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
@@ -300,7 +382,9 @@ async function main() {
             ? `Account 01020524 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "Seabrook"
             ? `654535 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Kasmir" ? `234728 - Sample Request - ${order} Client - ${last_name}` : `Sample Request - ${order} Client - ${last_name}`
+            : brand.name === "Kasmir"
+            ? `234728 - Sample Request - ${order} Client - ${last_name}`
+            : `Sample Request - ${order} Client - ${last_name}`
 
         var console_brand = THOMAS_LAVIN.includes(brand.name) ? "Thomas Lavin" : brand.name
 
