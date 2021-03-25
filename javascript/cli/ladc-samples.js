@@ -214,7 +214,7 @@ async function main() {
               display_sku = ""
             } else if (brand.name === "Schumacher") {
               display_name = name
-              display_sku = sku.slice(sku.indexOf("-") + 1).replace("a", "")
+              display_sku = sku.slice(sku.indexOf("-") + 1).replace("a", "").replace("-2", "")
             } else {
               display_name = name
               display_sku = sku.slice(sku.indexOf("-") + 1)
