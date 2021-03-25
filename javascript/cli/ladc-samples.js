@@ -92,7 +92,8 @@ const BRANDS = [
     name: "Alhambra",
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
-  },  {
+  },
+  {
     name: "Tassinari",
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
@@ -215,6 +216,11 @@ const BRANDS = [
     name: "Charlotte",
     samples: [],
     to: { name: "", email: "hello@charlottefabrics.com" },
+  },
+  {
+    name: "JF",
+    samples: [],
+    to: { name: "", email: "customerservice@jffabrics.com" },
   },
 ]
 
@@ -384,6 +390,8 @@ async function main() {
             ? `654535 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "Kasmir"
             ? `234728 - Sample Request - ${order} Client - ${last_name}`
+            : brand.name === "JF"
+            ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
             : `Sample Request - ${order} Client - ${last_name}`
 
         var console_brand = THOMAS_LAVIN.includes(brand.name) ? "Thomas Lavin" : brand.name
