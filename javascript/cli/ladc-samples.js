@@ -164,6 +164,11 @@ const BRANDS = [
     to: { name: "", email: "orderscs@tradgroup.com" },
   },
   {
+    name: "Bailey",
+    samples: [],
+    to: { name: "", email: "orderscs@tradgroup.com" },
+  },
+  {
     name: "Jasper",
     samples: [],
     to: {
@@ -222,6 +227,21 @@ const BRANDS = [
     samples: [],
     to: { name: "", email: "customerservice@jffabrics.com" },
   },
+  {
+    name: "Brentano",
+    samples: [],
+    to: { name: "", email: "samples@Brentanofabrics.com" },
+  },
+  {
+    name: "Pierre Frey",
+    samples: [],
+    to: { name: "", email: "bronte.valyi@pierrefrey.com" },
+  },
+  {
+    name: "Thibaut",
+    samples: [],
+    to: { name: "Julie", email: "julie@thestudioatdrc.com" },
+  },
 ]
 
 const THOMAS_LAVIN = ["Galbraith", "Christopher Farr"]
@@ -255,32 +275,48 @@ async function main() {
 
     for (let item of items) {
       if (item.name === "Sample") {
-        let name = item.meta_data.find((el) => el.key === "Name")["value"]
-        let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
+        if (
+          item.meta_data[0].hasOwnProperty("key") &&
+          item.meta_data[0]["key"].startsWith("Pierre Frey")
+        ) {
+          BRANDS.find((el) => el.name === "Pierre Frey")["samples"].push(
+            `Pierre Frey ${item.meta_data[0]["display_value"]}`
+          )
+        } else if (
+          item.meta_data[0].hasOwnProperty("key") &&
+          item.meta_data[0]["key"].startsWith("Thibaut")
+        ) {
+          BRANDS.find((el) => el.name === "Thibaut")["samples"].push(
+            `Thibaut ${item.meta_data[0]["display_value"]}`
+          )
+        } else {
+          let name = item.meta_data.find((el) => el.key === "Name")["value"]
+          let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
 
-        for (let brand of BRANDS) {
-          if (name.startsWith(brand.name)) {
-            var display_name, display_sku
+          for (let brand of BRANDS) {
+            if (name.startsWith(brand.name)) {
+              var display_name, display_sku
 
-            if (brand.name === "Galbraith") {
-              let x = sku.slice(sku.indexOf("-") + 1)
-              display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
-              display_sku = ""
-            } else if (brand.name === "Robert Allen" || brand.name === "Christopher Farr") {
-              display_name = name
-              display_sku = ""
-            } else if (brand.name === "Schumacher") {
-              display_name = name
-              display_sku = sku
-                .slice(sku.indexOf("-") + 1)
-                .replace("a", "")
-                .replace("-2", "")
-            } else {
-              display_name = name
-              display_sku = sku.slice(sku.indexOf("-") + 1)
+              if (brand.name === "Galbraith") {
+                let x = sku.slice(sku.indexOf("-") + 1)
+                display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
+                display_sku = ""
+              } else if (brand.name === "Robert Allen" || brand.name === "Christopher Farr") {
+                display_name = name
+                display_sku = ""
+              } else if (brand.name === "Schumacher") {
+                display_name = name
+                display_sku = sku
+                  .slice(sku.indexOf("-") + 1)
+                  .replace("a", "")
+                  .replace("-2", "")
+              } else {
+                display_name = name
+                display_sku = sku.slice(sku.indexOf("-") + 1)
+              }
+
+              brand.samples.push(`${display_name} ${display_sku}`)
             }
-
-            brand.samples.push(`${display_name} ${display_sku}`)
           }
         }
       }
@@ -338,12 +374,21 @@ async function main() {
     var b3 = BRANDS.find((el) => el.name === "Duralee")["samples"]
     var b4 = BRANDS.find((el) => el.name === "Highland Court")["samples"]
     var b5 = BRANDS.find((el) => el.name === "Beacon Hill")["samples"]
+    var b6 = BRANDS.find((el) => el.name === "Bailey")["samples"]
 
-    BRANDS.find((el) => el.name === "Robert Allen")["samples"] = [...b1, ...b2, ...b3, ...b4, ...b5]
+    BRANDS.find((el) => el.name === "Robert Allen")["samples"] = [
+      ...b1,
+      ...b2,
+      ...b3,
+      ...b4,
+      ...b5,
+      ...b6,
+    ]
     BRANDS.find((el) => el.name === "Suburban Home")["samples"] = []
     BRANDS.find((el) => el.name === "Duralee")["samples"] = []
     BRANDS.find((el) => el.name === "Highland Court")["samples"] = []
     BRANDS.find((el) => el.name === "Beacon Hill")["samples"] = []
+    BRANDS.find((el) => el.name === "Bailey")["samples"] = []
 
     // Consolidate Christopher Farr, Galbraith
     var c1 = BRANDS.find((el) => el.name === "Galbraith")["samples"]
@@ -418,10 +463,15 @@ async function main() {
     if (skipKlaviyo || test) {
       // Do nothing
     } else {
-      KlaviyoClient.public.track({
-        event: "Sample Order",
-        email: res.data.billing.email,
-      })
+      try {
+        KlaviyoClient.public.track({
+          event: "Sample Order",
+          email: res.data.billing.email,
+        })
+        console.log(`User with email: ${res.data.billing.email} added to Klaviyo Samples Flow`)
+      } catch (error) {
+        console.log("Klaviyo Error: Does this order have an email address?")
+      }
     }
   } catch (error) {
     console.log(error)
