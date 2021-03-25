@@ -34,6 +34,76 @@ const BRANDS = [
     to: { name: " Morgan", email: "mshepard@fsco.com" },
   },
   {
+    name: "Kravet",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Brunschwig",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Lee Jofa",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "GP",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Winfield",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Andrew Martin",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Cole",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Threads",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Clarke",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Groundworks",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Baker Lifestyle",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Mulberry",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Gaston",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
+    name: "Laura Ashley",
+    samples: [],
+    to: { name: " Mary", email: "mary.scinta@kravet.com" },
+  },
+  {
     name: "Galbraith",
     samples: [],
     to: { name: " Fyfe", email: "samples@thomaslavin.com" },
@@ -244,7 +314,7 @@ const BRANDS = [
   },
 ]
 
-const THOMAS_LAVIN = ["Galbraith", "Christopher Farr"]
+const THOMAS_LAVIN = ["Galbraith", "Christopher Farr", "Maya Romanoff", "Calvin", "Opuzen"]
 
 async function main() {
   const { order, user, klaviyo: skipKlaviyo, test } = program
@@ -310,6 +380,9 @@ async function main() {
                   .slice(sku.indexOf("-") + 1)
                   .replace("a", "")
                   .replace("-2", "")
+              } else if (brand.name === "Cole") {
+                display_name = name
+                display_sku = sku.replace("_", "/")
               } else {
                 display_name = name
                 display_sku = sku.slice(sku.indexOf("-") + 1)
@@ -410,11 +483,59 @@ async function main() {
     BRANDS.find((el) => el.name === "Maxwell")["samples"] = [...d1, ...d2]
     BRANDS.find((el) => el.name === "Telefina")["samples"] = []
 
+    // Consolidate Jasper Brands
     var e1 = BRANDS.find((el) => el.name === "Jasper")["samples"]
     var e2 = BRANDS.find((el) => el.name === "Templeton")["samples"]
 
     BRANDS.find((el) => el.name === "Jasper")["samples"] = [...e1, ...e2]
     BRANDS.find((el) => el.name === "Templeton")["samples"] = []
+
+    // Consolidate Kravet Brands
+    var f1 = BRANDS.find((el) => el.name === "Kravet")["samples"]
+    var f2 = BRANDS.find((el) => el.name === "Brunschwig")["samples"]
+    var f3 = BRANDS.find((el) => el.name === "Lee Jofa")["samples"]
+    var f4 = BRANDS.find((el) => el.name === "GP")["samples"]
+    var f5 = BRANDS.find((el) => el.name === "Clarke")["samples"]
+    var f6 = BRANDS.find((el) => el.name === "Groundworks")["samples"]
+    var f7 = BRANDS.find((el) => el.name === "Winfield")["samples"]
+    var f8 = BRANDS.find((el) => el.name === "Andrew Martin")["samples"]
+    var f9 = BRANDS.find((el) => el.name === "Cole")["samples"]
+    var f10 = BRANDS.find((el) => el.name === "Threads")["samples"]
+    var f11 = BRANDS.find((el) => el.name === "Baker Lifestyle")["samples"]
+    var f12 = BRANDS.find((el) => el.name === "Mulberry")["samples"]
+    var f13 = BRANDS.find((el) => el.name === "Gaston")["samples"]
+    var f14 = BRANDS.find((el) => el.name === "Laura Ashley")["samples"]
+
+    BRANDS.find((el) => el.name === "Kravet")["samples"] = [
+      ...f1,
+      ...f2,
+      ...f3,
+      ...f4,
+      ...f5,
+      ...f6,
+      ...f7,
+      ...f8,
+      ...f9,
+      ...f10,
+      ...f11,
+      ...f12,
+      ...f13,
+      ...f14,
+    ]
+
+    BRANDS.find((el) => el.name === "Brunschwig")["samples"] = []
+    BRANDS.find((el) => el.name === "Lee Jofa")["samples"] = []
+    BRANDS.find((el) => el.name === "GP")["samples"] = []
+    BRANDS.find((el) => el.name === "Clarke")["samples"] = []
+    BRANDS.find((el) => el.name === "Groundworks")["samples"] = []
+    BRANDS.find((el) => el.name === "Winfield")["samples"] = []
+    BRANDS.find((el) => el.name === "Andrew Martin")["samples"] = []
+    BRANDS.find((el) => el.name === "Cole")["samples"] = []
+    BRANDS.find((el) => el.name === "Threads")["samples"] = []
+    BRANDS.find((el) => el.name === "Baker Lifestyle")["samples"] = []
+    BRANDS.find((el) => el.name === "Mulberry")["samples"] = []
+    BRANDS.find((el) => el.name === "Gaston")["samples"] = []
+    BRANDS.find((el) => el.name === "Laura Ashley")["samples"] = []
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
