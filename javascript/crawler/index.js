@@ -10,29 +10,27 @@ writer.write(
 
 const WooCommerce = new WooCommerceRestApi({
   url,
-  consumerKey: "ck_a07ed2e4e5d45277a99dcc28a7cbd6f9bffb0713",
-  consumerSecret: "cs_7d38fc1eb45b26b1427d1d91dbf61234474c0472",
+  consumerKey: process.env.KEY,
+  consumerSecret: process.env.SECRET,
   version: "wc/v3",
 })
-
-const brandId = "5047"
 
 async function main() {
   var page = 1
 
   const res = await WooCommerce.get("products", {
-    per_page: 10,
+    per_page: 100,
     page,
-    status: "publish",
+    status: "publish"
   })
 
   var parsed = parse(res.headers.link)
 
   while (parsed.next) {
     const res2 = await WooCommerce.get("products", {
-      per_page: 10,
+      per_page: 100,
       page,
-      status: "publish",
+      status: "publish"
     })
 
     for (let d of res2.data) {

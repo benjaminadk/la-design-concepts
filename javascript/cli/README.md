@@ -35,6 +35,8 @@ Link the `ladc` command to your local machine
 | `redirect`  |                Create Nginx 301 redirects from array of 404 URLs                 |
 |  `rename`   |           Rename a directory of files based on a JavaScript object map           |
 |    `lss`    |           Create a TXT file listing all files in the current directory           |
+| `fabricut`  |                         Fetch latest fabricut data sheet                         |
+|  `samples`  |             Dispatch samples order emails and initiate Klaviyo flow              |
 
 Most subcommands accept options. These are mostly to designate a source and destination directory for input and output. To see a particular subcommand's options:
 

@@ -4,9 +4,11 @@ screenshots-collections
 screenshots-styles
 sitemaps
 sitemap-data
+scrapes
 .env
 credentials-ladc.json
 url-txt-files
 urls.txt
 redirects
 rename
+*.csv
