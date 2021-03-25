@@ -168,7 +168,7 @@ const BRANDS = [
     samples: [],
     to: {
       name: "Katia",
-      email: ["Sample@jaspershowroom.com", "Kathalene.Barton@jaspershowroom.com"],
+      email: "samples@jaspershowroom.com",
     },
   },
   {
@@ -176,7 +176,7 @@ const BRANDS = [
     samples: [],
     to: {
       name: "Katia",
-      email: ["Sample@jaspershowroom.com", "Kathalene.Barton@jaspershowroom.com"],
+      email: "samples@jaspershowroom.com",
     },
   },
   {
