@@ -571,8 +571,10 @@ async function main() {
         }
 
         if (test) {
-          console.log(`TEST MODE To: ${brand.to.email} Brand: ${console_brand}`)
-          console.log(subject)
+          console.log(`=======================TEST MODE=======================`)
+          console.log(`To: ${brand.to.email}`)
+          console.log(`From: ${from.email}`)
+          console.log(`Subject: ${subject}\n`)
           console.log(text)
         } else {
           await sgMail.send(message)
