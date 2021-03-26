@@ -6,11 +6,7 @@ const path = require("path")
 const { readdir, rename } = require("./lib/utils")
 
 program
-  .option(
-    "-b, --brand [name]",
-    "Type of filename formatting based on brand",
-    "kravet"
-  )
+  .option("-b, --brand [name]", "Type of filename formatting based on brand", "kravet")
   .parse(process.argv)
 
 const main = async () => {
@@ -66,29 +62,49 @@ const main = async () => {
       } else if (brand === "cole-son") {
         newFile = file.replace("_r1", "")
       } else if (brand === "coll-thumb") {
-        newFile = file
-          .toLowerCase()
-          .replace("-400x400", "")
-          .replace("fabric", "fabrics")
+        newFile = file.toLowerCase().replace("-400x400", "").replace("fabric", "fabrics")
       } else if (brand === "JPG") {
         newFile = file.replace(".JPG", ".jpg")
       } else if (brand === "tyler") {
         newFile = file.replace("400x400-", "")
       } else if (brand === "sch-image") {
         newFile = file.replace("---", "-").replace("'", "").replace("--", "-")
-      } else if (brand === 'ralph') {
-        newFile = file.toLowerCase().replace(';', '').replace(/\s/g, "-").replace('.jpeg', '.jpg')
-      } else if (brand === 'lower') {
+      } else if (brand === "ralph") {
+        newFile = file.toLowerCase().replace(";", "").replace(/\s/g, "-").replace(".jpeg", ".jpg")
+      } else if (brand === "lower") {
         newFile = file.toLowerCase()
-      } else if (brand === 'kasmir') {
-        newFile = file.replace(/\s/g, '-')
-      } else if (brand === 'maya') {
-        newFile = file.replace('-swatch-', '-')
-      } else if (brand === 'room-case') {
-        newFile = file.replace('_Room', '_room')
-      } else if (brand === 'gal') {
-        newFile = file.replace('-300x300', '')
+      } else if (brand === "kasmir") {
+        newFile = file.replace(/\s/g, "-")
+      } else if (brand === "maya") {
+        newFile = file.replace("-swatch-", "-")
+      } else if (brand === "room-case") {
+        newFile = file.replace("_Room", "_room")
+      } else if (brand === "gal") {
+        newFile = file.replace("-300x300", "")
         console.log(newFile)
+      } else if (brand === "gal2") {
+        newFile = file
+          .toLowerCase()
+          .replace("_notrim", "")
+          .replace("_36x18__notrim", "")
+          .replace("_36x18", "")
+          .replace("_18x36", "")
+          .replace("_36x40", "")
+          .replace("_17.5x18", "")
+          .replace("_36x36_no_trim", "")
+          .replace("_36x36-notrim", "")
+          .replace("_36.125x18-notrim", "")
+          .replace("_36x36-notrim", "")
+          .replace("_-36.125x18-notrim", "")
+          .replace("_36x36", "")
+          .replace("-notrim", "")
+          .replace("_36x34_no_trim", "")
+          .replace("-36x18", "")
+          .replace("-no_trim", "")
+          .replace("_36.125x18notrim", "")
+          .replace("_33.75x18", "")
+          .replace("notrim", "")
+          .replace("-36_125x18", "")
       }
 
       const newPath = path.join(process.cwd(), newFile)

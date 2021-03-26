@@ -331,8 +331,10 @@ async function main() {
             ? `234728 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "JF"
             ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Osborne" || brand.name === "Fabricut"
+            : brand.name === "Osborne"
             ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
+            : brand.name === "Fabricut"
+            ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "Victoria"
             ? `000987 - Sample Request - ${order} Client - ${last_name}`
             : `Sample Request - ${order} Client - ${last_name}`
