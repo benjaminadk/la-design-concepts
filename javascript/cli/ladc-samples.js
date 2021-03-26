@@ -129,6 +129,11 @@ const BRANDS = [
     to: { name: " Fyfe", email: "samples@thomaslavin.com" },
   },
   {
+    name: "Castel Maison",
+    samples: [],
+    to: { name: " Fyfe", email: "samples@thomaslavin.com" },
+  },
+  {
     name: "Scalamandre",
     samples: [],
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
@@ -314,7 +319,14 @@ const BRANDS = [
   },
 ]
 
-const THOMAS_LAVIN = ["Galbraith", "Christopher Farr", "Maya Romanoff", "Calvin", "Opuzen"]
+const THOMAS_LAVIN = [
+  "Galbraith",
+  "Christopher Farr",
+  "Maya Romanoff",
+  "Calvin",
+  "Opuzen",
+  "Castel Maison",
+]
 
 async function main() {
   const { order, user, klaviyo: skipKlaviyo, test } = program
@@ -469,12 +481,21 @@ async function main() {
     var c3 = BRANDS.find((el) => el.name === "Opuzen")["samples"]
     var c4 = BRANDS.find((el) => el.name === "Calvin")["samples"]
     var c5 = BRANDS.find((el) => el.name === "Maya Romanoff")["samples"]
+    var c6 = BRANDS.find((el) => el.name === "Castel Maison")["samples"]
 
-    BRANDS.find((el) => el.name === "Galbraith")["samples"] = [...c1, ...c2, ...c3, ...c4, ...c5]
+    BRANDS.find((el) => el.name === "Galbraith")["samples"] = [
+      ...c1,
+      ...c2,
+      ...c3,
+      ...c4,
+      ...c5,
+      ...c6,
+    ]
     BRANDS.find((el) => el.name === "Christopher Farr")["samples"] = []
     BRANDS.find((el) => el.name === "Opuzen")["samples"] = []
     BRANDS.find((el) => el.name === "Calvin")["samples"] = []
     BRANDS.find((el) => el.name === "Maya Romanoff")["samples"] = []
+    BRANDS.find((el) => el.name === "Castel Maison")["samples"] = []
 
     // Consolidate Maxwell, Telefina
     var d1 = BRANDS.find((el) => el.name === "Maxwell")["samples"]
