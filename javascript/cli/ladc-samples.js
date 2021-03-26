@@ -290,12 +290,25 @@ async function main() {
     BRANDS.find((el) => el.name === "Matthew")["samples"] = []
     BRANDS.find((el) => el.name === "Lorca")["samples"] = []
 
-     // Consolidate Wallcoveting
-     var h1 = BRANDS.find((el) => el.name === "Wallcoveting")["samples"]
-     var h2 = BRANDS.find((el) => el.name === "Brenda Houston")["samples"]
+    // Consolidate Wallcoveting
+    var h1 = BRANDS.find((el) => el.name === "Wallcoveting")["samples"]
+    var h2 = BRANDS.find((el) => el.name === "Brenda Houston")["samples"]
 
-     BRANDS.find((el) => el.name === "Wallcoveting")["samples"] = [...h1, ...h2]
-     BRANDS.find((el) => el.name === "Brenda Houston")["samples"] = []
+    BRANDS.find((el) => el.name === "Wallcoveting")["samples"] = [...h1, ...h2]
+    BRANDS.find((el) => el.name === "Brenda Houston")["samples"] = []
+
+    // Consolidate Fabricut
+    var i1 = BRANDS.find((el) => el.name === "Fabricut")["samples"]
+    var i2 = BRANDS.find((el) => el.name === "Trend")["samples"]
+    var i3 = BRANDS.find((el) => el.name === "Vervain")["samples"]
+    var i4 = BRANDS.find((el) => el.name === "S. Harris")["samples"]
+    var i5 = BRANDS.find((el) => el.name === "Stroheim")["samples"]
+
+    BRANDS.find((el) => el.name === "Fabricut")["samples"] = [...i1, ...i2, ...i3, ...i4, ...i5]
+    BRANDS.find((el) => el.name === "Trend")["samples"] = []
+    BRANDS.find((el) => el.name === "Vervain")["samples"] = []
+    BRANDS.find((el) => el.name === "S. Harris")["samples"] = []
+    BRANDS.find((el) => el.name === "Stroheim")["samples"] = []
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
@@ -318,7 +331,7 @@ async function main() {
             ? `234728 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "JF"
             ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Osborne"
+            : brand.name === "Osborne" || brand.name === "Fabricut"
             ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "Victoria"
             ? `000987 - Sample Request - ${order} Client - ${last_name}`

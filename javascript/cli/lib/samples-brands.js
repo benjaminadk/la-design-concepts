@@ -180,6 +180,31 @@ module.exports = [
     to: { name: " Becky", email: "bmcreynolds@scalamandre.com" },
   },
   {
+    name: "Fabricut",
+    samples: [],
+    to: { name: "", email: "customers@fabricut.com" },
+  },
+  {
+    name: "Trend",
+    samples: [],
+    to: { name: "", email: "customers@fabricut.com" },
+  },
+  {
+    name: "Vervain",
+    samples: [],
+    to: { name: "", email: "customers@fabricut.com" },
+  },
+  {
+    name: "Stroheim",
+    samples: [],
+    to: { name: "", email: "customers@fabricut.com" },
+  },
+  {
+    name: "S. Harris",
+    samples: [],
+    to: { name: "", email: "customers@fabricut.com" },
+  },
+  {
     name: "Peter Dunham",
     samples: [],
     to: { name: " Sean", email: "sean@peterdunhamtextiles.com" },
