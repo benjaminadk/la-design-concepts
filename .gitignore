@@ -12,3 +12,5 @@ urls.txt
 redirects
 rename
 *.csv
+*.xml
+data.json

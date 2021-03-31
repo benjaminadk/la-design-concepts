@@ -49,7 +49,7 @@ async function main() {
               let pn_attr = res2.data[0].attributes.find(
                 (attribute) => attribute.name === "pattern_number"
               )
-              let number = pn_attr ? pn_attr["options"][0] : false
+              let number = pn_attr ? pn_attr["options"][0].toUpperCase() : ""
               samples.push({ name, sku, number })
               break
             }
@@ -57,6 +57,16 @@ async function main() {
         }
       }
 
+      // Check for missing pattern numbers
+      let errors = samples.filter((sample) => !sample.number)
+      if (errors.length > 0) {
+        console.log(`Issues Detected for order ${order.id}`)
+        for (let e of errors) {
+          console.log(`Missing pattern number on product with SKU ${e.sku}`)
+        }
+      }
+
+      // Combine samples with order number and shipping info
       if (samples.length > 0) {
         let obj = {
           PO: order.id,
@@ -73,6 +83,7 @@ async function main() {
         ${toProcess
           .map((tp) => {
             const {
+              company,
               first_name,
               last_name,
               address_1,
@@ -81,7 +92,7 @@ async function main() {
               state,
               postcode,
             } = tp.shipping
-            const ADDRESS_1 = (first_name + " " + last_name).toUpperCase()
+            const ADDRESS_1 = (first_name ? first_name + " " + last_name : company).toUpperCase()
             const ADDRESS_2 = (address_2 ? address_1 + " " + address_2 : address_1).toUpperCase()
             const CITY = city.toUpperCase()
             const STATE = state.toUpperCase()

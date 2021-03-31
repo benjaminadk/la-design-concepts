@@ -1,0 +1,15 @@
+{
+  "name": "schumacher-scraper",
+  "version": "1.0.0",
+  "description": "Scrape data from Schumacher based on an array of product IDs. Exports a JSON file which can be imported into Excel",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
