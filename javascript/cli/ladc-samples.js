@@ -111,6 +111,11 @@ async function main() {
               } else if (brand.name === "Cole") {
                 display_name = name
                 display_sku = sku.replace("_", "/")
+              } else if (
+                ["Osborne", "Designer", "Lorca", "Nina Campbell", "Matthew"].includes(brand.name)
+              ) {
+                display_name = ""
+                display_sku = sku.slice(sku.indexOf("-") + 1).toUpperCase()
               } else {
                 display_name = name
                 display_sku = sku.slice(sku.indexOf("-") + 1)
@@ -312,14 +317,21 @@ async function main() {
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
+        var html = `<p>Hello${brand.to.name},</p><p>Can we please have the following samples sent to the address below?</p>`
         var text = `Hello${brand.to.name},\n\nCan we please have the following samples sent to the address below?\n\n`
 
         for (let sample of brand.samples) {
+          html += `<p>${sample}</p>`
           text += `${sample}\n\n`
         }
 
+        html += `<br/><span>${first_name} ${last_name}</span><br/><span>${address_1} ${address_2}</span><br/><span>${city}, ${state} ${postcode}</span>`
         text += `${first_name} ${last_name}\n${address_1} ${address_2}\n${city}, ${state} ${postcode}\n\n`
 
+        html += `<br/><p style="font-size:1.1rem;font-weight:bold;">Please include sidemark: ${order} on paperwork with samples.</p>`
+        text += `Please include sidemark: ${order} on paperwork with samples.\n\n`
+
+        html += `<p>Thanks,</p><p>${from.nickname}</p><br/><span>${from.name}</span><br/><span>L.A. Design Concepts</span><br/><span>${from.email}</span>`
         text += `Thanks,\n\n${from.nickname}\n\n${from.name}\nL.A. Design Concepts\n${from.email}\n`
 
         var subject =
@@ -342,8 +354,9 @@ async function main() {
         var console_brand = THOMAS_LAVIN.includes(brand.name) ? "Thomas Lavin" : brand.name
 
         let message = {
-          to: brand.to.email,
-          cc: from.email,
+          // to: brand.to.email,
+          to: "ben@ladesignconcepts.com",
+          // cc: from.email,
           from: from.email,
           subject,
           text,

@@ -272,7 +272,7 @@ module.exports = [
     name: "Osborne",
     samples: [],
     to: {
-      name: "Billy",
+      name: " Billy",
       email: "hudsonb@oalusa.com",
     },
   },
@@ -280,7 +280,7 @@ module.exports = [
     name: "Designer",
     samples: [],
     to: {
-      name: "Billy",
+      name: " Billy",
       email: "hudsonb@oalusa.com",
     },
   },
@@ -288,7 +288,7 @@ module.exports = [
     name: "Nina Campbell",
     samples: [],
     to: {
-      name: "Billy",
+      name: " Billy",
       email: "hudsonb@oalusa.com",
     },
   },
@@ -296,7 +296,7 @@ module.exports = [
     name: "Matthew",
     samples: [],
     to: {
-      name: "Billy",
+      name: " Billy",
       email: "hudsonb@oalusa.com",
     },
   },
@@ -304,7 +304,7 @@ module.exports = [
     name: "Lorca",
     samples: [],
     to: {
-      name: "Billy",
+      name: " Billy",
       email: "hudsonb@oalusa.com",
     },
   },
@@ -369,4 +369,3 @@ module.exports = [
     to: { name: "Julie", email: "julie@thestudioatdrc.com" },
   },
 ]
-
