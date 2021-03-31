@@ -354,9 +354,8 @@ async function main() {
         var console_brand = THOMAS_LAVIN.includes(brand.name) ? "Thomas Lavin" : brand.name
 
         let message = {
-          // to: brand.to.email,
-          to: "ben@ladesignconcepts.com",
-          // cc: from.email,
+          to: brand.to.email,
+          cc: from.email,
           from: from.email,
           subject,
           text,
