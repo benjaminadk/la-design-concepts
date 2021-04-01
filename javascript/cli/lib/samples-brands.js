@@ -214,36 +214,36 @@ module.exports = [
     samples: [],
     to: { name: "", email: "CustomerService@folia-fabrics.com" },
   },
-  {
-    name: "Robert Allen",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
-  {
-    name: "Suburban Home",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
-  {
-    name: "Duralee",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
-  {
-    name: "Highland Court",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
-  {
-    name: "Beacon Hill",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
-  {
-    name: "Bailey",
-    samples: [],
-    to: { name: "", email: "orderscs@tradgroup.com" },
-  },
+  // {
+  //   name: "Robert Allen",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
+  // {
+  //   name: "Suburban Home",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
+  // {
+  //   name: "Duralee",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
+  // {
+  //   name: "Highland Court",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
+  // {
+  //   name: "Beacon Hill",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
+  // {
+  //   name: "Bailey",
+  //   samples: [],
+  //   to: { name: "", email: "orderscs@tradgroup.com" },
+  // },
   {
     name: "Jasper",
     samples: [],

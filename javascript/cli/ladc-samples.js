@@ -80,13 +80,13 @@ async function main() {
           BRANDS.find((el) => el.name === "Thibaut")["samples"].push(
             `Thibaut ${item.meta_data[0]["display_value"]}`
           )
-        } else if (
-          item.meta_data[0].hasOwnProperty("key") &&
-          item.meta_data[0]["key"].startsWith("Robert Allen")
-        ) {
-          BRANDS.find((el) => el.name === "Robert Allen")["samples"].push(
-            `Robert Allen ${item.meta_data[0]["display_value"]}`
-          )
+          // } else if (
+          //   item.meta_data[0].hasOwnProperty("key") &&
+          //   item.meta_data[0]["key"].startsWith("Robert Allen")
+          // ) {
+          //   BRANDS.find((el) => el.name === "Robert Allen")["samples"].push(
+          //     `Robert Allen ${item.meta_data[0]["display_value"]}`
+          //   )
         } else {
           let name = item.meta_data.find((el) => el.key === "Name")["value"]
           let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
@@ -175,26 +175,26 @@ async function main() {
     BRANDS.find((el) => el.name === "Tassinari")["samples"] = []
 
     // Consolidate Robert Allen, Suburban Home
-    var b1 = BRANDS.find((el) => el.name === "Robert Allen")["samples"]
-    var b2 = BRANDS.find((el) => el.name === "Suburban Home")["samples"]
-    var b3 = BRANDS.find((el) => el.name === "Duralee")["samples"]
-    var b4 = BRANDS.find((el) => el.name === "Highland Court")["samples"]
-    var b5 = BRANDS.find((el) => el.name === "Beacon Hill")["samples"]
-    var b6 = BRANDS.find((el) => el.name === "Bailey")["samples"]
+    // var b1 = BRANDS.find((el) => el.name === "Robert Allen")["samples"]
+    // var b2 = BRANDS.find((el) => el.name === "Suburban Home")["samples"]
+    // var b3 = BRANDS.find((el) => el.name === "Duralee")["samples"]
+    // var b4 = BRANDS.find((el) => el.name === "Highland Court")["samples"]
+    // var b5 = BRANDS.find((el) => el.name === "Beacon Hill")["samples"]
+    // var b6 = BRANDS.find((el) => el.name === "Bailey")["samples"]
 
-    BRANDS.find((el) => el.name === "Robert Allen")["samples"] = [
-      ...b1,
-      ...b2,
-      ...b3,
-      ...b4,
-      ...b5,
-      ...b6,
-    ]
-    BRANDS.find((el) => el.name === "Suburban Home")["samples"] = []
-    BRANDS.find((el) => el.name === "Duralee")["samples"] = []
-    BRANDS.find((el) => el.name === "Highland Court")["samples"] = []
-    BRANDS.find((el) => el.name === "Beacon Hill")["samples"] = []
-    BRANDS.find((el) => el.name === "Bailey")["samples"] = []
+    // BRANDS.find((el) => el.name === "Robert Allen")["samples"] = [
+    //   ...b1,
+    //   ...b2,
+    //   ...b3,
+    //   ...b4,
+    //   ...b5,
+    //   ...b6,
+    // ]
+    // BRANDS.find((el) => el.name === "Suburban Home")["samples"] = []
+    // BRANDS.find((el) => el.name === "Duralee")["samples"] = []
+    // BRANDS.find((el) => el.name === "Highland Court")["samples"] = []
+    // BRANDS.find((el) => el.name === "Beacon Hill")["samples"] = []
+    // BRANDS.find((el) => el.name === "Bailey")["samples"] = []
 
     // Consolidate Christopher Farr, Galbraith
     var c1 = BRANDS.find((el) => el.name === "Galbraith")["samples"]
