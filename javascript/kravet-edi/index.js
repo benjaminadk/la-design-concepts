@@ -4,6 +4,7 @@ const formatXML = require("xml-formatter")
 const { writeFileSync } = require("fs")
 const { getShortDate, BRANDS } = require("./utils")
 
+// Establish WooCommerce REST API connection
 const WooCommerce = new WooCommerceRestApi({
   url: "https://ladesignconcepts.com",
   consumerKey: process.env.WOOCOMMERCE_KEY,
@@ -11,6 +12,9 @@ const WooCommerce = new WooCommerceRestApi({
   version: "wc/v3",
 })
 
+// Define constants
+const BEFORE = "2021-04-02T00:00:00.000Z"
+const AFTER = "2021-04-01T00:00:00.000Z"
 const KRAVET_ACCOUNT_NUMBER = "4077815"
 const TODAYS_DATE = getShortDate()
 const CONTACT_NAME = "CHRIS"
@@ -21,37 +25,53 @@ const CC_LAST_FOUR = ""
 
 async function main() {
   try {
+    // Fetch orders for a given time period
     const res1 = await WooCommerce.get(`orders`, {
       per_page: 100,
-      before: "2021-03-30T00:00:00.000Z",
-      after: "2021-03-29T00:00:00.000Z",
+      before: BEFORE,
+      after: AFTER,
     })
 
     const toProcess = []
 
+    // Loop over orders
     for (let order of res1.data) {
       let samples = []
 
-      for (let item of order.line_items) {
-        if (
-          item.name === "Sample" &&
-          item.meta_data[0].hasOwnProperty("key") &&
-          item.meta_data[0]["key"] === "Name"
-        ) {
-          let name = item.meta_data.find((el) => el.key === "Name")["value"]
-          let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
-          for (let brand of BRANDS) {
-            if (name.startsWith(brand)) {
-              const res2 = await WooCommerce.get(`products`, {
-                sku,
-              })
+      // Don't process failed of cancelled orders
+      if (!["failed", "cancelled"].includes(order.status)) {
+        // Loop over line items
+        for (let item of order.line_items) {
+          // Only process samples that are formatted correctly
+          if (
+            item.name === "Sample" &&
+            item.meta_data[0].hasOwnProperty("key") &&
+            item.meta_data[0]["key"] === "Name"
+          ) {
+            let name = item.meta_data.find((el) => el.key === "Name")["value"]
+            let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
 
-              let pn_attr = res2.data[0].attributes.find(
-                (attribute) => attribute.name === "pattern_number"
-              )
-              let number = pn_attr ? pn_attr["options"][0].toUpperCase() : ""
-              samples.push({ name, sku, number })
-              break
+            // Match sample to one of Kravet's brands
+            for (let brand of BRANDS) {
+              if (name.startsWith(brand)) {
+                const res2 = await WooCommerce.get(`products`, {
+                  sku,
+                })
+
+                if (res2.data.length) {
+                  let pn_attr = res2.data[0].attributes.find(
+                    (attribute) => attribute.name === "pattern_number"
+                  )
+                  let number = pn_attr ? pn_attr["options"][0].toUpperCase() : ""
+                  samples.push({ name, sku, number })
+                  break
+                } else {
+                  console.log(`ALERT`)
+                  console.log(`Order ${order.id}`)
+                  console.log(`Skipping Sample ${sku}`)
+                  console.log(`Reason: Discontinued\n`)
+                }
+              }
             }
           }
         }
@@ -68,12 +88,21 @@ async function main() {
 
       // Combine samples with order number and shipping info
       if (samples.length > 0) {
-        let obj = {
-          PO: order.id,
-          shipping: order.shipping,
-          samples,
+        const { address_1, address_2 } = order.shipping
+        const re = /^\s*((#\d+)|((box|bin)[\s\-\.]?\d+)|(.*p[\s\.]?\s?(o|0)[\s\-\.]?\s*-?((box|bin)|b|(#|num)?\d+))|(p(ost)?\s*(o(ff(ice)?)?)?\s*((box|bin)|b)?\s*\d+)|(p\s*-?\/?(o)?\s*-?box)|post office box|((box|bin)|b)\s*(number|num|#)?\s*\d+|(num|number|#)\s*\d+)/gim
+        if (re.test(address_1) || re.test(address_2)) {
+          console.log(`ALERT`)
+          console.log(`Order ${order.id}`)
+          console.log(`Skipping Order`)
+          console.log(`Reason: PO Box Address\n`)
+        } else {
+          let obj = {
+            PO: order.id,
+            shipping: order.shipping,
+            samples,
+          }
+          toProcess.push(obj)
         }
-        toProcess.push(obj)
       }
     }
 
@@ -110,7 +139,7 @@ async function main() {
                     <HDR_SHIP_COUNTY/>
                     <HDR_SHIP_ZIP>${ZIP}</HDR_SHIP_ZIP>
                     <HDR_SHIP_COUNTRY>US</HDR_SHIP_COUNTRY>
-                    <HDR_SHIP_METHOD>Ground</HDR_SHIP_METHOD>
+                    <HDR_SHIP_METHOD/>
                     <HDR_SHIP_INSTRUCTIONS/>
                     <HDR_PACK_INSTRUCTIONS/>
                     <ACK_EMAIL_ADDRESS/>
@@ -147,7 +176,7 @@ async function main() {
     `
 
     writeFileSync(
-      `LADC_SAMPLES_TEST.xml`,
+      `LADC_SAMPLES_TEST-${AFTER.slice(0, 10)}.xml`,
       formatXML(xml, {
         indentation: "\t",
         lineSeparator: "\n",
