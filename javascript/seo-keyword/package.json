@@ -1,0 +1,19 @@
+{
+  "name": "seo-keyword",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "8.0.0",
+    "puppeteer-extra": "3.1.18",
+    "puppeteer-extra-plugin-stealth": "2.7.6",
+    "random-useragent": "0.5.0",
+    "user-agents": "1.0.611"
+  }
+}
