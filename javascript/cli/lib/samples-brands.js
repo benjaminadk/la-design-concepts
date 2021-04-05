@@ -366,6 +366,31 @@ module.exports = [
   {
     name: "Thibaut",
     samples: [],
-    to: { name: "Julie", email: "julie@thestudioatdrc.com" },
+    to: { name: " Julie", email: "julie@thestudioatdrc.com" },
+  },
+  {
+    name: "Anthology",
+    samples: [],
+    to: { name: "", email: "usasampling@zoffany.com" },
+  },
+  {
+    name: "Harlequin",
+    samples: [],
+    to: { name: "", email: "usasampling@zoffany.com" },
+  },
+  {
+    name: "Morris",
+    samples: [],
+    to: { name: "", email: "usasampling@zoffany.com" },
+  },
+  {
+    name: "Sanderson",
+    samples: [],
+    to: { name: "", email: "usasampling@zoffany.com" },
+  },
+  {
+    name: "Scion",
+    samples: [],
+    to: { name: "", email: "usasampling@zoffany.com" },
   },
 ]

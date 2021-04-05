@@ -315,6 +315,19 @@ async function main() {
     BRANDS.find((el) => el.name === "S. Harris")["samples"] = []
     BRANDS.find((el) => el.name === "Stroheim")["samples"] = []
 
+    // Consolidate Zoffany
+    var j1 = BRANDS.find((el) => el.name === "Anthology")["samples"]
+    var j2 = BRANDS.find((el) => el.name === "Harlequin")["samples"]
+    var j3 = BRANDS.find((el) => el.name === "Morris")["samples"]
+    var j4 = BRANDS.find((el) => el.name === "Sanderson")["samples"]
+    var j5 = BRANDS.find((el) => el.name === "Scion")["samples"]
+
+    BRANDS.find((el) => el.name === "Anthology")["samples"] = [...j1, ...j2, ...j3, ...j4, ...j5]
+    BRANDS.find((el) => el.name === "Harlequin")["samples"] = []
+    BRANDS.find((el) => el.name === "Morris")["samples"] = []
+    BRANDS.find((el) => el.name === "Sanderson")["samples"] = []
+    BRANDS.find((el) => el.name === "Scion")["samples"] = []
+
     for (let brand of BRANDS) {
       if (brand.samples.length) {
         var html = `<p>Hello${brand.to.name},</p><p>Can we please have the following samples sent to the address below?</p>`
@@ -351,7 +364,11 @@ async function main() {
             ? `000987 - Sample Request - ${order} Client - ${last_name}`
             : `Sample Request - ${order} Client - ${last_name}`
 
-        var console_brand = THOMAS_LAVIN.includes(brand.name) ? "Thomas Lavin" : brand.name
+        var console_brand = THOMAS_LAVIN.includes(brand.name)
+          ? "Thomas Lavin"
+          : brand.name === "Anthology"
+          ? "Zoffany"
+          : brand.name
 
         let message = {
           to: brand.to.email,
