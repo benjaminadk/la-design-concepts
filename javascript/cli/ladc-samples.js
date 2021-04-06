@@ -115,7 +115,7 @@ async function main() {
                 ["Osborne", "Designer", "Lorca", "Nina Campbell", "Matthew"].includes(brand.name)
               ) {
                 display_name = ""
-                display_sku = sku.slice(sku.indexOf("-") + 1).toUpperCase()
+                display_sku = sku.slice(sku.replace("ol-", "").replace("dg-", "")).toUpperCase()
               } else {
                 display_name = name
                 display_sku = sku.slice(sku.indexOf("-") + 1)
