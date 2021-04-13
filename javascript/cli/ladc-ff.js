@@ -107,7 +107,9 @@ const main = async () => {
           .replace("-36_125x18", "")
           .replace("_", "-")
       } else if (brand === "gal3") {
-        newFile = file.replace(".jpg","_room.jpg")
+        newFile = file.replace(".jpg", "_room.jpg")
+      } else if (brand === "bella1") {
+        newFile = file.replace("_detail", "")
       }
 
       const newPath = path.join(process.cwd(), newFile)

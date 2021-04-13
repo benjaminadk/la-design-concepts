@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
+    "textiles": "node ./textiles.js",
+    "lighting": "node ./lighting.js"
   },
   "keywords": [],
   "author": "benjaminadk <benjaminadk@gmail.com> (https://github.com/benjaminadk)",
   "license": "ISC",
   "dependencies": {
     "@woocommerce/woocommerce-rest-api": "1.0.1",
+    "dotenv": "^8.2.0",
     "parse-link-header": "^1.0.1",
     "sitemap-crawler": "1.0.0"
   }

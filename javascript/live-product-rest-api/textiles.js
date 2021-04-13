@@ -1,3 +1,4 @@
+require("dotenv").config()
 const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default
 const parse = require("parse-link-header")
 const fs = require("fs")
@@ -10,8 +11,8 @@ writer.write(
 
 const WooCommerce = new WooCommerceRestApi({
   url,
-  consumerKey: process.env.KEY,
-  consumerSecret: process.env.SECRET,
+  consumerKey: process.env.WOOCOMMERCE_KEY,
+  consumerSecret: process.env.WOOCOMMERCE_SECRET,
   version: "wc/v3",
 })
 
@@ -21,7 +22,7 @@ async function main() {
   const res = await WooCommerce.get("products", {
     per_page: 100,
     page,
-    status: "publish"
+    status: "publish",
   })
 
   var parsed = parse(res.headers.link)
@@ -30,7 +31,8 @@ async function main() {
     const res2 = await WooCommerce.get("products", {
       per_page: 100,
       page,
-      status: "publish"
+      status: "publish",
+      on_sale: true,
     })
 
     for (let d of res2.data) {
@@ -62,8 +64,7 @@ async function main() {
         const content = content1 ? content1.options[0] : ""
 
         const isFabric = cat.findIndex((el) => el.slug === "fabric") !== -1
-        const isWallpaper =
-          cat.findIndex((el) => el.slug === "wallpaper") !== -1
+        const isWallpaper = cat.findIndex((el) => el.slug === "wallpaper") !== -1
         const category = isFabric ? "fabric" : isWallpaper ? "wallpaper" : ""
 
         console.log(`writing ${d.name}`)
