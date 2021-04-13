@@ -12,8 +12,8 @@ const API = new WooCommerceRestApi({
 
 async function main() {
   try {
-    const writer1 = createWriteStream("sanderson-data-2.csv")
-    const writer2 = createWriteStream("sanderson-discos.csv")
+    const writer1 = createWriteStream("pinterest.csv")
+    const writer2 = createWriteStream("pinterest-discos.csv")
     writer1.write(`sku,id,sale_price,regular_price\n`)
     writer2.write(`sku,post_status\n`)
 

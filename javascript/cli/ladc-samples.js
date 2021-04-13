@@ -97,8 +97,13 @@ async function main() {
 
               if (brand.name === "Galbraith") {
                 let x = sku.slice(sku.indexOf("-") + 1)
-                display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
-                display_sku = ""
+                if (Number(x) > 245) {
+                  display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
+                  display_sku = ""
+                } else {
+                  display_name = false
+                  display_sku = ""
+                }
               } else if (brand.name === "Robert Allen" || brand.name === "Christopher Farr") {
                 display_name = name
                 display_sku = ""
@@ -121,7 +126,12 @@ async function main() {
                 display_sku = sku.slice(sku.indexOf("-") + 1)
               }
 
-              brand.samples.push(`${display_name} ${display_sku}`)
+              if (
+                display_name ||
+                ["Osborne", "Designer", "Lorca", "Nina Campbell", "Matthew"].includes(brand.name)
+              ) {
+                brand.samples.push(`${display_name} ${display_sku}`)
+              }
             }
           }
         }
