@@ -97,13 +97,8 @@ async function main() {
 
               if (brand.name === "Galbraith") {
                 let x = sku.slice(sku.indexOf("-") + 1)
-                if (Number(x) > 245) {
-                  display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
-                  display_sku = ""
-                } else {
-                  display_name = false
-                  display_sku = ""
-                }
+                display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
+                display_sku = ""
               } else if (brand.name === "Robert Allen" || brand.name === "Christopher Farr") {
                 display_name = name
                 display_sku = ""
@@ -126,12 +121,7 @@ async function main() {
                 display_sku = sku.slice(sku.indexOf("-") + 1)
               }
 
-              if (
-                display_name ||
-                ["Osborne", "Designer", "Lorca", "Nina Campbell", "Matthew"].includes(brand.name)
-              ) {
-                brand.samples.push(`${display_name} ${display_sku}`)
-              }
+              brand.samples.push(`${display_name} ${display_sku}`)
             }
           }
         }
@@ -337,6 +327,19 @@ async function main() {
     BRANDS.find((el) => el.name === "Morris")["samples"] = []
     BRANDS.find((el) => el.name === "Sanderson")["samples"] = []
     BRANDS.find((el) => el.name === "Scion")["samples"] = []
+
+    var galbraithSamples = BRANDS.find((el) => el.name === "Galbraith")["samples"]
+    var galbraithFabricMessage = false
+
+    if (galbraithSamples.length) {
+      let galbraithFabrics = galbraithSamples.filter((sample) => sample.includes("Fabric"))
+      if (galbraithFabrics.length > 5) {
+        galbraithFabricMessage = true
+        BRANDS.find((el) => el.name === "Galbraith")[
+          "samples"
+        ] = galbraithSamples.filter((sample) => sample.includes("Wallpaper"))
+      }
+    }
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
