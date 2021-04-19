@@ -1,7 +1,7 @@
 {
   "name": "kravet-edi",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creates XML file for EDI purcahse orders",
   "main": "index.js",
   "scripts": {
     "start": "node ."

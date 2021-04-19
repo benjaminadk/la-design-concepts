@@ -13,9 +13,9 @@ const WooCommerce = new WooCommerceRestApi({
 })
 
 // Define constants
-const BEFORE = "2021-04-02T00:00:00.000Z"
-const AFTER = "2021-04-01T00:00:00.000Z"
-const KRAVET_ACCOUNT_NUMBER = "4077815"
+const BEFORE = process.env.BEFORE
+const AFTER = process.env.AFTER
+const KRAVET_ACCOUNT_NUMBER = process.env.KRAVET_ACCOUNT_NUMBER
 const TODAYS_DATE = getShortDate()
 const CONTACT_NAME = "CHRIS"
 const CONTACT_PHONE = "15624395626"
