@@ -64,7 +64,7 @@ PROMPT_DIRTRIM=2
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 if [ "$color_prompt" = yes ]; then
-	PS1='${debian_chroot:+($debian_chroot)}\[\e[35m\]\u\[\e[m\]\[\e[34m\]\w\[\e[m\]\[\e[33m\]$(__git_ps1 " (%s)")\[\e[m\] $ '
+	PS1='${debian_chroot:+($debian_chroot)}\[\e[35m\]Ben@LADesignConcepts\[\e[m\]\[\e[36m\]\w\[\e[m\]\[\e[33m\]$(__git_ps1 " (%s)")\[\e[m\] $ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi

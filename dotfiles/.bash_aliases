@@ -23,6 +23,15 @@ alias env="printenv" # print environment vars
 alias bashrc="vim ~/.bashrc" # open .bashrc
 alias bashal="vim ~/.bash_aliases" # open .bash_alias
 alias rmnm="rm -rf ./node_modules"
+alias sshla="ssh root@192.241.239.223"
+alias sshladb="ssh root@192.241.196.148"
+alias sshladev="ssh root@159.65.108.255"
+alias sshladev3="ssh root@198.199.113.6"
+alias sshwp="ssh ben@178.128.183.170"
+alias sshbvg="ssh ben@159.65.64.237"
+alias sshlap="ssh root@144.126.208.127"
+alias pub="cd /sites/ladesignconcepts.com/public/"
+alias flush="wp cache flush --allow-root"
 
 # print PATH
 function path(){
@@ -45,14 +54,6 @@ function bats(){
 
 function pjs() {
     node -pe "require('./package.json').scripts" 
-}
-
-function psod() {
-   psql -d offerdown -f ~/offerdown
-}
-
-function psode() {
-   vim ~/offerdown
 }
 
 function lowercase() {

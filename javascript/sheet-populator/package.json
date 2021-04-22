@@ -1,0 +1,19 @@
+{
+  "name": "sheet-populator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/local-auth": "^1.0.1",
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "googleapis": "^72.0.0"
+  }
+}

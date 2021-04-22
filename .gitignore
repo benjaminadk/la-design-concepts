@@ -14,3 +14,5 @@ rename
 *.csv
 *.xml
 data.json
+auth.json
+token.json
