@@ -24,6 +24,7 @@ program
   .option('-u, --user <name>', 'Name of salesperson sending emails', 'chris')
   .option('-k, --klaviyo', 'Skip Klaviyo Flow', false)
   .option('-e, --email', 'Skip emails', false)
+  .option('-s, --schumacher', 'Skip Schumacher', false)
   .option('-t, --test', 'Enable test mode', false)
 
   .parse(process.argv)
@@ -39,7 +40,14 @@ const THOMAS_LAVIN = [
 ]
 
 async function main() {
-  const { order, user, klaviyo: skipKlaviyo, email: skipEmail, test } = program
+  const {
+    order,
+    user,
+    klaviyo: skipKlaviyo,
+    email: skipEmail,
+    schumacher: skipSchumacher,
+    test,
+  } = program
 
   if (!order) {
     return console.error(
@@ -143,7 +151,11 @@ async function main() {
                 display_sku = sku.slice(sku.indexOf('-') + 1)
               }
 
-              brand.samples.push(`${display_name} ${display_sku}`)
+              if (brand.name === 'Schumacher' && skipSchumacher) {
+                // Do nothing
+              } else {
+                brand.samples.push(`${display_name} ${display_sku}`)
+              }
             }
           }
         }
