@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "textiles": "node ./textiles.js",
-    "lighting": "node ./lighting.js"
+    "lighting": "node ./lighting.js",
+    "furniture": "node ./furniture.js"
   },
   "keywords": [],
   "author": "benjaminadk <benjaminadk@gmail.com> (https://github.com/benjaminadk)",
