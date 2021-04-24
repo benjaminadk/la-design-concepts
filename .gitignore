@@ -16,3 +16,4 @@ rename
 data.json
 auth.json
 token.json
+*.log
