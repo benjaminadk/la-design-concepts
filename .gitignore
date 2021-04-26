@@ -17,3 +17,5 @@ data.json
 auth.json
 token.json
 *.log
+*.zip
+kravet-images

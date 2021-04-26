@@ -18,7 +18,7 @@ const Live = new WooCommerceRestApi({
 
 async function main() {
   try {
-    const res = await Dev.get(`orders/803442 `)
+    const res = await Live.get(`orders/1057900`)
     console.log(JSON.stringify(res.data, null, 4))
   } catch (error) {
     console.log(error)
