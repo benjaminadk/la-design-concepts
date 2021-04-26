@@ -16,6 +16,7 @@ module.exports = async (auth) => {
     const spreadsheetId = process.env.GOOGLE_SHEET_ID
     const timestamp = `[${moment().format('M/D/YYYY hh:mm A')}]`
     const month = moment().format('MMMM')
+    const totalColumns = 12
     const sheets = google.sheets({ version: 'v4', auth })
 
     // Async versions of Sheet methods
@@ -30,7 +31,7 @@ module.exports = async (auth) => {
     // Fetch current sheet
     const res1 = await getSheet({
       spreadsheetId,
-      range: `${month}!A2:A1000`,
+      range: `${month}!C2:C1000`,
     })
 
     const rows = res1.data.values
@@ -75,6 +76,7 @@ module.exports = async (auth) => {
           const res4 = await API.get(`products/${item.product_id}`)
 
           var brandName
+          var isDianne
 
           // If no brand attribute is set item is custom
           try {
@@ -90,6 +92,11 @@ module.exports = async (auth) => {
               brandName = item.meta_data[0]['display_key'].replace(
                 '&amp;',
                 'and'
+              )
+              isDianne = item.meta_data.find(
+                (el) =>
+                  el.value.toLowerCase().includes('(dl)') ||
+                  el.value.toLowerCase().includes('dianne@')
               )
             } catch (error) {
               // If anything goes wrong skip
@@ -111,9 +118,12 @@ module.exports = async (auth) => {
       // Format date and time with moment
       if (keep) {
         toProcess.push([
-          `=hyperlink("https://ladesignconcepts.com/wp-admin/post.php?post=${order.id}&action=edit","${order.id}")`,
           moment(order.date_created).format('M/D/YYYY'),
           moment(order.date_created).format('hh:mm A'),
+          `=hyperlink("https://ladesignconcepts.com/wp-admin/post.php?post=${order.id}&action=edit","${order.id}")`,
+          order?.shipping?.last_name ||
+            order?.billing?.last_name ||
+            order?.shipping?.company,
           brand,
           order.total,
         ])
@@ -124,7 +134,7 @@ module.exports = async (auth) => {
       // Add new rows to bottom of sheet
       const res5 = await updateSheet({
         spreadsheetId,
-        range: `${month}!A${rowIndex}:E1000`,
+        range: `${month}!A${rowIndex}:F1000`,
         valueInputOption: 'USER_ENTERED',
         resource: { values: toProcess },
       })
@@ -141,14 +151,15 @@ module.exports = async (auth) => {
                   startRowIndex: 1,
                   endRowIndex: 1000,
                   startColumnIndex: 0,
-                  endColumnIndex: 6,
+                  endColumnIndex: totalColumns,
                 },
                 sortSpecs: [
                   {
                     sortOrder: 'DESCENDING',
-                    dataSourceColumnReference: {
-                      name: 'Order Number',
-                    },
+                    dimensionIndex: 2,
+                    // dataSourceColumnReference: {
+                    //   name: 'Order',
+                    // },
                   },
                 ],
               },
@@ -161,14 +172,14 @@ module.exports = async (auth) => {
                   endRowIndex:
                     (rows ? rows.length : 0) + res5.data.updatedRows + 1,
                   startColumnIndex: 0,
-                  endColumnIndex: 7,
+                  endColumnIndex: totalColumns,
                 },
                 comparisonColumns: [
                   {
                     sheetId: 0,
                     dimension: 'COLUMNS',
                     startIndex: 0,
-                    endIndex: 7,
+                    endIndex: totalColumns,
                   },
                 ],
               },

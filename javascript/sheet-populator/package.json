@@ -4,7 +4,8 @@
   "description": "Logs WooCommerce orders to a Google Sheet",
   "main": "index.js",
   "scripts": {
-    "start": "node . >> app.log 2>&1"
+    "start": "node . >> app.log 2>&1",
+    "once": "node ./once"
   },
   "author": {
     "name": "benjaminadk"
