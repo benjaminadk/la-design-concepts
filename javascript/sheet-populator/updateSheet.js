@@ -120,64 +120,68 @@ module.exports = async (auth) => {
       }
     }
 
-    // Add new rows to bottom of sheet
-    const res5 = await updateSheet({
-      spreadsheetId,
-      range: `${month}!A${rowIndex}:E1000`,
-      valueInputOption: 'USER_ENTERED',
-      resource: { values: toProcess },
-    })
+    if (toProcess.length) {
+      // Add new rows to bottom of sheet
+      const res5 = await updateSheet({
+        spreadsheetId,
+        range: `${month}!A${rowIndex}:E1000`,
+        valueInputOption: 'USER_ENTERED',
+        resource: { values: toProcess },
+      })
 
-    // Sort sheet by order number and delete any duplicate order ids
-    const res6 = await batchUpdateSheet({
-      spreadsheetId,
-      resource: {
-        requests: [
-          {
-            sortRange: {
-              range: {
-                sheetId: 0,
-                startRowIndex: 1,
-                endRowIndex: 1000,
-                startColumnIndex: 0,
-                endColumnIndex: 6,
-              },
-              sortSpecs: [
-                {
-                  sortOrder: 'DESCENDING',
-                  dataSourceColumnReference: {
-                    name: 'Order Number',
-                  },
-                },
-              ],
-            },
-          },
-          {
-            deleteDuplicates: {
-              range: {
-                sheetId: 0,
-                startRowIndex: 1,
-                endRowIndex:
-                  (rows ? rows.length : 0) + res5.data.updatedRows + 1,
-                startColumnIndex: 0,
-                endColumnIndex: 7,
-              },
-              comparisonColumns: [
-                {
+      // Sort sheet by order number and delete any duplicate order ids
+      const res6 = await batchUpdateSheet({
+        spreadsheetId,
+        resource: {
+          requests: [
+            {
+              sortRange: {
+                range: {
                   sheetId: 0,
-                  dimension: 'COLUMNS',
-                  startIndex: 0,
-                  endIndex: 7,
+                  startRowIndex: 1,
+                  endRowIndex: 1000,
+                  startColumnIndex: 0,
+                  endColumnIndex: 6,
                 },
-              ],
+                sortSpecs: [
+                  {
+                    sortOrder: 'DESCENDING',
+                    dataSourceColumnReference: {
+                      name: 'Order Number',
+                    },
+                  },
+                ],
+              },
             },
-          },
-        ],
-      },
-    })
+            {
+              deleteDuplicates: {
+                range: {
+                  sheetId: 0,
+                  startRowIndex: 1,
+                  endRowIndex:
+                    (rows ? rows.length : 0) + res5.data.updatedRows + 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 7,
+                },
+                comparisonColumns: [
+                  {
+                    sheetId: 0,
+                    dimension: 'COLUMNS',
+                    startIndex: 0,
+                    endIndex: 7,
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      })
 
-    // Logging
-    console.log(`${timestamp} added ${res5.data.updatedRows} rows.`)
+      // Logging
+      console.log(`${timestamp} added ${res5.data.updatedRows} rows.`)
+    } else {
+      console.log(`${timestamp} added 0 rows.`)
+    }
   } catch (error) {
     console.log('========Error=========')
     console.log(error)

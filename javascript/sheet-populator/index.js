@@ -61,4 +61,4 @@ async function getNewToken(oAuth2Client, callback) {
   })
 }
 
-main()
+setInterval(main, 5 * 60 * 1000)
