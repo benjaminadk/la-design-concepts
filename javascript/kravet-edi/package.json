@@ -4,13 +4,15 @@
   "description": "Creates XML file for EDI purcahse orders",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "samples": "node ./samples"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
     "xml-formatter": "^2.4.0"
   }
 }

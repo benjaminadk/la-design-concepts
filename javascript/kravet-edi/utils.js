@@ -1,17 +1,17 @@
 function getShortDate() {
   let monthNames = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
   ]
 
   let today = new Date(Date.now())
@@ -25,22 +25,32 @@ function getShortDate() {
   return `${day}-${monthName}-${year}`
 }
 
+function getUnit(raw) {
+  if (raw.includes('ROLL')) {
+    return 'RL'
+  } else if (raw.includes('YARD')) {
+    return 'YD'
+  } else {
+    return 'EA'
+  }
+}
+
 const BRANDS = [
-  "Andrew Martin",
-  "Baker Lifestyle",
-  "Brunschwig",
-  "Clarke",
-  "Cole",
-  "Gaston",
-  "GP",
-  "Groundworks",
-  "Kravet",
-  "Laura Ashley",
-  "Lee Jofa",
-  "Mulberry",
-  "Parkertex",
-  "Threads",
-  "Winfield",
+  'Andrew Martin',
+  'Baker Lifestyle',
+  'Brunschwig',
+  'Clarke',
+  'Cole',
+  'Gaston',
+  'GP',
+  'Groundworks',
+  'Kravet',
+  'Laura Ashley',
+  'Lee Jofa',
+  'Mulberry',
+  'Parkertex',
+  'Threads',
+  'Winfield',
 ]
 
-module.exports = { getShortDate, BRANDS }
+module.exports = { getShortDate, getUnit, BRANDS }
