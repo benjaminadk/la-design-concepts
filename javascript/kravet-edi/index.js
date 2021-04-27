@@ -1,5 +1,6 @@
 require('dotenv').config()
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default
+const moment = require('moment')
 const formatXML = require('xml-formatter')
 const { writeFileSync, createWriteStream } = require('fs')
 const { getShortDate, getUnit, BRANDS } = require('./utils')
@@ -62,7 +63,7 @@ async function main() {
 
             products.push({
               sku: item.sku,
-              quanity: item.quanity,
+              quantity: item.quantity,
               number,
               unit,
             })
@@ -150,7 +151,7 @@ async function main() {
                                     <PO_LINE_NUMBER>${i + 1}</PO_LINE_NUMBER>
                                     <ORDERED_ITEM>${
                                       product.number
-                                    }.M</ORDERED_ITEM>
+                                    }.0</ORDERED_ITEM>
                                     <ORDER_QUANTITY_UOM>${
                                       product.unit
                                     }</ORDER_QUANTITY_UOM>
