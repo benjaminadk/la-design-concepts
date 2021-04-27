@@ -1,15 +1,17 @@
-require("dotenv").config()
-const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default
-const formatXML = require("xml-formatter")
-const { writeFileSync } = require("fs")
-const { getShortDate, BRANDS } = require("./utils")
+require('dotenv').config()
+const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default
+const formatXML = require('xml-formatter')
+const { writeFileSync, createWriteStream } = require('fs')
+const { getShortDate, BRANDS } = require('./utils')
+
+const writer = createWriteStream(`./orders/sample/ORDER_ISSUES.log`)
 
 // Establish WooCommerce REST API connection
 const WooCommerce = new WooCommerceRestApi({
-  url: "https://ladesignconcepts.com",
+  url: 'https://ladesignconcepts.com',
   consumerKey: process.env.WOOCOMMERCE_KEY,
   consumerSecret: process.env.WOOCOMMERCE_SECRET,
-  version: "wc/v3",
+  version: 'wc/v3',
 })
 
 // Define constants
@@ -17,11 +19,8 @@ const BEFORE = process.env.BEFORE
 const AFTER = process.env.AFTER
 const KRAVET_ACCOUNT_NUMBER = process.env.KRAVET_ACCOUNT_NUMBER
 const TODAYS_DATE = getShortDate()
-const CONTACT_NAME = "CHRIS"
-const CONTACT_PHONE = "15624395626"
-const CONTACT_EMAIL = "chris@ladesignconcepts.com"
-const CC_CARD_TYPE = ""
-const CC_LAST_FOUR = ""
+const CONTACT_NAME = 'CHRIS'
+const CONTACT_PHONE = '15624395626'
 
 async function main() {
   try {
@@ -39,17 +38,17 @@ async function main() {
       let samples = []
 
       // Don't process failed of cancelled orders
-      if (!["failed", "cancelled"].includes(order.status)) {
+      if (!['failed', 'cancelled'].includes(order.status)) {
         // Loop over line items
         for (let item of order.line_items) {
           // Only process samples that are formatted correctly
           if (
-            item.name === "Sample" &&
-            item.meta_data[0].hasOwnProperty("key") &&
-            item.meta_data[0]["key"] === "Name"
+            item.name === 'Sample' &&
+            item.meta_data[0].hasOwnProperty('key') &&
+            item.meta_data[0]['key'] === 'Name'
           ) {
-            let name = item.meta_data.find((el) => el.key === "Name")["value"]
-            let sku = item.meta_data.find((el) => el.key === "SKU")["value"]
+            let name = item.meta_data.find((el) => el.key === 'Name')['value']
+            let sku = item.meta_data.find((el) => el.key === 'SKU')['value']
 
             // Match sample to one of Kravet's brands
             for (let brand of BRANDS) {
@@ -60,16 +59,15 @@ async function main() {
 
                 if (res2.data.length) {
                   let pn_attr = res2.data[0].attributes.find(
-                    (attribute) => attribute.name === "pattern_number"
+                    (attribute) => attribute.name === 'pattern_number'
                   )
-                  let number = pn_attr ? pn_attr["options"][0].toUpperCase() : ""
+                  let number = pn_attr
+                    ? pn_attr['options'][0].toUpperCase()
+                    : ''
                   samples.push({ name, sku, number })
                   break
                 } else {
-                  console.log(`ALERT`)
-                  console.log(`Order ${order.id}`)
-                  console.log(`Skipping Sample ${sku}`)
-                  console.log(`Reason: Discontinued\n`)
+                  writer.write(`${order.id} - cannot find ${item.sku}\n`)
                 }
               }
             }
@@ -80,9 +78,8 @@ async function main() {
       // Check for missing pattern numbers
       let errors = samples.filter((sample) => !sample.number)
       if (errors.length > 0) {
-        console.log(`Issues Detected for order ${order.id}`)
         for (let e of errors) {
-          console.log(`Missing pattern number on product with SKU ${e.sku}`)
+          writer.write(`${order.id} - no pattern number for ${e.sku}\n`)
         }
       }
 
@@ -91,10 +88,7 @@ async function main() {
         const { address_1, address_2 } = order.shipping
         const re = /^\s*((#\d+)|((box|bin)[\s\-\.]?\d+)|(.*p[\s\.]?\s?(o|0)[\s\-\.]?\s*-?((box|bin)|b|(#|num)?\d+))|(p(ost)?\s*(o(ff(ice)?)?)?\s*((box|bin)|b)?\s*\d+)|(p\s*-?\/?(o)?\s*-?box)|post office box|((box|bin)|b)\s*(number|num|#)?\s*\d+|(num|number|#)\s*\d+)/gim
         if (re.test(address_1) || re.test(address_2)) {
-          console.log(`ALERT`)
-          console.log(`Order ${order.id}`)
-          console.log(`Skipping Order`)
-          console.log(`Reason: PO Box Address\n`)
+          writer.write(`${order.id} - P.O. Box not allowed\n`)
         } else {
           let obj = {
             PO: order.id,
@@ -121,8 +115,14 @@ async function main() {
               state,
               postcode,
             } = tp.shipping
-            const ADDRESS_1 = (first_name ? first_name + " " + last_name : company).toUpperCase()
-            const ADDRESS_2 = (address_2 ? address_1 + " " + address_2 : address_1).toUpperCase()
+            const ADDRESS_1 = (first_name
+              ? first_name + ' ' + last_name
+              : company
+            ).toUpperCase()
+            const ADDRESS_2 = (address_2
+              ? address_1 + ' ' + address_2
+              : address_1
+            ).toUpperCase()
             const CITY = city.toUpperCase()
             const STATE = state.toUpperCase()
             const ZIP = postcode
@@ -149,9 +149,13 @@ async function main() {
                       ${tp.samples
                         .map((sample, i) => {
                           return `<G_LINES>
-                                    <LINE_CUSTOMER_PO>${tp.PO}</LINE_CUSTOMER_PO>
+                                    <LINE_CUSTOMER_PO>${
+                                      tp.PO
+                                    }</LINE_CUSTOMER_PO>
                                     <PO_LINE_NUMBER>${i + 1}</PO_LINE_NUMBER>
-                                    <ORDERED_ITEM>${sample.number}.M</ORDERED_ITEM>
+                                    <ORDERED_ITEM>${
+                                      sample.number
+                                    }.M</ORDERED_ITEM>
                                     <ORDER_QUANTITY_UOM>EA</ORDER_QUANTITY_UOM>
                                     <ORDERED_QUANTITY>1</ORDERED_QUANTITY>
                                     <LINE_SHIP_ADDRESS1/>
@@ -166,20 +170,20 @@ async function main() {
                                     <LINE_PACK_INSTRUCTIONS/>                          
                                 </G_LINES>`
                         })
-                        .join("")}
+                        .join('')}
                     </LIST_G_LINES>
                   </G_HDR>`
           })
-          .join("")}
+          .join('')}
       </LIST_G_HDR>
     </KFI_ORDER_LINE_XML>
     `
 
     writeFileSync(
-      `LADC_SAMPLES_TEST-${AFTER.slice(0, 10)}.xml`,
+      `./orders/sample/LADC_SAMPLES_TEST-${AFTER.slice(0, 10)}.xml`,
       formatXML(xml, {
-        indentation: "\t",
-        lineSeparator: "\n",
+        indentation: '\t',
+        lineSeparator: '\n',
         collapseContent: true,
         whiteSpaceAtEndOfSelfclosingTag: false,
         stripComments: true,

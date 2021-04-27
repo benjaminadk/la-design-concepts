@@ -11,8 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "moment": "^2.29.1",
-    "xml-formatter": "^2.4.0"
+    "qs": "^6.10.1",
+    "xml-formatter": "^2.4.0",
+    "xml2js": "^0.4.23"
   }
 }

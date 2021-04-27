@@ -7,7 +7,7 @@ const { promisify } = require('util')
 const parseXML = promisify(parseString)
 const URL = 'http://www.e-designtrade.com/api/stock_check.asp'
 
-async function main(pattern, color, identifier = '0', quantity = 1) {
+async function main(pattern = '', color = '', identifier = '0', quantity = 1) {
   try {
     const query = qs.stringify({
       user: process.env.USER,
@@ -23,12 +23,26 @@ async function main(pattern, color, identifier = '0', quantity = 1) {
       url: `${URL}?${query}`,
     })
 
-    const raw = await parseXML(res.data)
+    const {
+      DATA: { TRANSATION_STATUS, INVENTORY_STATUS, ITEM_STATUS, IN_PRODUCTION },
+    } = await parseXML(res.data)
 
-    console.log(raw)
+    const payload = {
+      status:
+        INVENTORY_STATUS[0] === 'Y'
+          ? 'In Stock'
+          : INVENTORY_STATUS[0] === 'N'
+          ? 'Out of Stock'
+          : 'Multiple Pieces',
+      display: ITEM_STATUS[0],
+      productionQuantity: IN_PRODUCTION[0].PRODUCTION_QUANTITY[0],
+      deliveryDate: IN_PRODUCTION[0].DELIVERY_DATE[0],
+    }
+
+    console.log(payload)
   } catch (error) {
     console.log(error)
   }
 }
 
-main('2011102', '53')
+main()

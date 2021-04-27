@@ -3,12 +3,10 @@ const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default
 const moment = require('moment')
 const formatXML = require('xml-formatter')
 const { writeFileSync, createWriteStream } = require('fs')
-const { getShortDate, getUnit, BRANDS } = require('./utils')
+const { getShortDate, getUnit } = require('./utils')
 const ORDERS = require('./ORDERS')
 
-const writer = createWriteStream(
-  `ORDER_ISSUES-${moment().format('YYYY-MM-DD')}.log`
-)
+const writer = createWriteStream(`./orders/regular/ORDER_ISSUES.log`)
 
 // Establish WooCommerce REST API connection
 const WooCommerce = new WooCommerceRestApi({
@@ -68,7 +66,7 @@ async function main() {
               unit,
             })
           } else {
-            write.write(`${order.id} - Cannot find ${item.sku}\n`)
+            writer.write(`${order.id} - cannot find ${item.sku}\n`)
           }
         }
       }
@@ -76,7 +74,9 @@ async function main() {
       // Check for missing pattern numbers
       let errors = products.filter((sample) => !sample.number)
       if (errors.length > 0) {
-        console.log(`Issues Detected for order ${order.id}`)
+        for (let e of errors) {
+          writer.write(`${order.id} - no pattern number for ${e.sku}\n`)
+        }
       }
 
       // Combine products with order number and shipping info
@@ -84,7 +84,7 @@ async function main() {
         const { address_1, address_2 } = order.shipping
         const re = /^\s*((#\d+)|((box|bin)[\s\-\.]?\d+)|(.*p[\s\.]?\s?(o|0)[\s\-\.]?\s*-?((box|bin)|b|(#|num)?\d+))|(p(ost)?\s*(o(ff(ice)?)?)?\s*((box|bin)|b)?\s*\d+)|(p\s*-?\/?(o)?\s*-?box)|post office box|((box|bin)|b)\s*(number|num|#)?\s*\d+|(num|number|#)\s*\d+)/gim
         if (re.test(address_1) || re.test(address_2)) {
-          write.write(`${order.id} - Address us P.O. BOX\n`)
+          writer.write(`${order.id} - P.O. Box not allowed\n`)
         } else {
           let obj = {
             PO: order.id,
@@ -180,7 +180,7 @@ async function main() {
     `
 
     writeFileSync(
-      `LADC_TEST-${moment().format('YYYY-MM-DD')}.xml`,
+      `./orders/regular/LADC_TEST-${moment().format('YYYY-MM-DD')}.xml`,
       formatXML(xml, {
         indentation: '\t',
         lineSeparator: '\n',
