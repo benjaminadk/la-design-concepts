@@ -41,8 +41,8 @@ async function main(pattern = '', color = '', identifier = '0', quantity = 1) {
 
     console.log(payload)
   } catch (error) {
-    console.log(error)
+    console.log('Discontinued')
   }
 }
 
-main()
+main('P8020110', '111')

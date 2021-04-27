@@ -16,7 +16,7 @@ module.exports = async (auth) => {
     const spreadsheetId = process.env.GOOGLE_SHEET_ID
     const timestamp = `[${moment().format('M/D/YYYY hh:mm A')}]`
     const month = moment().format('MMMM')
-    const totalColumns = 13
+    const totalColumns = 14
     const sheets = google.sheets({ version: 'v4', auth })
 
     // Async versions of Sheet methods
@@ -63,7 +63,7 @@ module.exports = async (auth) => {
     for (let order of res3.data) {
       let line_items = order.line_items
       let keep = false
-      let brand = ''
+      let item_data = []
       let custom = false
 
       // Loop over line items
@@ -76,13 +76,18 @@ module.exports = async (auth) => {
           const res4 = await API.get(`products/${item.product_id}`)
 
           var brandName
-          var isDianne
+          var cfa
 
           // If no brand attribute is set item is custom
           try {
             brandName = res4.data.attributes
               .find((el) => el.name === 'brand')
               ['options'][0].replace('&amp;', 'and')
+
+            let cfaObj = item.meta_data.find(
+              (el) => el.key === 'Cutting for Approval (CFA)'
+            )
+            cfa = cfaObj && cfaObj.value === 'Yes' ? 'Yes' : ''
           } catch (error) {
             custom = true
 
@@ -92,11 +97,6 @@ module.exports = async (auth) => {
               brandName = item.meta_data[0]['display_key'].replace(
                 '&amp;',
                 'and'
-              )
-              isDianne = item.meta_data.find(
-                (el) =>
-                  el.value.toLowerCase().includes('(dl)') ||
-                  el.value.toLowerCase().includes('dianne@')
               )
             } catch (error) {
               // If anything goes wrong skip
@@ -109,7 +109,10 @@ module.exports = async (auth) => {
           }
 
           // Allow multiple brands when custom orders multiple products
-          brand += brand.length ? `, ${brandName}` : brandName
+          item_data.push({
+            cfa,
+            brand: brandName,
+          })
         }
       }
 
@@ -117,16 +120,18 @@ module.exports = async (auth) => {
       // Use order id to create hyperlink to WP Dashboard
       // Format date and time with moment
       if (keep) {
-        toProcess.push([
-          moment(order.date_created).format('M/D/YYYY'),
-          moment(order.date_created).format('hh:mm A'),
-          `=hyperlink("https://ladesignconcepts.com/wp-admin/post.php?post=${order.id}&action=edit","${order.id}")`,
-          order?.shipping?.last_name ||
-            order?.billing?.last_name ||
-            order?.shipping?.company,
-          brand,
-          order.total,
-        ])
+        for (let item in item_data) {
+          toProcess.push([
+            moment(order.date_created).format('M/D/YYYY'),
+            moment(order.date_created).format('hh:mm A'),
+            `=hyperlink("https://ladesignconcepts.com/wp-admin/post.php?post=${order.id}&action=edit","${order.id}")`,
+            order?.shipping?.last_name ||
+              order?.billing?.last_name ||
+              order?.shipping?.company,
+            item.brand,
+            order.total,
+          ])
+        }
       }
     }
 
