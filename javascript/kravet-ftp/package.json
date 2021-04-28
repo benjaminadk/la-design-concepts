@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./downloadZip.js"
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^8.2.0",
     "ftp": "^0.3.10",
     "ftp-client": "^0.2.2",
+    "googleapis": "^72.0.0",
     "moment": "^2.29.1",
     "unzipper": "^0.10.11"
   }
