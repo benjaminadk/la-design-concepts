@@ -3,8 +3,7 @@ const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default
 const formatXML = require('xml-formatter')
 const { writeFileSync, createWriteStream } = require('fs')
 const { getShortDate, BRANDS } = require('./utils')
-
-const writer = createWriteStream(`./orders/sample/ORDER_ISSUES.log`)
+const { getData } = require('./getData')
 
 // Establish WooCommerce REST API connection
 const WooCommerce = new WooCommerceRestApi({
@@ -24,6 +23,9 @@ const CONTACT_PHONE = '15624395626'
 
 async function main() {
   try {
+    // Fetch Kravet data from FTP
+    const PRODUCTS = await getData()
+
     // Fetch orders for a given time period
     const res1 = await WooCommerce.get(`orders`, {
       per_page: 100,
@@ -32,6 +34,7 @@ async function main() {
     })
 
     const toProcess = []
+    const notAvailable = []
 
     // Loop over orders
     for (let order of res1.data) {
@@ -61,25 +64,57 @@ async function main() {
                   let pn_attr = res2.data[0].attributes.find(
                     (attribute) => attribute.name === 'pattern_number'
                   )
-                  let number = pn_attr
+                  let number1 = pn_attr
                     ? pn_attr['options'][0].toUpperCase()
                     : ''
-                  samples.push({ name, sku, number })
-                  break
+                  let number2 = number1 ? number1 + '.0' : ''
+
+                  if (number2) {
+                    let product = PRODUCTS.find((el) => el['Item'] === number2)
+
+                    if (product) {
+                      let memoAvailable = product['Memo Sample Available']
+                      if (memoAvailable.trim().toUpperCase() === 'YES') {
+                        samples.push({ name, sku, number: number1 })
+                        break
+                      } else {
+                        notAvailable.push({
+                          order: order.id,
+                          name,
+                          sku,
+                          reason: 'Sample Not Available',
+                        })
+                        break
+                      }
+                    } else {
+                      notAvailable.push({
+                        order: order.id,
+                        name,
+                        sku,
+                        reason: 'Discontinued',
+                      })
+                      break
+                    }
+                  } else {
+                    notAvailable.push({
+                      order: order.id,
+                      name,
+                      sku,
+                      reason: 'No Pattern Number',
+                    })
+                    break
+                  }
                 } else {
-                  writer.write(`${order.id} - cannot find ${item.sku}\n`)
+                  notAvailable.push({
+                    order: order.id,
+                    name,
+                    sku,
+                    reason: 'SKU Not Found',
+                  })
                 }
               }
             }
           }
-        }
-      }
-
-      // Check for missing pattern numbers
-      let errors = samples.filter((sample) => !sample.number)
-      if (errors.length > 0) {
-        for (let e of errors) {
-          writer.write(`${order.id} - no pattern number for ${e.sku}\n`)
         }
       }
 
@@ -88,7 +123,12 @@ async function main() {
         const { address_1, address_2 } = order.shipping
         const re = /^\s*((#\d+)|((box|bin)[\s\-\.]?\d+)|(.*p[\s\.]?\s?(o|0)[\s\-\.]?\s*-?((box|bin)|b|(#|num)?\d+))|(p(ost)?\s*(o(ff(ice)?)?)?\s*((box|bin)|b)?\s*\d+)|(p\s*-?\/?(o)?\s*-?box)|post office box|((box|bin)|b)\s*(number|num|#)?\s*\d+|(num|number|#)\s*\d+)/gim
         if (re.test(address_1) || re.test(address_2)) {
-          writer.write(`${order.id} - P.O. Box not allowed\n`)
+          notAvailable.push({
+            order: order.id,
+            name: '',
+            sku: '',
+            reason: 'P.O. Box Not Allowed',
+          })
         } else {
           let obj = {
             PO: order.id,
@@ -98,6 +138,17 @@ async function main() {
           toProcess.push(obj)
         }
       }
+    }
+
+    const writer = createWriteStream(
+      `./orders/sample/LADC_SAMPLES_ISSUES-${AFTER.slice(0, 10)}.csv`
+    )
+    writer.write(`ORDER,SKU,PATTERN,REASON\n`)
+
+    for (let item of notAvailable) {
+      writer.write(
+        `"${item.order}","${item.sku}","${item.name}","${item.reason}"\n`
+      )
     }
 
     let xml = `
