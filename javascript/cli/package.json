@@ -26,7 +26,7 @@
     "jimp": "0.9.3",
     "mjml": "4.5.1",
     "node-klaviyo": "^1.0.3",
-    "nodemailer": "6.4.2",
+    "nodemailer": "6.4.16",
     "nodemailer-sendgrid-transport": "0.2.0",
     "parse-link-header": "^1.0.1",
     "puppeteer": "2.1.0",
