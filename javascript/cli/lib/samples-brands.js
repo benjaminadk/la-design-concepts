@@ -180,6 +180,11 @@ module.exports = [
     to: { name: ' Becky', email: 'bmcreynolds@scalamandre.com' },
   },
   {
+    name: 'Hinson',
+    samples: [],
+    to: { name: ' Becky', email: 'bmcreynolds@scalamandre.com' },
+  },
+  {
     name: 'Fabricut',
     samples: [],
     to: { name: '', email: 'customers@fabricut.com' },
