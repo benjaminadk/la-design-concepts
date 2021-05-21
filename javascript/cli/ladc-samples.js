@@ -50,9 +50,7 @@ async function main() {
   } = program
 
   if (!order) {
-    return console.error(
-      'Error:\nOrder number required. Use -o <order number> option'
-    )
+    return console.error('Error:\nOrder number required. Use -o <order number> option')
   }
 
   const from = {}
@@ -72,15 +70,7 @@ async function main() {
 
   try {
     const res = await WooCommerce.get(`orders/${order}`)
-    const {
-      first_name,
-      last_name,
-      address_1,
-      address_2,
-      city,
-      state,
-      postcode,
-    } = res.data.shipping
+    const { first_name, last_name, address_1, address_2, city, state, postcode } = res.data.shipping
     const items = res.data.line_items
 
     for (let item of items) {
@@ -116,14 +106,9 @@ async function main() {
 
               if (brand.name === 'Galbraith') {
                 let x = sku.slice(sku.indexOf('-') + 1)
-                display_name = `${name} ${
-                  Number(x) > 245 ? 'Wallpaper' : 'Fabric'
-                }`
+                display_name = `${name} ${Number(x) > 245 ? 'Wallpaper' : 'Fabric'}`
                 display_sku = ''
-              } else if (
-                brand.name === 'Robert Allen' ||
-                brand.name === 'Christopher Farr'
-              ) {
+              } else if (brand.name === 'Robert Allen' || brand.name === 'Christopher Farr') {
                 display_name = name
                 display_sku = ''
               } else if (brand.name === 'Schumacher') {
@@ -136,13 +121,7 @@ async function main() {
                 display_name = name
                 display_sku = sku.replace('_', '/')
               } else if (
-                [
-                  'Osborne',
-                  'Designer',
-                  'Lorca',
-                  'Nina Campbell',
-                  'Matthew',
-                ].includes(brand.name)
+                ['Osborne', 'Designer', 'Lorca', 'Nina Campbell', 'Matthew'].includes(brand.name)
               ) {
                 display_name = ''
                 display_sku = sku.slice(sku.indexOf('-') + 1).toUpperCase()
@@ -177,6 +156,7 @@ async function main() {
     var a12 = BRANDS.find((el) => el.name === 'Missoni Home')['samples']
     var a13 = BRANDS.find((el) => el.name === 'Boris Kroll')['samples']
     var a14 = BRANDS.find((el) => el.name === 'Tassinari')['samples']
+    var a15 = BRANDS.find((el) => el.name === 'Hinson')['samples']
 
     BRANDS.find((el) => el.name === 'Scalamandre')['samples'] = [
       ...a1,
@@ -193,6 +173,7 @@ async function main() {
       ...a12,
       ...a13,
       ...a14,
+      ...a15,
     ]
     BRANDS.find((el) => el.name === 'Nicolette Mayer')['samples'] = []
     BRANDS.find((el) => el.name === 'Old World Weavers')['samples'] = []
@@ -207,6 +188,7 @@ async function main() {
     BRANDS.find((el) => el.name === 'Missoni Home')['samples'] = []
     BRANDS.find((el) => el.name === 'Boris Kroll')['samples'] = []
     BRANDS.find((el) => el.name === 'Tassinari')['samples'] = []
+    BRANDS.find((el) => el.name === 'Hinson')['samples'] = []
 
     // Consolidate Robert Allen, Suburban Home
     // var b1 = BRANDS.find((el) => el.name === "Robert Allen")["samples"]
@@ -323,13 +305,7 @@ async function main() {
     var g4 = BRANDS.find((el) => el.name === 'Matthew')['samples']
     var g5 = BRANDS.find((el) => el.name === 'Lorca')['samples']
 
-    BRANDS.find((el) => el.name === 'Osborne')['samples'] = [
-      ...g1,
-      ...g2,
-      ...g3,
-      ...g4,
-      ...g5,
-    ]
+    BRANDS.find((el) => el.name === 'Osborne')['samples'] = [...g1, ...g2, ...g3, ...g4, ...g5]
     BRANDS.find((el) => el.name === 'Designer')['samples'] = []
     BRANDS.find((el) => el.name === 'Nina Campbell')['samples'] = []
     BRANDS.find((el) => el.name === 'Matthew')['samples'] = []
@@ -349,13 +325,7 @@ async function main() {
     var i4 = BRANDS.find((el) => el.name === 'S. Harris')['samples']
     var i5 = BRANDS.find((el) => el.name === 'Stroheim')['samples']
 
-    BRANDS.find((el) => el.name === 'Fabricut')['samples'] = [
-      ...i1,
-      ...i2,
-      ...i3,
-      ...i4,
-      ...i5,
-    ]
+    BRANDS.find((el) => el.name === 'Fabricut')['samples'] = [...i1, ...i2, ...i3, ...i4, ...i5]
     BRANDS.find((el) => el.name === 'Trend')['samples'] = []
     BRANDS.find((el) => el.name === 'Vervain')['samples'] = []
     BRANDS.find((el) => el.name === 'S. Harris')['samples'] = []
@@ -368,32 +338,22 @@ async function main() {
     var j4 = BRANDS.find((el) => el.name === 'Sanderson')['samples']
     var j5 = BRANDS.find((el) => el.name === 'Scion')['samples']
 
-    BRANDS.find((el) => el.name === 'Anthology')['samples'] = [
-      ...j1,
-      ...j2,
-      ...j3,
-      ...j4,
-      ...j5,
-    ]
+    BRANDS.find((el) => el.name === 'Anthology')['samples'] = [...j1, ...j2, ...j3, ...j4, ...j5]
     BRANDS.find((el) => el.name === 'Harlequin')['samples'] = []
     BRANDS.find((el) => el.name === 'Morris')['samples'] = []
     BRANDS.find((el) => el.name === 'Sanderson')['samples'] = []
     BRANDS.find((el) => el.name === 'Scion')['samples'] = []
 
-    var galbraithSamples = BRANDS.find((el) => el.name === 'Galbraith')[
-      'samples'
-    ]
+    var galbraithSamples = BRANDS.find((el) => el.name === 'Galbraith')['samples']
     var galbraithFabricMessage = false
 
     if (galbraithSamples.length) {
-      let galbraithFabrics = galbraithSamples.filter((sample) =>
-        sample.includes('Fabric')
-      )
+      let galbraithFabrics = galbraithSamples.filter((sample) => sample.includes('Fabric'))
       if (galbraithFabrics.length > 5) {
         galbraithFabricMessage = true
-        BRANDS.find((el) => el.name === 'Galbraith')[
-          'samples'
-        ] = galbraithSamples.filter((sample) => sample.includes('Wallpaper'))
+        BRANDS.find((el) => el.name === 'Galbraith')['samples'] = galbraithSamples.filter(
+          (sample) => sample.includes('Wallpaper')
+        )
       }
     }
 
@@ -457,9 +417,7 @@ async function main() {
           console.log('Skipping Order Emails')
         } else {
           await sgMail.send(message)
-          console.log(
-            `Email sent! To: ${brand.to.email} Brand: ${console_brand}`
-          )
+          console.log(`Email sent! To: ${brand.to.email} Brand: ${console_brand}`)
         }
       }
     }
@@ -472,9 +430,7 @@ async function main() {
           event: 'Sample Order',
           email: res.data.billing.email,
         })
-        console.log(
-          `User with email: ${res.data.billing.email} added to Klaviyo Samples Flow`
-        )
+        console.log(`User with email: ${res.data.billing.email} added to Klaviyo Samples Flow`)
       } catch (error) {
         console.log('Klaviyo Error: Does this order have an email address?')
       }
