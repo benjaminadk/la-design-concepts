@@ -249,54 +249,54 @@ async function main() {
     BRANDS.find((el) => el.name === 'Templeton')['samples'] = []
 
     // Consolidate Kravet Brands
-    var f1 = BRANDS.find((el) => el.name === 'Kravet')['samples']
-    var f2 = BRANDS.find((el) => el.name === 'Brunschwig')['samples']
-    var f3 = BRANDS.find((el) => el.name === 'Lee Jofa')['samples']
-    var f4 = BRANDS.find((el) => el.name === 'GP')['samples']
-    var f5 = BRANDS.find((el) => el.name === 'Clarke')['samples']
-    var f6 = BRANDS.find((el) => el.name === 'Groundworks')['samples']
-    var f7 = BRANDS.find((el) => el.name === 'Winfield')['samples']
-    var f8 = BRANDS.find((el) => el.name === 'Andrew Martin')['samples']
-    var f9 = BRANDS.find((el) => el.name === 'Cole')['samples']
-    var f10 = BRANDS.find((el) => el.name === 'Threads')['samples']
-    var f11 = BRANDS.find((el) => el.name === 'Baker Lifestyle')['samples']
-    var f12 = BRANDS.find((el) => el.name === 'Mulberry')['samples']
-    var f13 = BRANDS.find((el) => el.name === 'Gaston')['samples']
-    var f14 = BRANDS.find((el) => el.name === 'Laura Ashley')['samples']
-    var f15 = BRANDS.find((el) => el.name === 'Parkertex')['samples']
+    // var f1 = BRANDS.find((el) => el.name === 'Kravet')['samples']
+    // var f2 = BRANDS.find((el) => el.name === 'Brunschwig')['samples']
+    // var f3 = BRANDS.find((el) => el.name === 'Lee Jofa')['samples']
+    // var f4 = BRANDS.find((el) => el.name === 'GP')['samples']
+    // var f5 = BRANDS.find((el) => el.name === 'Clarke')['samples']
+    // var f6 = BRANDS.find((el) => el.name === 'Groundworks')['samples']
+    // var f7 = BRANDS.find((el) => el.name === 'Winfield')['samples']
+    // var f8 = BRANDS.find((el) => el.name === 'Andrew Martin')['samples']
+    // var f9 = BRANDS.find((el) => el.name === 'Cole')['samples']
+    // var f10 = BRANDS.find((el) => el.name === 'Threads')['samples']
+    // var f11 = BRANDS.find((el) => el.name === 'Baker Lifestyle')['samples']
+    // var f12 = BRANDS.find((el) => el.name === 'Mulberry')['samples']
+    // var f13 = BRANDS.find((el) => el.name === 'Gaston')['samples']
+    // var f14 = BRANDS.find((el) => el.name === 'Laura Ashley')['samples']
+    // var f15 = BRANDS.find((el) => el.name === 'Parkertex')['samples']
 
-    BRANDS.find((el) => el.name === 'Kravet')['samples'] = [
-      ...f1,
-      ...f2,
-      ...f3,
-      ...f4,
-      ...f5,
-      ...f6,
-      ...f7,
-      ...f8,
-      ...f9,
-      ...f10,
-      ...f11,
-      ...f12,
-      ...f13,
-      ...f14,
-      ...f15,
-    ]
+    // BRANDS.find((el) => el.name === 'Kravet')['samples'] = [
+    //   ...f1,
+    //   ...f2,
+    //   ...f3,
+    //   ...f4,
+    //   ...f5,
+    //   ...f6,
+    //   ...f7,
+    //   ...f8,
+    //   ...f9,
+    //   ...f10,
+    //   ...f11,
+    //   ...f12,
+    //   ...f13,
+    //   ...f14,
+    //   ...f15,
+    // ]
 
-    BRANDS.find((el) => el.name === 'Brunschwig')['samples'] = []
-    BRANDS.find((el) => el.name === 'Lee Jofa')['samples'] = []
-    BRANDS.find((el) => el.name === 'GP')['samples'] = []
-    BRANDS.find((el) => el.name === 'Clarke')['samples'] = []
-    BRANDS.find((el) => el.name === 'Groundworks')['samples'] = []
-    BRANDS.find((el) => el.name === 'Winfield')['samples'] = []
-    BRANDS.find((el) => el.name === 'Andrew Martin')['samples'] = []
-    BRANDS.find((el) => el.name === 'Cole')['samples'] = []
-    BRANDS.find((el) => el.name === 'Threads')['samples'] = []
-    BRANDS.find((el) => el.name === 'Baker Lifestyle')['samples'] = []
-    BRANDS.find((el) => el.name === 'Mulberry')['samples'] = []
-    BRANDS.find((el) => el.name === 'Gaston')['samples'] = []
-    BRANDS.find((el) => el.name === 'Laura Ashley')['samples'] = []
-    BRANDS.find((el) => el.name === 'Parkertex')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Brunschwig')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Lee Jofa')['samples'] = []
+    // BRANDS.find((el) => el.name === 'GP')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Clarke')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Groundworks')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Winfield')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Andrew Martin')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Cole')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Threads')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Baker Lifestyle')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Mulberry')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Gaston')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Laura Ashley')['samples'] = []
+    // BRANDS.find((el) => el.name === 'Parkertex')['samples'] = []
 
     // Consolidate Osborne & Little Brands
     var g1 = BRANDS.find((el) => el.name === 'Osborne')['samples']

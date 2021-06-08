@@ -4,81 +4,81 @@ module.exports = [
     samples: [],
     to: { name: ' Morgan', email: 'mshepard@fsco.com' },
   },
-  {
-    name: 'Kravet',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Brunschwig',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Lee Jofa',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'GP',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Winfield',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Andrew Martin',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Cole',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Threads',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Clarke',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Groundworks',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Baker Lifestyle',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Mulberry',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Gaston',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Laura Ashley',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
-  {
-    name: 'Parkertex',
-    samples: [],
-    to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
-  },
+  // {
+  //   name: 'Kravet',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Brunschwig',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Lee Jofa',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'GP',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Winfield',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Andrew Martin',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Cole',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Threads',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Clarke',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Groundworks',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Baker Lifestyle',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Mulberry',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Gaston',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Laura Ashley',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
+  // {
+  //   name: 'Parkertex',
+  //   samples: [],
+  //   to: { name: ' Mary', email: 'mary.scinta@kravet.com' },
+  // },
   {
     name: 'Galbraith',
     samples: [],
