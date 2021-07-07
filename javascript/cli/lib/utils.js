@@ -36,5 +36,5 @@ module.exports = {
   rename,
   createWriteStream,
   readFileSync,
-  unlink
+  unlink,
 }

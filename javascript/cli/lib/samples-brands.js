@@ -374,6 +374,16 @@ module.exports = [
     to: { name: '', email: 'bronte.valyi@pierrefrey.com' },
   },
   {
+    name: 'Boussac',
+    samples: [],
+    to: { name: '', email: 'bronte.valyi@pierrefrey.com' },
+  },
+  {
+    name: 'Fadini',
+    samples: [],
+    to: { name: '', email: 'bronte.valyi@pierrefrey.com' },
+  },
+  {
     name: 'Thibaut',
     samples: [],
     to: { name: ' Julie', email: 'julie@thestudioatdrc.com' },

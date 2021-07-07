@@ -101,7 +101,7 @@ async function main() {
           let sku = item.meta_data.find((el) => el.key === 'SKU')['value']
 
           for (let brand of BRANDS) {
-            if (name.startsWith(brand.name)) {
+            if (name.toLowerCase().startsWith(brand.name.toLowerCase())) {
               var display_name, display_sku
 
               if (brand.name === 'Galbraith') {
@@ -343,6 +343,14 @@ async function main() {
     BRANDS.find((el) => el.name === 'Morris')['samples'] = []
     BRANDS.find((el) => el.name === 'Sanderson')['samples'] = []
     BRANDS.find((el) => el.name === 'Scion')['samples'] = []
+
+    var k1 = BRANDS.find((el) => el.name === 'Pierre Frey')['samples']
+    var k2 = BRANDS.find((el) => el.name === 'Boussac')['samples']
+    var k3 = BRANDS.find((el) => el.name === 'Fadini')['samples']
+
+    BRANDS.find((el) => el.name === 'Pierre Frey')['samples'] = [...k1, ...k2, ...k3]
+    BRANDS.find((el) => el.name === 'Boussac')['samples'] = []
+    BRANDS.find((el) => el.name === 'Fadini')['samples'] = []
 
     var galbraithSamples = BRANDS.find((el) => el.name === 'Galbraith')['samples']
     var galbraithFabricMessage = false
