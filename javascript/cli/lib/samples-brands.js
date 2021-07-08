@@ -413,6 +413,11 @@ module.exports = [
     to: { name: ' Julie', email: 'julie@thestudioatdrc.com' },
   },
   {
+    name: 'Anna French',
+    samples: [],
+    to: { name: ' Julie', email: 'julie@thestudioatdrc.com' },
+  },
+  {
     name: 'Anthology',
     samples: [],
     to: { name: '', email: 'usasampling@zoffany.com' },
