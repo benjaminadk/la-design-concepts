@@ -271,6 +271,30 @@ module.exports = [
     },
   },
   {
+    name: 'Lisa Fine',
+    samples: [],
+    to: {
+      name: 'Katia',
+      email: 'sample@jaspershowroom.com',
+    },
+  },
+  {
+    name: 'Chelsea',
+    samples: [],
+    to: {
+      name: 'Armineh',
+      email: 'Armineh@mimilondon.com',
+    },
+  },
+  {
+    name: 'Heather',
+    samples: [],
+    to: {
+      name: '',
+      email: 'info@heatherchadduck.com',
+    },
+  },
+  {
     name: 'Seabrook',
     samples: [],
     to: {

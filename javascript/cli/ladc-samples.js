@@ -133,7 +133,7 @@ async function main() {
               if (brand.name === 'Schumacher' && skipSchumacher) {
                 // Do nothing
               } else {
-                brand.samples.push(`${display_name} ${display_sku}`)
+                brand.samples.push(`${display_name.trim()} ${display_sku.trim()}`)
               }
             }
           }
@@ -244,9 +244,11 @@ async function main() {
     // Consolidate Jasper Brands
     var e1 = BRANDS.find((el) => el.name === 'Jasper')['samples']
     var e2 = BRANDS.find((el) => el.name === 'Templeton')['samples']
+    var e3 = BRANDS.find((el) => el.name === 'Lisa Fine')['samples']
 
-    BRANDS.find((el) => el.name === 'Jasper')['samples'] = [...e1, ...e2]
+    BRANDS.find((el) => el.name === 'Jasper')['samples'] = [...e1, ...e2, ...e3]
     BRANDS.find((el) => el.name === 'Templeton')['samples'] = []
+    BRANDS.find((el) => el.name === 'Lisa Fine')['samples'] = []
 
     // Consolidate Kravet Brands
     // var f1 = BRANDS.find((el) => el.name === 'Kravet')['samples']
