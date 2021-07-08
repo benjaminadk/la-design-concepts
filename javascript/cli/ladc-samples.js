@@ -133,7 +133,12 @@ async function main() {
               if (brand.name === 'Schumacher' && skipSchumacher) {
                 // Do nothing
               } else {
-                brand.samples.push(`${display_name.trim()} ${display_sku.trim()}`)
+                brand.samples.push(
+                  `${display_name.trim().replace(',', '').replace('=', '')} ${display_sku
+                    .trim()
+                    .replace(',', '')
+                    .replace('=', '')}`
+                )
               }
             }
           }
