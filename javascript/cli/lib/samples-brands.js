@@ -2,7 +2,7 @@ module.exports = [
   {
     name: 'Schumacher',
     samples: [],
-    to: { name: ' Morgan', email: 'mshepard@fsco.com' },
+    to: { name: '', email: 'e-fulfillment@fsco.com' },
   },
   // {
   //   name: 'Kravet',
