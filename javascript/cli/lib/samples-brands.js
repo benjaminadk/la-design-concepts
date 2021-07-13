@@ -454,5 +454,10 @@ module.exports = [
     name: 'Holland and Sherry',
     samples: [],
     to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
+  },
+  {
+    name: 'Katie Riddler',
+    samples: [],
+    to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
   }
 ]

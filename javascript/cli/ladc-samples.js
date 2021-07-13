@@ -365,6 +365,12 @@ async function main() {
     BRANDS.find((el) => el.name === 'Thibaut')['samples'] = [...l1, ...l2]
     BRANDS.find((el) => el.name === 'Anna French')['samples'] = []
 
+    var m1 = BRANDS.find((el) => el.name === 'Holland and Sherry')['samples']
+    var m2 = BRANDS.find((el) => el.name === 'Katie Riddler')['samples']
+
+    BRANDS.find((el) => el.name === 'Holland and Sherry')['samples'] = [...m1, ...m2]
+    BRANDS.find((el) => el.name === 'Katie Riddler')['samples'] = []
+
     var galbraithSamples = BRANDS.find((el) => el.name === 'Galbraith')['samples']
     var galbraithFabricMessage = false
 
@@ -401,24 +407,24 @@ async function main() {
           brand.name === 'Ralph Lauren'
             ? `Account 01020524 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === 'Seabrook'
-            ? `654535 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === 'Kasmir'
-            ? `234728 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === 'JF'
-            ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === 'Osborne'
-            ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === 'Fabricut'
-            ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === 'Victoria'
-            ? `000987 - Sample Request - ${order} Client - ${last_name}`
-            : `Sample Request - ${order} Client - ${last_name}`
+              ? `654535 - Sample Request - ${order} Client - ${last_name}`
+              : brand.name === 'Kasmir'
+                ? `234728 - Sample Request - ${order} Client - ${last_name}`
+                : brand.name === 'JF'
+                  ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
+                  : brand.name === 'Osborne'
+                    ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
+                    : brand.name === 'Fabricut'
+                      ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
+                      : brand.name === 'Victoria'
+                        ? `000987 - Sample Request - ${order} Client - ${last_name}`
+                        : `Sample Request - ${order} Client - ${last_name}`
 
         var console_brand = THOMAS_LAVIN.includes(brand.name)
           ? 'Thomas Lavin'
           : brand.name === 'Anthology'
-          ? 'Zoffany'
-          : brand.name
+            ? 'Zoffany'
+            : brand.name
 
         let message = {
           to: brand.to.email,
