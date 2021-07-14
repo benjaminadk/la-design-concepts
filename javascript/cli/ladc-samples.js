@@ -344,12 +344,14 @@ async function main() {
     var j3 = BRANDS.find((el) => el.name === 'Morris')['samples']
     var j4 = BRANDS.find((el) => el.name === 'Sanderson')['samples']
     var j5 = BRANDS.find((el) => el.name === 'Scion')['samples']
+    var j6 = BRANDS.find((el) => el.name === 'Zoffany')['samples']
 
-    BRANDS.find((el) => el.name === 'Anthology')['samples'] = [...j1, ...j2, ...j3, ...j4, ...j5]
+    BRANDS.find((el) => el.name === 'Anthology')['samples'] = [...j1, ...j2, ...j3, ...j4, ...j5, ...j6]
     BRANDS.find((el) => el.name === 'Harlequin')['samples'] = []
     BRANDS.find((el) => el.name === 'Morris')['samples'] = []
     BRANDS.find((el) => el.name === 'Sanderson')['samples'] = []
     BRANDS.find((el) => el.name === 'Scion')['samples'] = []
+    BRANDS.find((el) => el.name === 'Zoffany')['samples'] = []
 
     var k1 = BRANDS.find((el) => el.name === 'Pierre Frey')['samples']
     var k2 = BRANDS.find((el) => el.name === 'Boussac')['samples']
