@@ -469,5 +469,10 @@ module.exports = [
     name: 'Samuel',
     samples: [],
     to: { name: '', email: 'cs@samuelandsons.com' },
+  },
+  {
+    name: 'Jim Thompson',
+    samples: [],
+    to: { name: ' Hector', email: 'hbarragan@kneedlerfauchere.com' },
   }
 ]
