@@ -258,7 +258,7 @@ module.exports = [
     name: 'Jasper',
     samples: [],
     to: {
-      name: 'Katia',
+      name: ' Katia',
       email: 'sample@jaspershowroom.com',
     },
   },
@@ -266,7 +266,7 @@ module.exports = [
     name: 'Templeton',
     samples: [],
     to: {
-      name: 'Katia',
+      name: ' Katia',
       email: 'sample@jaspershowroom.com',
     },
   },
@@ -274,7 +274,7 @@ module.exports = [
     name: 'Lisa Fine',
     samples: [],
     to: {
-      name: 'Katia',
+      name: ' Katia',
       email: 'sample@jaspershowroom.com',
     },
   },
