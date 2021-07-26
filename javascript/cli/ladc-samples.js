@@ -373,6 +373,14 @@ async function main() {
     BRANDS.find((el) => el.name === 'Holland and Sherry')['samples'] = [...m1, ...m2]
     BRANDS.find((el) => el.name === 'Katie Riddler')['samples'] = []
 
+    var n1 = BRANDS.find((el) => el.name === 'Cowtan')['samples']
+    var n2 = BRANDS.find((el) => el.name === 'Manuel Canovas')['samples']
+    var n3 = BRANDS.find((el) => el.name === 'Coleflax')['samples']
+
+    BRANDS.find((el) => el.name === 'Cowtan')['samples'] = [...n1, ...n2, ...n3]
+    BRANDS.find((el) => el.name === 'Manuel Canovas')['samples'] = []
+    BRANDS.find((el) => el.name === 'Coleflax')['samples'] = []
+
     var galbraithSamples = BRANDS.find((el) => el.name === 'Galbraith')['samples']
     var galbraithFabricMessage = false
 

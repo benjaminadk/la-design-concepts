@@ -479,5 +479,20 @@ module.exports = [
     name: 'Perennials',
     samples: [],
     to: { name: ' Travis', email: 'travis@davidsutherlandshowroom.com' },
+  },
+  {
+    name: 'Cowtan',
+    samples: [],
+    to: { name: '', email: 'la_sample@cowtan.com' },
+  },
+  {
+    name: 'Manuel Canovas',
+    samples: [],
+    to: { name: '', email: 'la_sample@cowtan.com' },
+  },
+  {
+    name: 'Coleflax',
+    samples: [],
+    to: { name: '', email: 'la_sample@cowtan.com' },
   }
 ]
