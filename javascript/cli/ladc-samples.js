@@ -33,7 +33,6 @@ const BRANDS = require('./lib/samples-brands')
 const THOMAS_LAVIN = [
   'Galbraith',
   'Christopher Farr',
-  'Maya Romanoff',
   'Calvin',
   'Opuzen',
   'Castel Maison',
@@ -222,21 +221,18 @@ async function main() {
     var c2 = BRANDS.find((el) => el.name === 'Christopher Farr')['samples']
     var c3 = BRANDS.find((el) => el.name === 'Opuzen')['samples']
     var c4 = BRANDS.find((el) => el.name === 'Calvin')['samples']
-    var c5 = BRANDS.find((el) => el.name === 'Maya Romanoff')['samples']
-    var c6 = BRANDS.find((el) => el.name === 'Castel Maison')['samples']
+    var c5 = BRANDS.find((el) => el.name === 'Castel Maison')['samples']
 
     BRANDS.find((el) => el.name === 'Galbraith')['samples'] = [
       ...c1,
       ...c2,
       ...c3,
       ...c4,
-      ...c5,
-      ...c6,
+      ...c5
     ]
     BRANDS.find((el) => el.name === 'Christopher Farr')['samples'] = []
     BRANDS.find((el) => el.name === 'Opuzen')['samples'] = []
     BRANDS.find((el) => el.name === 'Calvin')['samples'] = []
-    BRANDS.find((el) => el.name === 'Maya Romanoff')['samples'] = []
     BRANDS.find((el) => el.name === 'Castel Maison')['samples'] = []
 
     // Consolidate Maxwell, Telefina

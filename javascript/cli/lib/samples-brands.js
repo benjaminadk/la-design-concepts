@@ -100,11 +100,6 @@ module.exports = [
     to: { name: ' Fyfe', email: 'samples@thomaslavin.com' },
   },
   {
-    name: 'Maya Romanoff',
-    samples: [],
-    to: { name: ' Fyfe', email: 'samples@thomaslavin.com' },
-  },
-  {
     name: 'Castel Maison',
     samples: [],
     to: { name: ' Fyfe', email: 'samples@thomaslavin.com' },
@@ -113,6 +108,11 @@ module.exports = [
     name: 'Marvic',
     samples: [],
     to: { name: ' Fyfe', email: 'samples@thomaslavin.com' },
+  },
+  {
+    name: 'Maya Romanoff',
+    samples: [],
+    to: { name: '', email: 'clientservices@mayaromanoff.com' },
   },
   {
     name: 'Scalamandre',
