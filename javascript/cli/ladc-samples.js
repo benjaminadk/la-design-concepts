@@ -368,10 +368,10 @@ async function main() {
     BRANDS.find((el) => el.name === 'Anna French')['samples'] = []
 
     var m1 = BRANDS.find((el) => el.name === 'Holland and Sherry')['samples']
-    var m2 = BRANDS.find((el) => el.name === 'Katie Riddler')['samples']
+    var m2 = BRANDS.find((el) => el.name === 'Katie Ridder')['samples']
 
     BRANDS.find((el) => el.name === 'Holland and Sherry')['samples'] = [...m1, ...m2]
-    BRANDS.find((el) => el.name === 'Katie Riddler')['samples'] = []
+    BRANDS.find((el) => el.name === 'Katie Ridder')['samples'] = []
 
     var n1 = BRANDS.find((el) => el.name === 'Cowtan')['samples']
     var n2 = BRANDS.find((el) => el.name === 'Manuel Canovas')['samples']

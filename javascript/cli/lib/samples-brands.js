@@ -461,7 +461,7 @@ module.exports = [
     to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
   },
   {
-    name: 'Katie Riddler',
+    name: 'Katie Ridder',
     samples: [],
     to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
   },
