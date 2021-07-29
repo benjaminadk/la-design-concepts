@@ -494,5 +494,10 @@ module.exports = [
     name: 'Coleflax',
     samples: [],
     to: { name: '', email: 'la_sample@cowtan.com' },
+  },
+  {
+    name: "Pollack",
+    samples: [],
+    to: { name: '', email: 'samples@pollackassociates.com' }
   }
 ]
