@@ -499,5 +499,15 @@ module.exports = [
     name: "Pollack",
     samples: [],
     to: { name: '', email: 'samples@pollackassociates.com' }
+  },
+  {
+    name: "Rifle",
+    samples: [],
+    to: { name: '', email: 'orders@yorkwall.com' }
+  },
+  {
+    name: "York",
+    samples: [],
+    to: { name: '', email: 'orders@yorkwall.com' }
   }
 ]
