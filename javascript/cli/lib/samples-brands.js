@@ -509,5 +509,25 @@ module.exports = [
     name: "York",
     samples: [],
     to: { name: '', email: 'orders@yorkwall.com' }
-  }
+  },
+  {
+    name: "Quadrille",
+    samples: [],
+    to: { name: ' Harmony', email: 'Harmony@quadrilleinc.com' }
+  },
+  {
+    name: "Rogers",
+    samples: [],
+    to: { name: '', email: 'annalea_garner@cowtan.com' }
+  },
+  {
+    name: "Dedar",
+    samples: [],
+    to: { name: '', email: 'hbarragan@kneedlerfauchere.com' }
+  },
+  {
+    name: "Maharam",
+    samples: [],
+    to: { name: '', email: 'inguyen@maharam.com' }
+  },
 ]
