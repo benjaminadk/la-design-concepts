@@ -430,7 +430,9 @@ async function main() {
                       ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
                       : brand.name === 'Victoria'
                         ? `000987 - Sample Request - ${order} Client - ${last_name}`
-                        : `Sample Request - ${order} Client - ${last_name}`
+                        : brand.name === 'York'
+                          ? `42564 - Sample Request - ${order} Client - ${last_name}`
+                          : `Sample Request - ${order} Client - ${last_name}`
 
         var console_brand = THOMAS_LAVIN.includes(brand.name)
           ? 'Thomas Lavin'
