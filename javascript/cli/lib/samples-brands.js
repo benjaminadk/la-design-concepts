@@ -511,6 +511,11 @@ module.exports = [
     to: { name: '', email: 'orders@yorkwall.com' }
   },
   {
+    name: "Magnolia",
+    samples: [],
+    to: { name: '', email: 'orders@yorkwall.com' }
+  },
+  {
     name: "Quadrille",
     samples: [],
     to: { name: ' Harmony', email: 'Harmony@quadrilleinc.com' }
