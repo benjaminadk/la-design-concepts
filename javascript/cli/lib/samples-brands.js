@@ -458,12 +458,12 @@ module.exports = [
   {
     name: 'Holland and Sherry',
     samples: [],
-    to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
+    to: { name: ' Tiffany', email: 'twhite@hollandandsherry.com' },
   },
   {
     name: 'Katie Ridder',
     samples: [],
-    to: { name: ' Starla', email: 'sandrade@hollandandsherry.com' },
+    to: { name: ' Tiffany', email: 'twhite@hollandandsherry.com' },
   },
   {
     name: 'Samuel',
