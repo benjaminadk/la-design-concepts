@@ -483,17 +483,17 @@ module.exports = [
   {
     name: "Cowtan",
     samples: [],
-    to: { name: "", email: "la_sample@cowtan.com" },
+    to: { name: "", email: "annalea_garner@cowtan.com" },
   },
   {
     name: "Manuel Canovas",
     samples: [],
-    to: { name: "", email: "la_sample@cowtan.com" },
+    to: { name: "", email: "annalea_garner@cowtan.com" },
   },
   {
     name: "Coleflax",
     samples: [],
-    to: { name: "", email: "la_sample@cowtan.com" },
+    to: { name: "", email: "annalea_garner@cowtan.com" },
   },
   {
     name: "Pollack",
