@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
-const program = require("commander");
-const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
-const sgMail = require("@sendgrid/mail");
-const Klaviyo = require("node-klaviyo");
+const program = require("commander")
+const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default
+const sgMail = require("@sendgrid/mail")
+const Klaviyo = require("node-klaviyo")
 
 const WooCommerce = new WooCommerceRestApi({
   url: "https://ladesignconcepts.com",
   consumerKey: process.env.WOOCOMMERCE_KEY,
   consumerSecret: process.env.WOOCOMMERCE_SECRET,
   version: "wc/v3",
-});
+})
 
-sgMail.setApiKey(process.env.SENDGRID_KEY);
+sgMail.setApiKey(process.env.SENDGRID_KEY)
 
 const KlaviyoClient = new Klaviyo({
   publicToken: process.env.KLAVIYO_PUBLIC_KEY,
   privateToken: process.env.KLAVIYO_PRIVATE_KEY,
-});
+})
 
 program
   .option("-o, --order <number>", "Order number to process")
@@ -27,10 +27,10 @@ program
   .option("-s, --schumacher", "Skip Schumacher", false)
   .option("-t, --test", "Enable test mode", false)
 
-  .parse(process.argv);
+  .parse(process.argv)
 
-const BRANDS = require("./lib/samples-brands");
-const THOMAS_LAVIN = ["Galbraith", "Christopher Farr", "Calvin", "Opuzen", "Castel Maison"];
+const BRANDS = require("./lib/samples-brands")
+const THOMAS_LAVIN = ["Galbraith", "Christopher Farr", "Calvin", "Opuzen", "Castel Maison"]
 
 async function main() {
   const {
@@ -40,32 +40,31 @@ async function main() {
     email: skipEmail,
     schumacher: skipSchumacher,
     test,
-  } = program;
+  } = program
 
   if (!order) {
-    return console.error("Error:\nOrder number required. Use -o <order number> option");
+    return console.error("Error:\nOrder number required. Use -o <order number> option")
   }
 
-  const from = {};
+  const from = {}
   if (user === "ben") {
-    from.name = "Benjamin Brooke";
-    from.nickname = "Ben";
-    from.email = "ben@ladesignconcepts.com";
+    from.name = "Benjamin Brooke"
+    from.nickname = "Ben"
+    from.email = "ben@ladesignconcepts.com"
   } else if (user == "chris") {
-    from.name = "Chris Soliz";
-    from.nickname = "Chris";
-    from.email = "chris@ladesignconcepts.com";
+    from.name = "Chris Soliz"
+    from.nickname = "Chris"
+    from.email = "chris@ladesignconcepts.com"
   } else {
-    from.name = "L.A. Design Concepts Samples Team";
-    from.nickname = "L.A. Design Concepts";
-    from.email = "samples@ladesignconcepts.com";
+    from.name = "L.A. Design Concepts Samples Team"
+    from.nickname = "L.A. Design Concepts"
+    from.email = "samples@ladesignconcepts.com"
   }
 
   try {
-    const res = await WooCommerce.get(`orders/${order}`);
-    const { first_name, last_name, address_1, address_2, city, state, postcode } =
-      res.data.shipping;
-    const items = res.data.line_items;
+    const res = await WooCommerce.get(`orders/${order}`)
+    const { first_name, last_name, address_1, address_2, city, state, postcode } = res.data.shipping
+    const items = res.data.line_items
 
     for (let item of items) {
       if (item.name === "Sample") {
@@ -75,53 +74,46 @@ async function main() {
         ) {
           BRANDS.find(el => el.name === "Pierre Frey")["samples"].push(
             `Pierre Frey ${item.meta_data[0]["display_value"]}`
-          );
+          )
         } else if (
           item.meta_data[0].hasOwnProperty("key") &&
           item.meta_data[0]["key"].startsWith("Thibaut")
         ) {
           BRANDS.find(el => el.name === "Thibaut")["samples"].push(
             `Thibaut ${item.meta_data[0]["display_value"]}`
-          );
-          // } else if (
-          //   item.meta_data[0].hasOwnProperty("key") &&
-          //   item.meta_data[0]["key"].startsWith("Robert Allen")
-          // ) {
-          //   BRANDS.find((el) => el.name === "Robert Allen")["samples"].push(
-          //     `Robert Allen ${item.meta_data[0]["display_value"]}`
-          //   )
+          )
         } else {
-          let name = item.meta_data.find(el => el.key === "Name")["value"];
-          let sku = item.meta_data.find(el => el.key === "SKU")["value"];
+          let name = item.meta_data.find(el => el.key === "Name")["value"]
+          let sku = item.meta_data.find(el => el.key === "SKU")["value"]
 
           for (let brand of BRANDS) {
             if (name.toLowerCase().startsWith(brand.name.toLowerCase())) {
-              var display_name, display_sku;
+              var display_name, display_sku
 
               if (brand.name === "Galbraith") {
-                let x = sku.slice(sku.indexOf("-") + 1);
-                display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`;
-                display_sku = "";
+                let x = sku.slice(sku.indexOf("-") + 1)
+                display_name = `${name} ${Number(x) > 245 ? "Wallpaper" : "Fabric"}`
+                display_sku = ""
               } else if (brand.name === "Robert Allen" || brand.name === "Christopher Farr") {
-                display_name = name;
-                display_sku = "";
+                display_name = name
+                display_sku = ""
               } else if (brand.name === "Schumacher") {
-                display_name = name;
+                display_name = name
                 display_sku = sku
                   .slice(sku.indexOf("-") + 1)
                   .replace("a", "")
-                  .replace("-2", "");
+                  .replace("-2", "")
               } else if (brand.name === "Cole") {
-                display_name = name;
-                display_sku = sku.replace("_", "/");
+                display_name = name
+                display_sku = sku.replace("_", "/")
               } else if (
                 ["Osborne", "Designer", "Lorca", "Nina Campbell", "Matthew"].includes(brand.name)
               ) {
-                display_name = "";
-                display_sku = sku.slice(sku.indexOf("-") + 1).toUpperCase();
+                display_name = ""
+                display_sku = sku.slice(sku.indexOf("-") + 1).toUpperCase()
               } else {
-                display_name = name;
-                display_sku = sku.slice(sku.indexOf("-") + 1);
+                display_name = name
+                display_sku = sku.slice(sku.indexOf("-") + 1)
               }
 
               if (brand.name === "Schumacher") {
@@ -132,7 +124,7 @@ async function main() {
                     .trim()
                     .replace(",", "")
                     .replace("=", "")}`
-                );
+                )
               }
             }
           }
@@ -141,21 +133,21 @@ async function main() {
     }
 
     // Consolidate Scalamandre, Nicolette Mayer, Old World Weaveres, Lelievre
-    var a1 = BRANDS.find(el => el.name === "Scalamandre")["samples"];
-    var a2 = BRANDS.find(el => el.name === "Nicolette Mayer")["samples"];
-    var a3 = BRANDS.find(el => el.name === "Old World Weavers")["samples"];
-    var a4 = BRANDS.find(el => el.name === "Lelievre")["samples"];
-    var a5 = BRANDS.find(el => el.name === "Christian Fischbacher")["samples"];
-    var a6 = BRANDS.find(el => el.name === "Aldeco")["samples"];
-    var a7 = BRANDS.find(el => el.name === "Sandberg")["samples"];
-    var a8 = BRANDS.find(el => el.name === "Jean Paul")["samples"];
-    var a9 = BRANDS.find(el => el.name === "Alhambra")["samples"];
-    var a10 = BRANDS.find(el => el.name === "Grey Watkins")["samples"];
-    var a11 = BRANDS.find(el => el.name === "Colony")["samples"];
-    var a12 = BRANDS.find(el => el.name === "Missoni Home")["samples"];
-    var a13 = BRANDS.find(el => el.name === "Boris Kroll")["samples"];
-    var a14 = BRANDS.find(el => el.name === "Tassinari")["samples"];
-    var a15 = BRANDS.find(el => el.name === "Hinson")["samples"];
+    var a1 = BRANDS.find(el => el.name === "Scalamandre")["samples"]
+    var a2 = BRANDS.find(el => el.name === "Nicolette Mayer")["samples"]
+    var a3 = BRANDS.find(el => el.name === "Old World Weavers")["samples"]
+    var a4 = BRANDS.find(el => el.name === "Lelievre")["samples"]
+    var a5 = BRANDS.find(el => el.name === "Christian Fischbacher")["samples"]
+    var a6 = BRANDS.find(el => el.name === "Aldeco")["samples"]
+    var a7 = BRANDS.find(el => el.name === "Sandberg")["samples"]
+    var a8 = BRANDS.find(el => el.name === "Jean Paul")["samples"]
+    var a9 = BRANDS.find(el => el.name === "Alhambra")["samples"]
+    var a10 = BRANDS.find(el => el.name === "Grey Watkins")["samples"]
+    var a11 = BRANDS.find(el => el.name === "Colony")["samples"]
+    var a12 = BRANDS.find(el => el.name === "Missoni Home")["samples"]
+    var a13 = BRANDS.find(el => el.name === "Boris Kroll")["samples"]
+    var a14 = BRANDS.find(el => el.name === "Tassinari")["samples"]
+    var a15 = BRANDS.find(el => el.name === "Hinson")["samples"]
 
     BRANDS.find(el => el.name === "Scalamandre")["samples"] = [
       ...a1,
@@ -173,21 +165,21 @@ async function main() {
       ...a13,
       ...a14,
       ...a15,
-    ];
-    BRANDS.find(el => el.name === "Nicolette Mayer")["samples"] = [];
-    BRANDS.find(el => el.name === "Old World Weavers")["samples"] = [];
-    BRANDS.find(el => el.name === "Lelievre")["samples"] = [];
-    BRANDS.find(el => el.name === "Christian Fischbacher")["samples"] = [];
-    BRANDS.find(el => el.name === "Aldeco")["samples"] = [];
-    BRANDS.find(el => el.name === "Sandberg")["samples"] = [];
-    BRANDS.find(el => el.name === "Jean Paul")["samples"] = [];
-    BRANDS.find(el => el.name === "Alhambra")["samples"] = [];
-    BRANDS.find(el => el.name === "Grey Watkins")["samples"] = [];
-    BRANDS.find(el => el.name === "Colony")["samples"] = [];
-    BRANDS.find(el => el.name === "Missoni Home")["samples"] = [];
-    BRANDS.find(el => el.name === "Boris Kroll")["samples"] = [];
-    BRANDS.find(el => el.name === "Tassinari")["samples"] = [];
-    BRANDS.find(el => el.name === "Hinson")["samples"] = [];
+    ]
+    BRANDS.find(el => el.name === "Nicolette Mayer")["samples"] = []
+    BRANDS.find(el => el.name === "Old World Weavers")["samples"] = []
+    BRANDS.find(el => el.name === "Lelievre")["samples"] = []
+    BRANDS.find(el => el.name === "Christian Fischbacher")["samples"] = []
+    BRANDS.find(el => el.name === "Aldeco")["samples"] = []
+    BRANDS.find(el => el.name === "Sandberg")["samples"] = []
+    BRANDS.find(el => el.name === "Jean Paul")["samples"] = []
+    BRANDS.find(el => el.name === "Alhambra")["samples"] = []
+    BRANDS.find(el => el.name === "Grey Watkins")["samples"] = []
+    BRANDS.find(el => el.name === "Colony")["samples"] = []
+    BRANDS.find(el => el.name === "Missoni Home")["samples"] = []
+    BRANDS.find(el => el.name === "Boris Kroll")["samples"] = []
+    BRANDS.find(el => el.name === "Tassinari")["samples"] = []
+    BRANDS.find(el => el.name === "Hinson")["samples"] = []
 
     // Consolidate Robert Allen, Suburban Home
     // var b1 = BRANDS.find((el) => el.name === "Robert Allen")["samples"]
@@ -212,33 +204,33 @@ async function main() {
     // BRANDS.find((el) => el.name === "Bailey")["samples"] = []
 
     // Consolidate Christopher Farr, Galbraith
-    var c1 = BRANDS.find(el => el.name === "Galbraith")["samples"];
-    var c2 = BRANDS.find(el => el.name === "Christopher Farr")["samples"];
-    var c3 = BRANDS.find(el => el.name === "Opuzen")["samples"];
-    var c4 = BRANDS.find(el => el.name === "Calvin")["samples"];
-    var c5 = BRANDS.find(el => el.name === "Castel Maison")["samples"];
+    var c1 = BRANDS.find(el => el.name === "Galbraith")["samples"]
+    var c2 = BRANDS.find(el => el.name === "Christopher Farr")["samples"]
+    var c3 = BRANDS.find(el => el.name === "Opuzen")["samples"]
+    var c4 = BRANDS.find(el => el.name === "Calvin")["samples"]
+    var c5 = BRANDS.find(el => el.name === "Castel Maison")["samples"]
 
-    BRANDS.find(el => el.name === "Galbraith")["samples"] = [...c1, ...c2, ...c3, ...c4, ...c5];
-    BRANDS.find(el => el.name === "Christopher Farr")["samples"] = [];
-    BRANDS.find(el => el.name === "Opuzen")["samples"] = [];
-    BRANDS.find(el => el.name === "Calvin")["samples"] = [];
-    BRANDS.find(el => el.name === "Castel Maison")["samples"] = [];
+    BRANDS.find(el => el.name === "Galbraith")["samples"] = [...c1, ...c2, ...c3, ...c4, ...c5]
+    BRANDS.find(el => el.name === "Christopher Farr")["samples"] = []
+    BRANDS.find(el => el.name === "Opuzen")["samples"] = []
+    BRANDS.find(el => el.name === "Calvin")["samples"] = []
+    BRANDS.find(el => el.name === "Castel Maison")["samples"] = []
 
     // Consolidate Maxwell, Telefina
-    var d1 = BRANDS.find(el => el.name === "Maxwell")["samples"];
-    var d2 = BRANDS.find(el => el.name === "Telefina")["samples"];
+    var d1 = BRANDS.find(el => el.name === "Maxwell")["samples"]
+    var d2 = BRANDS.find(el => el.name === "Telefina")["samples"]
 
-    BRANDS.find(el => el.name === "Maxwell")["samples"] = [...d1, ...d2];
-    BRANDS.find(el => el.name === "Telefina")["samples"] = [];
+    BRANDS.find(el => el.name === "Maxwell")["samples"] = [...d1, ...d2]
+    BRANDS.find(el => el.name === "Telefina")["samples"] = []
 
     // Consolidate Jasper Brands
-    var e1 = BRANDS.find(el => el.name === "Jasper")["samples"];
-    var e2 = BRANDS.find(el => el.name === "Templeton")["samples"];
-    var e3 = BRANDS.find(el => el.name === "Lisa Fine")["samples"];
+    var e1 = BRANDS.find(el => el.name === "Jasper")["samples"]
+    var e2 = BRANDS.find(el => el.name === "Templeton")["samples"]
+    var e3 = BRANDS.find(el => el.name === "Lisa Fine")["samples"]
 
-    BRANDS.find(el => el.name === "Jasper")["samples"] = [...e1, ...e2, ...e3];
-    BRANDS.find(el => el.name === "Templeton")["samples"] = [];
-    BRANDS.find(el => el.name === "Lisa Fine")["samples"] = [];
+    BRANDS.find(el => el.name === "Jasper")["samples"] = [...e1, ...e2, ...e3]
+    BRANDS.find(el => el.name === "Templeton")["samples"] = []
+    BRANDS.find(el => el.name === "Lisa Fine")["samples"] = []
 
     // Consolidate Kravet Brands
     // var f1 = BRANDS.find((el) => el.name === 'Kravet')['samples']
@@ -291,45 +283,45 @@ async function main() {
     // BRANDS.find((el) => el.name === 'Parkertex')['samples'] = []
 
     // Consolidate Osborne & Little Brands
-    var g1 = BRANDS.find(el => el.name === "Osborne")["samples"];
-    var g2 = BRANDS.find(el => el.name === "Designer")["samples"];
-    var g3 = BRANDS.find(el => el.name === "Nina Campbell")["samples"];
-    var g4 = BRANDS.find(el => el.name === "Matthew")["samples"];
-    var g5 = BRANDS.find(el => el.name === "Lorca")["samples"];
+    var g1 = BRANDS.find(el => el.name === "Osborne")["samples"]
+    var g2 = BRANDS.find(el => el.name === "Designer")["samples"]
+    var g3 = BRANDS.find(el => el.name === "Nina Campbell")["samples"]
+    var g4 = BRANDS.find(el => el.name === "Matthew")["samples"]
+    var g5 = BRANDS.find(el => el.name === "Lorca")["samples"]
 
-    BRANDS.find(el => el.name === "Osborne")["samples"] = [...g1, ...g2, ...g3, ...g4, ...g5];
-    BRANDS.find(el => el.name === "Designer")["samples"] = [];
-    BRANDS.find(el => el.name === "Nina Campbell")["samples"] = [];
-    BRANDS.find(el => el.name === "Matthew")["samples"] = [];
-    BRANDS.find(el => el.name === "Lorca")["samples"] = [];
+    BRANDS.find(el => el.name === "Osborne")["samples"] = [...g1, ...g2, ...g3, ...g4, ...g5]
+    BRANDS.find(el => el.name === "Designer")["samples"] = []
+    BRANDS.find(el => el.name === "Nina Campbell")["samples"] = []
+    BRANDS.find(el => el.name === "Matthew")["samples"] = []
+    BRANDS.find(el => el.name === "Lorca")["samples"] = []
 
     // Consolidate Wallcoveting
-    var h1 = BRANDS.find(el => el.name === "Wallcoveting")["samples"];
-    var h2 = BRANDS.find(el => el.name === "Brenda Houston")["samples"];
+    var h1 = BRANDS.find(el => el.name === "Wallcoveting")["samples"]
+    var h2 = BRANDS.find(el => el.name === "Brenda Houston")["samples"]
 
-    BRANDS.find(el => el.name === "Wallcoveting")["samples"] = [...h1, ...h2];
-    BRANDS.find(el => el.name === "Brenda Houston")["samples"] = [];
+    BRANDS.find(el => el.name === "Wallcoveting")["samples"] = [...h1, ...h2]
+    BRANDS.find(el => el.name === "Brenda Houston")["samples"] = []
 
     // Consolidate Fabricut
-    var i1 = BRANDS.find(el => el.name === "Fabricut")["samples"];
-    var i2 = BRANDS.find(el => el.name === "Trend")["samples"];
-    var i3 = BRANDS.find(el => el.name === "Vervain")["samples"];
-    var i4 = BRANDS.find(el => el.name === "S. Harris")["samples"];
-    var i5 = BRANDS.find(el => el.name === "Stroheim")["samples"];
+    var i1 = BRANDS.find(el => el.name === "Fabricut")["samples"]
+    var i2 = BRANDS.find(el => el.name === "Trend")["samples"]
+    var i3 = BRANDS.find(el => el.name === "Vervain")["samples"]
+    var i4 = BRANDS.find(el => el.name === "S. Harris")["samples"]
+    var i5 = BRANDS.find(el => el.name === "Stroheim")["samples"]
 
-    BRANDS.find(el => el.name === "Fabricut")["samples"] = [...i1, ...i2, ...i3, ...i4, ...i5];
-    BRANDS.find(el => el.name === "Trend")["samples"] = [];
-    BRANDS.find(el => el.name === "Vervain")["samples"] = [];
-    BRANDS.find(el => el.name === "S. Harris")["samples"] = [];
-    BRANDS.find(el => el.name === "Stroheim")["samples"] = [];
+    BRANDS.find(el => el.name === "Fabricut")["samples"] = [...i1, ...i2, ...i3, ...i4, ...i5]
+    BRANDS.find(el => el.name === "Trend")["samples"] = []
+    BRANDS.find(el => el.name === "Vervain")["samples"] = []
+    BRANDS.find(el => el.name === "S. Harris")["samples"] = []
+    BRANDS.find(el => el.name === "Stroheim")["samples"] = []
 
     // Consolidate Zoffany
-    var j1 = BRANDS.find(el => el.name === "Anthology")["samples"];
-    var j2 = BRANDS.find(el => el.name === "Harlequin")["samples"];
-    var j3 = BRANDS.find(el => el.name === "Morris")["samples"];
-    var j4 = BRANDS.find(el => el.name === "Sanderson")["samples"];
-    var j5 = BRANDS.find(el => el.name === "Scion")["samples"];
-    var j6 = BRANDS.find(el => el.name === "Zoffany")["samples"];
+    var j1 = BRANDS.find(el => el.name === "Anthology")["samples"]
+    var j2 = BRANDS.find(el => el.name === "Harlequin")["samples"]
+    var j3 = BRANDS.find(el => el.name === "Morris")["samples"]
+    var j4 = BRANDS.find(el => el.name === "Sanderson")["samples"]
+    var j5 = BRANDS.find(el => el.name === "Scion")["samples"]
+    var j6 = BRANDS.find(el => el.name === "Zoffany")["samples"]
 
     BRANDS.find(el => el.name === "Anthology")["samples"] = [
       ...j1,
@@ -338,109 +330,119 @@ async function main() {
       ...j4,
       ...j5,
       ...j6,
-    ];
-    BRANDS.find(el => el.name === "Harlequin")["samples"] = [];
-    BRANDS.find(el => el.name === "Morris")["samples"] = [];
-    BRANDS.find(el => el.name === "Sanderson")["samples"] = [];
-    BRANDS.find(el => el.name === "Scion")["samples"] = [];
-    BRANDS.find(el => el.name === "Zoffany")["samples"] = [];
+    ]
+    BRANDS.find(el => el.name === "Harlequin")["samples"] = []
+    BRANDS.find(el => el.name === "Morris")["samples"] = []
+    BRANDS.find(el => el.name === "Sanderson")["samples"] = []
+    BRANDS.find(el => el.name === "Scion")["samples"] = []
+    BRANDS.find(el => el.name === "Zoffany")["samples"] = []
 
-    var k1 = BRANDS.find(el => el.name === "Pierre Frey")["samples"];
-    var k2 = BRANDS.find(el => el.name === "Boussac")["samples"];
-    var k3 = BRANDS.find(el => el.name === "Fadini")["samples"];
+    var k1 = BRANDS.find(el => el.name === "Pierre Frey")["samples"]
+    var k2 = BRANDS.find(el => el.name === "Boussac")["samples"]
+    var k3 = BRANDS.find(el => el.name === "Fadini")["samples"]
 
-    BRANDS.find(el => el.name === "Pierre Frey")["samples"] = [...k1, ...k2, ...k3];
-    BRANDS.find(el => el.name === "Boussac")["samples"] = [];
-    BRANDS.find(el => el.name === "Fadini")["samples"] = [];
+    BRANDS.find(el => el.name === "Pierre Frey")["samples"] = [...k1, ...k2, ...k3]
+    BRANDS.find(el => el.name === "Boussac")["samples"] = []
+    BRANDS.find(el => el.name === "Fadini")["samples"] = []
 
-    var l1 = BRANDS.find(el => el.name === "Thibaut")["samples"];
-    var l2 = BRANDS.find(el => el.name === "Anna French")["samples"];
+    var l1 = BRANDS.find(el => el.name === "Thibaut")["samples"]
+    var l2 = BRANDS.find(el => el.name === "Anna French")["samples"]
 
-    BRANDS.find(el => el.name === "Thibaut")["samples"] = [...l1, ...l2];
-    BRANDS.find(el => el.name === "Anna French")["samples"] = [];
+    BRANDS.find(el => el.name === "Thibaut")["samples"] = [...l1, ...l2]
+    BRANDS.find(el => el.name === "Anna French")["samples"] = []
 
-    var m1 = BRANDS.find(el => el.name === "Holland and Sherry")["samples"];
-    var m2 = BRANDS.find(el => el.name === "Katie Ridder")["samples"];
+    var m1 = BRANDS.find(el => el.name === "Holland and Sherry")["samples"]
+    var m2 = BRANDS.find(el => el.name === "Katie Ridder")["samples"]
 
-    BRANDS.find(el => el.name === "Holland and Sherry")["samples"] = [...m1, ...m2];
-    BRANDS.find(el => el.name === "Katie Ridder")["samples"] = [];
+    BRANDS.find(el => el.name === "Holland and Sherry")["samples"] = [...m1, ...m2]
+    BRANDS.find(el => el.name === "Katie Ridder")["samples"] = []
 
-    var n1 = BRANDS.find(el => el.name === "Cowtan")["samples"];
-    var n2 = BRANDS.find(el => el.name === "Manuel Canovas")["samples"];
-    var n3 = BRANDS.find(el => el.name === "Coleflax")["samples"];
+    var n1 = BRANDS.find(el => el.name === "Cowtan")["samples"]
+    var n2 = BRANDS.find(el => el.name === "Manuel Canovas")["samples"]
+    var n3 = BRANDS.find(el => el.name === "Coleflax")["samples"]
 
-    BRANDS.find(el => el.name === "Cowtan")["samples"] = [...n1, ...n2, ...n3];
-    BRANDS.find(el => el.name === "Manuel Canovas")["samples"] = [];
-    BRANDS.find(el => el.name === "Coleflax")["samples"] = [];
+    BRANDS.find(el => el.name === "Cowtan")["samples"] = [...n1, ...n2, ...n3]
+    BRANDS.find(el => el.name === "Manuel Canovas")["samples"] = []
+    BRANDS.find(el => el.name === "Coleflax")["samples"] = []
 
-    var o1 = BRANDS.find(el => el.name === "York")["samples"];
-    var o2 = BRANDS.find(el => el.name === "Rifle")["samples"];
-    var o3 = BRANDS.find(el => el.name === "Magnolia")["samples"];
-    var o4 = BRANDS.find(el => el.name === "Ashford")["samples"];
-    var o5 = BRANDS.find(el => el.name === "Waverly")["samples"];
+    var o1 = BRANDS.find(el => el.name === "York")["samples"]
+    var o2 = BRANDS.find(el => el.name === "Rifle")["samples"]
+    var o3 = BRANDS.find(el => el.name === "Magnolia")["samples"]
+    var o4 = BRANDS.find(el => el.name === "Ashford")["samples"]
+    var o5 = BRANDS.find(el => el.name === "Waverly")["samples"]
 
-    BRANDS.find(el => el.name === "York")["samples"] = [...o1, ...o2, ...o3, ...o4, ...o5];
-    BRANDS.find(el => el.name === "Rifle")["samples"] = [];
-    BRANDS.find(el => el.name === "Magnolia")["samples"] = [];
-    BRANDS.find(el => el.name === "Ashford")["samples"] = [];
-    BRANDS.find(el => el.name === "Waverly")["samples"] = [];
+    BRANDS.find(el => el.name === "York")["samples"] = [...o1, ...o2, ...o3, ...o4, ...o5]
+    BRANDS.find(el => el.name === "Rifle")["samples"] = []
+    BRANDS.find(el => el.name === "Magnolia")["samples"] = []
+    BRANDS.find(el => el.name === "Ashford")["samples"] = []
+    BRANDS.find(el => el.name === "Waverly")["samples"] = []
 
-    var galbraithSamples = BRANDS.find(el => el.name === "Galbraith")["samples"];
-    var galbraithFabricMessage = false;
+    var p1 = BRANDS.find(el => el.name === "Quadrille")["samples"]
+    var p2 = BRANDS.find(el => el.name === "China Seas")["samples"]
+    var p3 = BRANDS.find(el => el.name === "Alan Campbell")["samples"]
+    var p4 = BRANDS.find(el => el.name === "Cloth & Paper")["samples"]
+
+    BRANDS.find(el => el.name === "Quadrille")["samples"] = [...p1, ...p2, ...p3, ...p4]
+    BRANDS.find(el => el.name === "China Seas")["samples"]
+    BRANDS.find(el => el.name === "Alan Campbell")["samples"]
+    BRANDS.find(el => el.name === "Cloth & Paper")["samples"]
+
+    var galbraithSamples = BRANDS.find(el => el.name === "Galbraith")["samples"]
+    var galbraithFabricMessage = false
 
     if (galbraithSamples.length) {
-      let galbraithFabrics = galbraithSamples.filter(sample => sample.includes("Fabric"));
+      let galbraithFabrics = galbraithSamples.filter(sample => sample.includes("Fabric"))
       if (galbraithFabrics.length > 5) {
-        galbraithFabricMessage = true;
+        galbraithFabricMessage = true
         BRANDS.find(el => el.name === "Galbraith")["samples"] = galbraithSamples.filter(sample =>
           sample.includes("Wallpaper")
-        );
+        )
       }
     }
 
     for (let brand of BRANDS) {
       if (brand.samples.length) {
-        var html = `<p>Hello${brand.to.name},</p><p>Can we please have the following samples sent to the address below?</p>`;
-        var text = `Hello${brand.to.name},\n\nCan we please have the following samples sent to the address below?\n\n`;
+        var html = `<p>Hello${brand.to.name},</p><p>Can we please have the following samples sent to the address below?</p>`
+        var text = `Hello${brand.to.name},\n\nCan we please have the following samples sent to the address below?\n\n`
 
         for (let sample of brand.samples) {
-          html += `<p>${sample}</p>`;
-          text += `${sample}\n\n`;
+          html += `<p>${sample}</p>`
+          text += `${sample}\n\n`
         }
 
-        html += `<br/><span>${first_name} ${last_name}</span><br/><span>${address_1} ${address_2}</span><br/><span>${city}, ${state} ${postcode}</span>`;
-        text += `${first_name} ${last_name}\n${address_1} ${address_2}\n${city}, ${state} ${postcode}\n\n`;
+        html += `<br/><span>${first_name} ${last_name}</span><br/><span>${address_1} ${address_2}</span><br/><span>${city}, ${state} ${postcode}</span>`
+        text += `${first_name} ${last_name}\n${address_1} ${address_2}\n${city}, ${state} ${postcode}\n\n`
 
-        html += `<br/><p style="font-size:1.1rem;font-weight:bold;">Please include sidemark: ${order} on paperwork with samples.</p>`;
-        text += `Please include sidemark: ${order} on paperwork with samples.\n\n`;
+        html += `<br/><p style="font-size:1.1rem;font-weight:bold;">Please include sidemark: ${order} on paperwork with samples.</p>`
+        text += `Please include sidemark: ${order} on paperwork with samples.\n\n`
 
-        html += `<p>Thanks,</p><p>${from.nickname}</p><br/><span>${from.name}</span><br/><span>L.A. Design Concepts</span><br/><span>${from.email}</span>`;
-        text += `Thanks,\n\n${from.nickname}\n\n${from.name}\nL.A. Design Concepts\n${from.email}\n`;
+        html += `<p>Thanks,</p><p>${from.nickname}</p><br/><span>${from.name}</span><br/><span>L.A. Design Concepts</span><br/><span>${from.email}</span>`
+        text += `Thanks,\n\n${from.nickname}\n\n${from.name}\nL.A. Design Concepts\n${from.email}\n`
 
         var subject =
           brand.name === "Ralph Lauren"
             ? `Account 01020524 - Sample Request - ${order} Client - ${last_name}`
             : brand.name === "Seabrook"
-            ? `654535 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Kasmir"
-            ? `234728 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "JF"
-            ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Osborne"
-            ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Fabricut"
-            ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "Victoria"
-            ? `000987 - Sample Request - ${order} Client - ${last_name}`
-            : brand.name === "York"
-            ? `42564 - Sample Request - ${order} Client - ${last_name}`
-            : `Sample Request - ${order} Client - ${last_name}`;
+              ? `654535 - Sample Request - ${order} Client - ${last_name}`
+              : brand.name === "Kasmir"
+                ? `234728 - Sample Request - ${order} Client - ${last_name}`
+                : brand.name === "JF"
+                  ? `Account U36971 - Sample Request - ${order} Client - ${last_name}`
+                  : brand.name === "Osborne"
+                    ? `L.A. Design Concepts - Sample Request - ${order} Client - ${last_name}`
+                    : brand.name === "Fabricut"
+                      ? `Account 3037992 - Sample Request - ${order} Client - ${last_name}`
+                      : brand.name === "Victoria"
+                        ? `000987 - Sample Request - ${order} Client - ${last_name}`
+                        : brand.name === "York"
+                          ? `42564 - Sample Request - ${order} Client - ${last_name}`
+                          : `Sample Request - ${order} Client - ${last_name}`
 
         var console_brand = THOMAS_LAVIN.includes(brand.name)
           ? "Thomas Lavin"
           : brand.name === "Anthology"
-          ? "Zoffany"
-          : brand.name;
+            ? "Zoffany"
+            : brand.name
 
         let message = {
           to: brand.to.email,
@@ -448,19 +450,19 @@ async function main() {
           from: from.email,
           subject,
           text,
-        };
+        }
 
         if (test) {
-          console.log(`=======================TEST MODE=======================`);
-          console.log(`To: ${brand.to.email}`);
-          console.log(`From: ${from.email}`);
-          console.log(`Subject: ${subject}\n`);
-          console.log(text);
+          console.log(`=======================TEST MODE=======================`)
+          console.log(`To: ${brand.to.email}`)
+          console.log(`From: ${from.email}`)
+          console.log(`Subject: ${subject}\n`)
+          console.log(text)
         } else if (skipEmail) {
-          console.log("Skipping Order Emails");
+          console.log("Skipping Order Emails")
         } else {
-          await sgMail.send(message);
-          console.log(`Email sent! To: ${brand.to.email} Brand: ${console_brand}`);
+          await sgMail.send(message)
+          console.log(`Email sent! To: ${brand.to.email} Brand: ${console_brand}`)
         }
       }
     }
@@ -472,15 +474,15 @@ async function main() {
         KlaviyoClient.public.track({
           event: "Sample Order",
           email: res.data.billing.email,
-        });
-        console.log(`User with email: ${res.data.billing.email} added to Klaviyo Samples Flow`);
+        })
+        console.log(`User with email: ${res.data.billing.email} added to Klaviyo Samples Flow`)
       } catch (error) {
-        console.log("Klaviyo Error: Does this order have an email address?");
+        console.log("Klaviyo Error: Does this order have an email address?")
       }
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }
 
-main();
+main()

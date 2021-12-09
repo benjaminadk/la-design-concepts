@@ -545,4 +545,24 @@ module.exports = [
     samples: [],
     to: { name: "", email: "inguyen@maharam.com" },
   },
-];
+  {
+    name: "Quadrille",
+    samples: [],
+    to: { name: " David", email: "DavidE@quadrilleinc.com" }
+  },
+  {
+    name: "China Seas",
+    samples: [],
+    to: { name: " David", email: "DavidE@quadrilleinc.com" }
+  },
+  {
+    name: "Alan Campbell",
+    samples: [],
+    to: { name: " David", email: "DavidE@quadrilleinc.com" }
+  },
+  {
+    name: "Cloth & Paper",
+    samples: [],
+    to: { name: " David", email: "DavidE@quadrilleinc.com" }
+  }
+]
