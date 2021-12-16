@@ -21,7 +21,7 @@ const KlaviyoClient = new Klaviyo({
 
 program
   .option("-o, --order <number>", "Order number to process")
-  .option("-u, --user <name>", "Name of salesperson sending emails", "chris")
+  .option("-u, --user <name>", "Name of salesperson sending emails", "samples")
   .option("-k, --klaviyo", "Skip Klaviyo Flow", false)
   .option("-e, --email", "Skip emails", false)
   .option("-s, --schumacher", "Skip Schumacher", false)
@@ -51,10 +51,10 @@ async function main() {
     from.name = "Benjamin Brooke"
     from.nickname = "Ben"
     from.email = "ben@ladesignconcepts.com"
-  } else if (user == "chris") {
-    from.name = "Chris Soliz"
-    from.nickname = "Chris"
-    from.email = "chris@ladesignconcepts.com"
+  } else if (user == "samples") {
+    from.name = "L.A. Design Concepts Samples Team"
+    from.nickname = "L.A. Design Concepts"
+    from.email = "samples@ladesignconcepts.com"
   } else {
     from.name = "L.A. Design Concepts Samples Team"
     from.nickname = "L.A. Design Concepts"
