@@ -383,9 +383,9 @@ async function main() {
     var p4 = BRANDS.find(el => el.name === "Cloth & Paper")["samples"]
 
     BRANDS.find(el => el.name === "Quadrille")["samples"] = [...p1, ...p2, ...p3, ...p4]
-    BRANDS.find(el => el.name === "China Seas")["samples"]
-    BRANDS.find(el => el.name === "Alan Campbell")["samples"]
-    BRANDS.find(el => el.name === "Cloth & Paper")["samples"]
+    BRANDS.find(el => el.name === "China Seas")["samples"] = []
+    BRANDS.find(el => el.name === "Alan Campbell")["samples"] = []
+    BRANDS.find(el => el.name === "Cloth & Paper")["samples"] = []
 
     var galbraithSamples = BRANDS.find(el => el.name === "Galbraith")["samples"]
     var galbraithFabricMessage = false
