@@ -14,7 +14,7 @@
   "dependencies": {
     "@woocommerce/woocommerce-rest-api": "1.0.1",
     "dotenv": "^8.2.0",
-    "parse-link-header": "^1.0.1",
+    "parse-link-header": "^2.0.0",
     "sitemap-crawler": "1.0.0"
   }
 }
